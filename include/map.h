@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:27:32 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/10/27 11:26:25 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:12:40 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ enum	e_identifier
 	E_TTCY = 'c' + 'y',
 };
 
-int	ft_read(t_map **map, char	*fname);
+int	parse(t_map **map, char	*fname);
 
 // typedef struct s_map_line
 // {

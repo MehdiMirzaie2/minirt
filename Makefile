@@ -9,7 +9,7 @@ INCS		:=	include	\
 				lib/libmlx/include
 
 SRC_DIR		:= src
-SRCS		:= main.c read.c
+SRCS		:= main.c parse.c
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR   := .build

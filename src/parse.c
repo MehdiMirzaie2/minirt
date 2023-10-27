@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/27 11:57:49 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/10/27 14:03:09 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,28 @@ int	get_map(t_map *map, char *line)
 		map->type += *line;
 	if (!ft_isspace(*line))
 		++line;
+	++line;
 	if (map->type == 'A')
-		sscanf(line, "%f %d,%d,%d", &map->light, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f %d,%d,%d", &map->light, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == 'C')
-		sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point[0], &map->point[1],
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point[0], &map->point[1],
 			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->fov);
 	if (map->type == 'L')
-		sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
+		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
 			&map->point[2], &map->brightness, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTSP)
-		sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
+		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
 			&map->point[2], &map->diameter, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTPL)
-		sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->point[0], &map->point[1],
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->point[0], &map->point[1],
 			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTCY)
-		sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", &map->point[0], &map->point[1],
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", &map->point[0], &map->point[1],
 			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->diameter, &map->height, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	return (0);
 }
 
-int	ft_read(t_map **map, char	*fname)
+int	parse(t_map **map, char	*fname)
 {
 	const int	fd = open(fname, O_RDONLY, 0644);
 	char	*line;
@@ -56,7 +57,10 @@ int	ft_read(t_map **map, char	*fname)
 	while (line != NULL)
 	{
 		if (line[0] == '\n')
+		{
+			free(line);
 			line = get_next_line(fd);
+		}
 		else
 		{
 			get_map(map_ref, line);

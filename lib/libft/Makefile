@@ -10,7 +10,7 @@ SRCS			:=	src/ft_isalnum.c src/ft_isprint.c src/ft_memcmp.c src/ft_putchar_fd.c 
 					src/ft_putstr_fd.c src/ft_strjoin.c src/ft_strmapi.c src/ft_strtrim.c src/ft_striteri.c \
 					src/ft_lstnew.c src/ft_lstadd_front.c src/ft_lstsize.c src/ft_lstlast.c \
 					src/ft_lstadd_back.c src/ft_lstdelone.c src/ft_lstclear.c src/ft_lstiter.c \
-					src/get_next_line_utils.c src/get_next_line.c src/ft_atof.c src/ft_space.c
+					src/get_next_line_utils.c src/get_next_line.c src/ft_atof.c src/ft_space.c src/ft_sscanf.c
 
 BUILD_DIR   	:= .build
 OBJS        	:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
