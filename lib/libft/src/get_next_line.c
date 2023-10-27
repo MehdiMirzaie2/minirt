@@ -6,11 +6,12 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 10:04:48 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/04/04 11:30:07 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:35:42 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
 static char	*ft_next(char **temp)
 {

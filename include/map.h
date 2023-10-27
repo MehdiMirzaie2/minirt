@@ -3,31 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:27:32 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/10/26 12:36:47 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/10/27 11:26:25 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 
+typedef struct s_map
+{
+	int				type;
+	float			point[3];
+	float			light;
+	int				rgb[3];
+	float			normalized[3];
+	int				fov;
+	float			brightness;
+	float			diameter;
+	float			height;
+	struct s_map	*next;
+} t_map;
+
 enum	e_identifier
 {
-	E_TTA = 'A',
-	E_TTC = 'C',
-	E_TTL = 'L',
 	E_TTSP = 'S' + 'P',
 	E_TTPL = 'p' + 'l',
 	E_TTCY = 'c' + 'y',
-	E_TTLT = 1 << 3,
-	E_TTRGB = 1 << 4,
-	E_TTVP = 1 << 5,
-	E_TTNO = 1 << 6,
-	E_TTFOV = 1 << 7,
-	
 };
 
+int	ft_read(t_map **map, char	*fname);
+
+// typedef struct s_map_line
+// {
+// 	char				*line;
+// 	struct	s_map_line	*next;
+// } t_map_line;
 
 #endif

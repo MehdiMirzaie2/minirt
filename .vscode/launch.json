@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug",
+      "program": "${workspaceFolder}/minirt",
+      "args": ["test.rt"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": true,
+      "externalConsole": false,
+      "cwd": "/Users/mehdimirzaie/Desktop/minirt",
+      "program": "/Users/mehdimirzaie/Desktop/minrt/minirt",
+      "MIMode": "gdb"
+    }
+  ]
+}
