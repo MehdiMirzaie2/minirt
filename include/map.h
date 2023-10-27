@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:27:32 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/10/27 12:12:40 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:33:48 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,5 @@ enum	e_identifier
 };
 
 int	parse(t_map **map, char	*fname);
-
-// typedef struct s_map_line
-// {
-// 	char				*line;
-// 	struct	s_map_line	*next;
-// } t_map_line;
 
 #endif

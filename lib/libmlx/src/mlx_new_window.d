@@ -1,6 +1,5 @@
-src/mlx_new_window.o: src/mlx_new_window.m include/mlx_int.h \
-  include/mlx_new_window.h
+src/mlx_new_window.o: src/mlx_new_window.m mlx_int.h mlx_new_window.h
 
-include/mlx_int.h:
+mlx_int.h:
 
-include/mlx_new_window.h:
+mlx_new_window.h:

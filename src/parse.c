@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/27 14:03:09 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:41:55 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 int	get_map(t_map *map, char *line)
 {
 	if (ft_isspace(*line) || *line == '\n')
+		return (-1);
+	if (!line)
 		return (-1);
 	map->type = *line;
 	if (!ft_isspace(*(++line)))

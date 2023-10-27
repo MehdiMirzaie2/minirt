@@ -1,86 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
+/*   Updated: 2023/10/27 15:40:01 by mmirzaie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "libft.h"
 #include "get_next_line.h"
-#include "mlx.h"
+#include <mlx.h>
 #include "map.h"
+#include "minirt.h"
 
-int	main(int ac, char **av)
+void	put_color_to_pixel(t_rt *rt, int x, int y, int color)
 {
-	t_map *map;
+	int	*buffer;
 
-	map = NULL;
-	if (ac == 2)
+	buffer = rt->pointer_to_image;
+	buffer[(y * rt->size_line / 4) + x] = color;
+}
+
+int	draw_rt(t_rt *rt)
+{
+	rt->x = 0;
+	rt->y = 0;
+	while (rt->x < SIZE)
 	{
-		map = malloc(sizeof(t_map));
-		parse(&map, av[1]);
+		while (rt->y < SIZE)
+		{
+			put_color_to_pixel(rt, rt->x, rt->y, 0xFF0000);
+			rt->y++;
+		}
+		rt->x++;
+		rt->y = 0;
 	}
+	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
+		0);
 	return (0);
 }
 
-// #include "../libft/include/libft.h"
-// # include <stdarg.h>
-// # include <unistd.h>
-// # include <stdint.h>
-// #include <stdio.h>
+int	main(int ac, char **av)
+{
+	t_rt *rt;
 
-// int	ft_id(int *num, char *string)
-// {
-// 	int	number = ft_atoi(string);
-// 	return (*num = number, 1);
-// }
+	if (ac != 2)
+		return (-1);
+	rt = malloc(sizeof(t_rt));
 
-// int	ft_f(float *num, char *string)
-// {
-// 	double	number = ft_atof(string);
-// 	return (*num = number, 1);
-// }
+	parse(&rt->map, av[1]);
 
-// int	ft_format(char *str, va_list args, const char format)
-// {
-// 	if (format == 'd' || format == 'i')
-// 		return (ft_id(va_arg(args, int *), str));
-// 	else if (format == 'f')
-// 		return (ft_f(va_arg(args, float *), str));
-// 	return (0);
-// }
+	init_rt(rt);
+	init_mlx(rt);
+	// mlx_key_hook(rt->window, key_hook, rt);
+	// mlx_mouse_hook(rt->window, mouse_hook, rt);
+	// mlx_hook(rt->window, 17, 0L, exit_rt, rt);
+	draw_rt(rt);
+	mlx_loop(rt->mlx);
 
-// int	ft_sscanf(const char *tosplit, const char *str, ...)
-// {
-// 	size_t	i;
-// 	va_list	args;
-// 	int		length;
-// 	char	*substring;
-// 	int		j = 0;
-// 	int		start;
-
-// 	i = 0;
-// 	length = 0;
-// 	va_start(args, str);
-// 	while (str[i])
-// 	{
-// 		start = j;
-// 		while (tosplit[j] != ' ' && tosplit[j] != ',')
-// 			j++;
-// 		j++;
-// 		substring = ft_substr(tosplit, start, j);
-// 		while (str[i] != '%')
-// 			i++;
-// 		if (str[i] == '%')
-// 		{
-// 			length += ft_format(substring, args, str[i + 1]);
-// 			i++;
-// 		}
-// 		i++;
-// 	}
-// 	va_end(args);
-// 	return (length);
-// }
-
-// int main(void)
-// {
-// 	int	num[3] = { 0 };
-// 	float num2 = 0;
-
-// 	ft_sscanf("0.2 255,255,255", "%f %d %d %d", &num2, &num[0], &num[1], &num[2]);
-// 	printf("%f %d %d %d\n", num2, num[0], num[1], num[2]);
-// }
+	return (0);
+}
