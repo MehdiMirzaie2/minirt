@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/27 11:31:54 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:57:49 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_read(t_map **map, char	*fname)
 			if (line != NULL)
 			{
 				map_ref->next = malloc(sizeof(t_map));
-				map = &map_ref->next;
+				map_ref = map_ref->next;
 			}
 		}
 	}
