@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/27 15:11:16 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:26:43 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_rt(t_rt *rt)
 {
 	rt->map = malloc(sizeof(t_map));
+	rt->fElapsedTime = 1;
 	rt->x = 0;
 	rt->y = 0;
 	rt->color = 0xFCBE11;

@@ -14,7 +14,8 @@ SRC_DIR     :=    src
 
 SRCS        :=    main.c    \
                 parse.c    \
-                init.c
+                init.c		\
+				keys.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 

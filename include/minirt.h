@@ -42,10 +42,44 @@ typedef struct s_rt
 	double	offset_y;
 	double	zoom;
 	int		color;
+	float	fElapsedTime;
 }			t_rt;
+
+typedef struct vec2d
+{
+	float x, y;
+} vec2d;
+
+typedef struct
+{
+    float x, y, z;
+} vec3d;
+
+typedef struct
+{
+    vec3d p[3];
+} triangle;
+
+typedef struct
+{
+    triangle* tris;
+	int num_triangles;
+} mesh;
+
+typedef struct
+{
+    float m[4][4];
+} mat4x4;
+
 
 // src/init.c
 void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
+
+int main(void);
+// void draw(t_rt *rt, mat4x4 matProj, mesh meshCube);
+
+// src/keys.c
+int	key_hook(int keycode, t_rt *rt);
 
 #endif
