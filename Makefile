@@ -22,7 +22,7 @@ BUILD_DIR   := .build
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)
 
-CC          := cc
+CC          := gcc
 CFLAGS      := -Wall -Wextra -Werror -g $(DFLAGS)
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
