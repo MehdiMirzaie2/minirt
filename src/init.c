@@ -6,16 +6,103 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/31 14:26:43 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/02 10:14:47 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+
+
+int	key_hook(int keycode, t_rt *rt)
+{
+	if (keycode == UP)
+	{
+		clearScreen(rt);
+		rt->fTheta += 0.01f;
+		printf("\ninit theta %f\n", rt->fTheta);
+		// draw(rt, rt->matProj, &rt->meshCube);
+		draw(rt);
+		// main();
+	}
+	return 0;
+}
+
+mat4x4	*init_matProj(void)
+{
+	mat4x4 *matProj = malloc(sizeof(mat4x4));
+	float fNear = 0.1f;
+	float fFar = 1000.0f;
+	float fFov = 90.0f;
+	float fAspectRatio = (float)SIZE / (float)SIZE;
+	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
+
+	matProj->m[0][0] = fAspectRatio * fFovRad;
+	matProj->m[1][1] = fFovRad;
+	matProj->m[2][2] = fFar / (fFar - fNear);
+	matProj->m[3][2] = (-fFar * fNear) / (fFar - fNear);
+	matProj->m[2][3] = 1.0f;
+	matProj->m[3][3] = 0.0f;
+	return (matProj);	
+}
+
+triangle	*init_cube(void)
+{
+	triangle *triangles = malloc(sizeof(triangle) * 12);
+	triangles[0].p[0] = (vec3d){0.0f, 0.0f, 0.0f};
+    triangles[0].p[1] = (vec3d){0.0f, 1.0f, 0.0f};
+    triangles[0].p[2] = (vec3d){1.0f, 1.0f, 0.0f};
+
+	triangles[1].p[0] = (vec3d){0.0f, 0.0f, 0.0f};
+    triangles[1].p[1] = (vec3d){1.0f, 1.0f, 0.0f};
+    triangles[1].p[2] = (vec3d){1.0f, 0.0f, 0.0f};
+
+	triangles[2].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
+    triangles[2].p[1] = (vec3d){1.0f, 1.0f, 0.0f};
+    triangles[2].p[2] = (vec3d){1.0f, 1.0f, 1.0f};
+
+	triangles[3].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
+    triangles[3].p[1] = (vec3d){1.0f, 1.0f, 1.0f};
+    triangles[3].p[2] = (vec3d){1.0f, 0.0f, 1.0f};
+
+	triangles[4].p[0] = (vec3d){1.0f, 0.0f, 1.0f};
+    triangles[4].p[1] = (vec3d){1.0f, 1.0f, 1.0f};
+    triangles[4].p[2] = (vec3d){0.0f, 1.0f, 1.0f};
+
+	triangles[5].p[0] = (vec3d){1.0f, 0.0f, 1.0f};
+    triangles[5].p[1] = (vec3d){0.0f, 1.0f, 1.0f};
+    triangles[5].p[2] = (vec3d){0.0f, 0.0f, 1.0f};
+
+	triangles[6].p[0] = (vec3d){0.0f, 0.0f, 1.0f};
+    triangles[6].p[1] = (vec3d){0.0f, 1.0f, 1.0f};
+    triangles[6].p[2] = (vec3d){0.0f, 1.0f, 0.0f};
+
+	triangles[7].p[0] = (vec3d){0.0f, 0.0f, 1.0f};
+    triangles[7].p[1] = (vec3d){0.0f, 1.0f, 0.0f};
+    triangles[7].p[2] = (vec3d){0.0f, 0.0f, 0.0f};
+
+	triangles[8].p[0] = (vec3d){0.0f, 1.0f, 0.0f};
+    triangles[8].p[1] = (vec3d){0.0f, 1.0f, 1.0f};
+    triangles[8].p[2] = (vec3d){1.0f, 1.0f, 1.0f};
+
+	triangles[9].p[0] = (vec3d){0.0f, 1.0f, 0.0f};
+    triangles[9].p[1] = (vec3d){1.0f, 1.0f, 1.0f};
+    triangles[9].p[2] = (vec3d){1.0f, 1.0f, 0.0f};
+
+	triangles[10].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
+    triangles[10].p[1] = (vec3d){0.0f, 0.0f, 1.0f};
+    triangles[10].p[2] = (vec3d){1.0f, 0.0f, 1.0f};
+
+	triangles[11].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
+    triangles[11].p[1] = (vec3d){0.0f, 0.0f, 0.0f};
+    triangles[11].p[2] = (vec3d){0.0f, 0.0f, 1.0f};
+	return (triangles);
+}
+
 void	init_rt(t_rt *rt)
 {
 	rt->map = malloc(sizeof(t_map));
-	rt->fElapsedTime = 1;
+	rt->fTheta = 3.0f;
 	rt->x = 0;
 	rt->y = 0;
 	rt->color = 0xFCBE11;
