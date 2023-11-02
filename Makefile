@@ -12,10 +12,12 @@ INCS        = include    \
 
 SRC_DIR     :=    src
 
-SRCS        :=    main.c    \
-                parse.c    \
-                init.c		\
-				keys.c
+SRCS        :=	main.c	\
+				parse.c	\
+                init.c	\
+				keys.c	\
+				triangle.c	\
+				line.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 
@@ -30,6 +32,14 @@ LDFLAGS     := -fsanitize=address $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX
 LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library
 MLXFLAGS    := -L$(MLX_LIB_DIR) -lmlx -framework OpenGL -framework AppKit  # MLX-specific flags
 RLFLAGS     := -lreadline
+
+# CC          := gcc
+# CFLAGS      := -Wall -Wextra -Werror -w -g $(DFLAGS)
+# CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
+# LDFLAGS     := $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
+# LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library
+# MLXFLAGS    := -L$(MLX_LIB_DIR) -lmlx -framework OpenGL -framework AppKit  # MLX-specific flags
+# RLFLAGS     := -lreadline
 
 RM          := rm -f
 MAKEFLAGS   += --silent --no-print-directory

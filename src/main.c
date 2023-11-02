@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/02 10:43:47 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:59:04 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,51 +24,6 @@ void	put_color_to_pixel(t_rt *rt, int x, int y, int color)
 
 	buffer = rt->pointer_to_image;
 	buffer[(y * rt->size_line / 4) + x] = color;
-}
-
-void draw_line(t_rt *rt, vec2d p1, vec2d p2)
-{
-    double dx = fabs(p2.x - p1.x);
-    int sx = p1.x < p2.x ? 1 : -1;
-    double dy = -fabs(p2.y - p1.y);
-    int sy = p1.y < p2.y ? 1 : -1;
-    double error = dx + dy;
-
-    while (1)
-    {
-        put_color_to_pixel(rt, p1.x, p1.y, 0xFFFFFF);
-        if (p1.x == p2.x && p1.y == p2.y)
-            break ;
-        double e2 = 2 * error;
-        if (e2 >= dy)
-        {
-            if (p1.x == p2.x)
-                break;
-            error = error + dy;
-            p1.x = p1.x + sx;
-        }
-        if (e2 <= dx)
-        {
-            if (p1.y == p2.y)
-                break ;
-            error = error + dx;
-            p1.y = p1.y + sy;
-        }
-    }
-}
-
-void	draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3)
-{
-	vec2d p1 = {x1, y1};
-	vec2d p2 = {x2, y2};
-	vec2d p3 = {x3, y3};
-
-	printf("x = %d\t y = %d\n", x1, y1);
-	printf("x = %d\t y = %d\n", x2, y2);
-	printf("x = %d\t y = %d\n\n", x3, y3);
-	draw_line(rt, p1, p2);
-	draw_line(rt, p2, p3);
-	draw_line(rt, p3, p1);
 }
 
 void MultiplyMatrixVector(vec3d* i, vec3d* o, mat4x4* m)
@@ -121,7 +76,7 @@ int draw(t_rt *rt)
     matRotX.m[2][1] = -sinf(rt->fTheta * 0.5f);
     matRotX.m[2][2] = cosf(rt->fTheta * 0.5f);
     matRotX.m[3][3] = 1;
-    rt->fTheta+=0.01f;
+    rt->fTheta += 0.03f;
 
     // Draw Triangles (the meshCube.tris initialization is not provided here
     for (int i = 0; i < rt->meshCube.num_triangles; i++)
@@ -156,43 +111,45 @@ int draw(t_rt *rt)
 		line2.y = triTranslated.p[2].y - triTranslated.p[0].y;
 		line2.z = triTranslated.p[2].z - triTranslated.p[0].z;
 
-		normal.x = line1.y * line2.z - line1.z * line2.y;
-		normal.y = line1.z * line2.x - line1.x * line2.z;
-		normal.z = line1.x * line2.y - line1.y * line2.x;
+		normal.x = (line1.y * line2.z) - (line1.z * line2.y);
+		normal.y = (line1.z * line2.x) - (line1.x * line2.z);
+		normal.z = (line1.x * line2.y) - (line1.y * line2.x);
 
 		float l = sqrtf((normal.x * normal.x) + (normal.y * normal.y) + (normal.z * normal.z));
 		normal.x /= l; normal.y /= l; normal.z /= l;
 
         // Project triangles from 3D --> 2D
-		// if (normal.z < 0)
-        // (void)vCamera;
-        // if ((normal.x * (triTranslated.p[0].x - vCamera.x)) + (normal.y * (triTranslated.p[0].y - vCamera.y)) + (normal.z * (triTranslated.p[0].z - vCamera.z) > 0.0f))
-        if (normal.z < 0 && ((normal.x * (triTranslated.p[0].x - vCamera.x)) + (normal.y * (triTranslated.p[0].y - vCamera.y)) + (normal.z * (triTranslated.p[0].z - vCamera.z)) < 0.0f))
+        if (normal.x * (triTranslated.p[0].x - vCamera.x) +
+            normal.y * (triTranslated.p[0].y - vCamera.y) +
+            normal.z * (triTranslated.p[0].z - vCamera.z) < 0.0f)
 		{
+            // Project triangles from 3D --> 2D
+            MultiplyMatrixVector(&triTranslated.p[0], &triProjected.p[0], rt->matProj);
+            MultiplyMatrixVector(&triTranslated.p[1], &triProjected.p[1], rt->matProj);
+            MultiplyMatrixVector(&triTranslated.p[2], &triProjected.p[2], rt->matProj);
 
-        // Project triangles from 3D --> 2D
-        MultiplyMatrixVector(&triTranslated.p[0], &triProjected.p[0], rt->matProj);
-        MultiplyMatrixVector(&triTranslated.p[1], &triProjected.p[1], rt->matProj);
-        MultiplyMatrixVector(&triTranslated.p[2], &triProjected.p[2], rt->matProj);
+            // Scale into view
+            triProjected.p[0].x += 1.0f; triProjected.p[0].y += 1.0f;
+            // printf("add 1:\t x = %f,\t y=%f \n", triProjected.p[0].x, triProjected.p[0].y);
+            triProjected.p[1].x += 1.0f; triProjected.p[1].y += 1.0f;
+            triProjected.p[2].x += 1.0f; triProjected.p[2].y += 1.0f;
+            triProjected.p[0].x *= 0.5f * (float)SIZE;
+            triProjected.p[0].y *= 0.5f * (float)SIZE;
+            // printf("center:\t x = %f,\t y=%f \n", triProjected.p[0].x, triProjected.p[0].y);
+            triProjected.p[1].x *= 0.5f * (float)SIZE;
+            triProjected.p[1].y *= 0.5f * (float)SIZE;
+            triProjected.p[2].x *= 0.5f * (float)SIZE;
+            triProjected.p[2].y *= 0.5f * (float)SIZE;
 
-        // Scale into view
-        triProjected.p[0].x += 1.0f; triProjected.p[0].y += 1.0f;
-		// printf("add 1:\t x = %f,\t y=%f \n", triProjected.p[0].x, triProjected.p[0].y);
-        triProjected.p[1].x += 1.0f; triProjected.p[1].y += 1.0f;
-        triProjected.p[2].x += 1.0f; triProjected.p[2].y += 1.0f;
-        triProjected.p[0].x *= 0.5f * (float)SIZE;
-        triProjected.p[0].y *= 0.5f * (float)SIZE;
-		// printf("center:\t x = %f,\t y=%f \n", triProjected.p[0].x, triProjected.p[0].y);
-        triProjected.p[1].x *= 0.5f * (float)SIZE;
-        triProjected.p[1].y *= 0.5f * (float)SIZE;
-        triProjected.p[2].x *= 0.5f * (float)SIZE;
-        triProjected.p[2].y *= 0.5f * (float)SIZE;
-
-		draw_triangle(rt, triProjected.p[0].x, triProjected.p[0].y,
-			triProjected.p[1].x, triProjected.p[1].y,
-			triProjected.p[2].x, triProjected.p[2].y);
-        }
-        // Rasterize triangle (the DrawTriangle function is not provided here)
+            // draw_triangle(rt, triProjected.p[0].x, triProjected.p[0].y,
+            //     triProjected.p[1].x, triProjected.p[1].y,
+            //     triProjected.p[2].x, triProjected.p[2].y);
+            
+            draw_fill_tri(rt, triProjected.p[0].x, triProjected.p[0].y,
+                triProjected.p[1].x, triProjected.p[1].y,
+                triProjected.p[2].x, triProjected.p[2].y);
+            }
+            // Rasterize triangle (the DrawTriangle function is not provided here)
 	}
 	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
 		0);
@@ -211,7 +168,7 @@ int main(void)
 
     rt->meshCube.tris = init_cube();
     mlx_key_hook(rt->window, key_hook, rt);
-
+    // draw(rt);
     mlx_loop_hook(rt->mlx, draw, rt);
 	mlx_loop(rt->mlx);
     return 0;

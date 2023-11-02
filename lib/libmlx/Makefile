@@ -9,6 +9,7 @@ CFLAGS+=-O2
 
 # add to match string put with X11 in size and position
 CFLAGS+= -DSTRINGPUTX11 -fsanitize=address
+# CFLAGS+= -DSTRINGPUTX11
 
 all: $(NOM)
 

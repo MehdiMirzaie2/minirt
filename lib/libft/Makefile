@@ -18,6 +18,7 @@ DEPS        	:= $(OBJS:.o=.d)
 
 CC          	:= clang
 CFLAGS      	:= -Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS      	:= -Wall -Wextra -Werror -g
 CPPFLAGS    	:= -MMD -MP -I include
 AR          	:= ar
 ARFLAGS     	:= -r -c -s
