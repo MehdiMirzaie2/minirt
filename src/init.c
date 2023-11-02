@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/02 10:14:47 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/02 10:57:22 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-
-
-int	key_hook(int keycode, t_rt *rt)
-{
-	if (keycode == UP)
-	{
-		clearScreen(rt);
-		rt->fTheta += 0.01f;
-		printf("\ninit theta %f\n", rt->fTheta);
-		// draw(rt, rt->matProj, &rt->meshCube);
-		draw(rt);
-		// main();
-	}
-	return 0;
-}
 
 mat4x4	*init_matProj(void)
 {
@@ -43,7 +27,7 @@ mat4x4	*init_matProj(void)
 	matProj->m[3][2] = (-fFar * fNear) / (fFar - fNear);
 	matProj->m[2][3] = 1.0f;
 	matProj->m[3][3] = 0.0f;
-	return (matProj);	
+	return (matProj);
 }
 
 triangle	*init_cube(void)
@@ -103,12 +87,15 @@ void	init_rt(t_rt *rt)
 {
 	rt->map = malloc(sizeof(t_map));
 	rt->fTheta = 3.0f;
-	rt->x = 0;
-	rt->y = 0;
+	// rt->x = 0;
+	// rt->y = 0;
 	rt->color = 0xFCBE11;
-	rt->zoom = 250;
-	rt->offset_x = SIZE / 2;
-	rt->offset_y = SIZE / 2;
+	// rt->zoom = 250;
+	// rt->offset_x = SIZE / 2;
+	// rt->offset_y = SIZE / 2;
+	rt->matProj = NULL;
+	rt->meshCube.num_triangles = 0;
+	rt->meshCube.tris = NULL;
 }
 
 void	init_mlx(t_rt *rt)
