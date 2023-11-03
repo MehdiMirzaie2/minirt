@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void draw_line(t_rt *rt, vec2d p1, vec2d p2)
+void draw_line(t_rt *rt, vec2d p1, vec2d p2, int color)
 {
     double dx = fabs(p2.x - p1.x);
     int sx = p1.x < p2.x ? 1 : -1;
@@ -10,7 +10,7 @@ void draw_line(t_rt *rt, vec2d p1, vec2d p2)
 
     while (1)
     {
-        put_color_to_pixel(rt, p1.x, p1.y, 0xFFFFFF);
+        put_color_to_pixel(rt, p1.x, p1.y, color);
         if (p1.x == p2.x && p1.y == p2.y)
             break ;
         double e2 = 2 * error;

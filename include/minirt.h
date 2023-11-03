@@ -85,7 +85,7 @@ mat4x4	*init_matProj(void);
 int	key_hook(int keycode, t_rt *rt);
 
 // src/line.c
-void draw_line(t_rt *rt, vec2d p1, vec2d p2);
+void draw_line(t_rt *rt, vec2d p1, vec2d p2, int color);
 
 // src/triangle.c
 void	draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);

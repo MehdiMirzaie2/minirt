@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/02 15:59:04 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/03 07:51:05 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int draw(t_rt *rt)
     matRotX.m[2][1] = -sinf(rt->fTheta * 0.5f);
     matRotX.m[2][2] = cosf(rt->fTheta * 0.5f);
     matRotX.m[3][3] = 1;
-    rt->fTheta += 0.03f;
+    rt->fTheta += 0.01f;
 
     // Draw Triangles (the meshCube.tris initialization is not provided here
     for (int i = 0; i < rt->meshCube.num_triangles; i++)
@@ -141,9 +141,9 @@ int draw(t_rt *rt)
             triProjected.p[2].x *= 0.5f * (float)SIZE;
             triProjected.p[2].y *= 0.5f * (float)SIZE;
 
-            // draw_triangle(rt, triProjected.p[0].x, triProjected.p[0].y,
-            //     triProjected.p[1].x, triProjected.p[1].y,
-            //     triProjected.p[2].x, triProjected.p[2].y);
+            draw_triangle(rt, triProjected.p[0].x, triProjected.p[0].y,
+                triProjected.p[1].x, triProjected.p[1].y,
+                triProjected.p[2].x, triProjected.p[2].y);
             
             draw_fill_tri(rt, triProjected.p[0].x, triProjected.p[0].y,
                 triProjected.p[1].x, triProjected.p[1].y,

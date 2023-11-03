@@ -10,9 +10,9 @@ void	draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3)
 	printf("x = %d\t y = %d\n", x1, y1);
 	printf("x = %d\t y = %d\n", x2, y2);
 	printf("x = %d\t y = %d\n\n", x3, y3);
-	draw_line(rt, p1, p2);
-	draw_line(rt, p2, p3);
-	draw_line(rt, p3, p1);
+	draw_line(rt, p1, p2, 0x000000);
+	draw_line(rt, p2, p3, 0x000000);
+	draw_line(rt, p3, p1, 0x000000);
 }
 
 void fill_bottomflat_tri(t_rt *rt, vec2d v1, vec2d v2, vec2d v3)
@@ -25,7 +25,7 @@ void fill_bottomflat_tri(t_rt *rt, vec2d v1, vec2d v2, vec2d v3)
 
     for (int scnalineY = v1.y; scnalineY <= v2.y; scnalineY++)
     {
-        draw_line(rt, (vec2d){(int)curx1, scnalineY}, (vec2d){(int)curx2, scnalineY});
+        draw_line(rt, (vec2d){(int)curx1, scnalineY}, (vec2d){(int)curx2, scnalineY}, 0xFFFFFF);
         curx1 += invslope1;
         curx2 += invslope2;
     }
@@ -41,7 +41,7 @@ void fill_topflat_tri(t_rt *rt, vec2d v1, vec2d v2, vec2d v3)
 
     for (int scnalineY = v3.y; scnalineY >= v1.y; scnalineY--)
     {
-        draw_line(rt, (vec2d){(int)curx1, scnalineY}, (vec2d){(int)curx2, scnalineY});
+        draw_line(rt, (vec2d){(int)curx1, scnalineY}, (vec2d){(int)curx2, scnalineY}, 0xFFFFFF);
         curx1 -= invslope1;
         curx2 -= invslope2;
     }
