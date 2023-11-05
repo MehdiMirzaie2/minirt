@@ -71,6 +71,7 @@ typedef struct s_rt
 	// double	offset_x;
 	// double	offset_y;
 	// double	zoom;
+	vec3d	light_dir;
 	int		color;
 	float	fTheta;
 	mat4x4	*matProj;
@@ -82,7 +83,10 @@ void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
 triangle	*init_cube(void);
 mat4x4	*init_matProj(void);
+
+// src/keys.c
 int	key_hook(int keycode, t_rt *rt);
+void	mouse_hook(int mousecode, int x, int y, t_rt *rt);
 
 // src/line.c
 void draw_line(t_rt *rt, vec2d p1, vec2d p2, int color);
@@ -92,6 +96,7 @@ void	draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 void	draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 
 // src/main.c
+void loop(t_rt *rt);
 void	clearScreen(t_rt *rt);
 int draw(t_rt *rt);
 void	put_color_to_pixel(t_rt *rt, int x, int y, int color);
