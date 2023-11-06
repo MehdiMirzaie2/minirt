@@ -65,8 +65,10 @@ typedef struct s_rt
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-	double	x;
-	double	y;
+	int	x;
+	int	y;
+	int	x_ref;
+	int	y_ref;
 	// double	z;
 	// double	offset_x;
 	// double	offset_y;
@@ -87,6 +89,10 @@ mat4x4	*init_matProj(void);
 // src/keys.c
 int	key_hook(int keycode, t_rt *rt);
 void	mouse_hook(int mousecode, int x, int y, t_rt *rt);
+// int mlx_mouse_hook(rt->window, mouse_hook, rt);
+void	mouse_move(int mousecode, int x, int y, t_rt *rt);
+void	update_light_dir(vec3d	*light_dir, int x, int y);
+
 
 // src/line.c
 void draw_line(t_rt *rt, vec2d p1, vec2d p2, int color);

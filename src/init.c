@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/03 12:17:06 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/06 10:42:05 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,10 @@ void	init_rt(t_rt *rt)
 {
 	rt->map = malloc(sizeof(t_map));
 	rt->fTheta = 2.0f;
-	// rt->x = 0;
-	// rt->y = 0;
+	rt->x = -1;
+	rt->y = -1;
+	rt->x_ref = -1;
+	rt->y_ref = -1;
 	rt->color = 0xFCBE11;
 	// rt->zoom = 250;
 	// rt->offset_x = SIZE / 2;

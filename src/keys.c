@@ -11,26 +11,20 @@ int	key_hook(int keycode, t_rt *rt)
 	return 0;
 }
 
+void	update_light_dir(vec3d	*light_dir, int x, int y)
+{
+	light_dir->x = (float)x / (float)SIZE;
+	light_dir->y = (float)y / (float)SIZE;
+	light_dir->x = -(light_dir->x * 2.0f - 1.0f);
+	light_dir->y = -(light_dir->y * 2.0f - 1.0f);
+	light_dir->z = -1;
+}
+
 void	mouse_hook(int mousecode, int x, int y, t_rt *rt)
 {
-	printf("x= %d\t y= %d\n", x, y);
-	// float newx = (float)x / (float)SIZE;
-	// float newy = (float)y / (float)SIZE;
-
-	// newx = newx * 2.0f - 1.0f;
-	// newy = newy * 2.0f - 1.0f;
-	vec2d point = (vec2d){x, y};
-	point.x /= (float)SIZE;
-	point.y /= (float)SIZE;
-	point.x = point.x * 2.0f - 1.0f;
-	point.y = point.y * 2.0f - 1.0f;
-	// point.x = point.x * 2.0f - 1.0f;
-    // point.y = point.y * 2.0f - 1.0f;
-	printf("new x= %f\t new y= %f\n", point.x, point.y);
-	// rt->light_dir = (vec3d){(x / (float)SIZE), (y / (float)SIZE), -1};
-	rt->light_dir = (vec3d){-point.x, -point.y, -1};
-	printf("%d\n", mousecode);
-	clearScreen(rt);
-	loop(rt);
-	// draw_fractal(fractal, fractal->cx, fractal->cy);
+	if (mousecode == 1)
+	{
+		update_light_dir(&rt->light_dir, x, y);
+		loop(rt);
+	}
 }
