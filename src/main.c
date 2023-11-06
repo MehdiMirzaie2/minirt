@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/06 10:58:54 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/06 11:55:31 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,93 +88,11 @@ vec3d vec3d_add(vec3d v1, vec3d v2)
     result.z = v1.z + v2.z;
     return (result);
 }
-// int draw(t_rt *rt)
-// {
-//     clearScreen(rt);
-//     vec3d vCamera = { 0 };
-
-//     // Draw Triangles (the meshCube.tris initialization is not provided here
-//     for (int i = 0; i < rt->meshCube.num_triangles; i++)
-//     {
-//         triangle tri = rt->meshCube.tris[i];
-//         triangle triProjected, triTranslated;
-
-//         // Offset into the screen
-//         triTranslated = tri;
-//         triTranslated.p[0].z += 3.0f;
-//         triTranslated.p[1].z += 3.0f;
-//         triTranslated.p[2].z += 3.0f;
-
-//         vec3d normal, line1, line2;
-
-// 		line1.x = triTranslated.p[1].x - triTranslated.p[0].x;
-// 		line1.y = triTranslated.p[1].y - triTranslated.p[0].y;
-// 		line1.z = triTranslated.p[1].z - triTranslated.p[0].z;
-
-// 		line2.x = triTranslated.p[2].x - triTranslated.p[0].x;
-// 		line2.y = triTranslated.p[2].y - triTranslated.p[0].y;
-// 		line2.z = triTranslated.p[2].z - triTranslated.p[0].z;
-
-// 		normal.x = (line1.y * line2.z) - (line1.z * line2.y);
-// 		normal.y = (line1.z * line2.x) - (line1.x * line2.z);
-// 		normal.z = (line1.x * line2.y) - (line1.y * line2.x);
-
-// 		float l = sqrtf((normal.x * normal.x) + (normal.y * normal.y) + (normal.z * normal.z));
-// 		normal.x /= l; normal.y /= l; normal.z /= l;
-
-//         // Project triangles from 3D --> 2D
-//         if (normal.x * (triTranslated.p[0].x - vCamera.x) +
-//             normal.y * (triTranslated.p[0].y - vCamera.y) +
-//             normal.z * (triTranslated.p[0].z - vCamera.z) < 0.0f)
-// 		{
-//             // Project triangles from 3D --> 2D
-//             MultiplyMatrixVector(&triTranslated.p[0], &triProjected.p[0], rt->matProj);
-//             MultiplyMatrixVector(&triTranslated.p[1], &triProjected.p[1], rt->matProj);
-//             MultiplyMatrixVector(&triTranslated.p[2], &triProjected.p[2], rt->matProj);
-
-//             // Scale into view
-//             triProjected.p[0].x += 1.0f; triProjected.p[0].y += 1.0f;
-//             // printf("add 1:\t x = %f,\t y=%f \n", triProjected.p[0].x, triProjected.p[0].y);
-//             triProjected.p[1].x += 1.0f; triProjected.p[1].y += 1.0f;
-//             triProjected.p[2].x += 1.0f; triProjected.p[2].y += 1.0f;
-//             triProjected.p[0].x *= 0.5f * (float)SIZE;
-//             triProjected.p[0].y *= 0.5f * (float)SIZE;
-//             // printf("center:\t x = %f,\t y=%f \n", triProjected.p[0].x, triProjected.p[0].y);
-//             triProjected.p[1].x *= 0.5f * (float)SIZE;
-//             triProjected.p[1].y *= 0.5f * (float)SIZE;
-//             triProjected.p[2].x *= 0.5f * (float)SIZE;
-//             triProjected.p[2].y *= 0.5f * (float)SIZE;
-
-//             draw_triangle(rt, triProjected.p[0].x, triProjected.p[0].y,
-//                 triProjected.p[1].x, triProjected.p[1].y,
-//                 triProjected.p[2].x, triProjected.p[2].y);
-
-//             draw_fill_tri(rt, triProjected.p[0].x, triProjected.p[0].y,
-//                 triProjected.p[1].x, triProjected.p[1].y,
-//                 triProjected.p[2].x, triProjected.p[2].y);
-//             }
-//             // Rasterize triangle (the DrawTriangle function is not provided here)
-// 	}
-// 	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
-// 		0);
-//     return (0);
-// }
 
 float dot(vec3d v1, vec3d v2)
 {
     return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
-
-// void ft_draw(t_rt *rt, vec2d coord, vec2d notnorm)
-// {
-//     vec3d point = (vec3d){notnorm.x, notnorm.y, 0};
-//     vec3d point1 = (vec3d){notnorm.x, notnorm.y, 0};
-
-//     MultiplyMatrixVector(&point1, &point, rt->matProj);
-//     uint8_t r = (uint8_t)((point.x * 255.0f) / SIZE);
-//     uint8_t g = (uint8_t)((point.y * 255.0f) / SIZE);
-//     put_color_to_pixel(rt, point.x, point.y, 0xFF0000 | (g << 8) | r);
-// }
 
 static uint32_t ConvertToRGBA(const vec3d color)
 {
@@ -196,11 +114,9 @@ float max(float arg1, float arg2)
 void ft_draw(t_rt *rt, vec2d coord, vec2d notnorm)
 {
     vec3d rayDirections = (vec3d){coord.x, coord.y, -1.0f};
-    vec3d rayOrigin = (vec3d){0.0f, 0.0f, 1.0f};
+    vec3d rayOrigin = (vec3d){0.0f, 0.0f, rt->zoom};
     float radius = 0.5f;
-    // if (notnorm.x == 370 && notnorm.y == 350)
-    //     printf("break");
-    // normalize(&rayDirections);
+
     float a = dot(rayDirections, rayDirections);
     float b = 2.0f * dot(rayOrigin, rayDirections);
     float c = dot(rayOrigin, rayOrigin) - radius * radius;
@@ -259,14 +175,10 @@ int main(void)
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
-    // rt->meshCube.num_triangles = 12;
     rt->matProj = init_matProj();
-
-    // rt->meshCube.tris = init_cube();
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, mouse_hook, rt);
-    
-    // loop(rt);
+
     mlx_loop_hook(rt->mlx, loop, rt);
     mlx_loop(rt->mlx);
     return 0;

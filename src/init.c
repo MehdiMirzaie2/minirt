@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/06 10:42:05 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/06 11:56:21 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ mat4x4	*init_matProj(void)
 triangle	*init_cube(void)
 {
 	triangle *triangles = malloc(sizeof(triangle) * 12);
-	
+
 	// face front
 	triangles[0].p[0] = (vec3d){0.0f, 0.0f, 0.0f};
     triangles[0].p[1] = (vec3d){0.0f, 1.0f, 0.0f};
@@ -102,7 +102,7 @@ void	init_rt(t_rt *rt)
 	rt->x_ref = -1;
 	rt->y_ref = -1;
 	rt->color = 0xFCBE11;
-	// rt->zoom = 250;
+	rt->zoom = 1.0f;
 	// rt->offset_x = SIZE / 2;
 	// rt->offset_y = SIZE / 2;
 	rt->matProj = NULL;

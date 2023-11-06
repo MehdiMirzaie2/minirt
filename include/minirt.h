@@ -70,9 +70,9 @@ typedef struct s_rt
 	int	x_ref;
 	int	y_ref;
 	// double	z;
-	// double	offset_x;
-	// double	offset_y;
-	// double	zoom;
+	float	offset_x;
+	float	offset_y;
+	float	zoom;
 	vec3d	light_dir;
 	int		color;
 	float	fTheta;
