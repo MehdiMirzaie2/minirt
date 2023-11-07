@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/06 11:56:21 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/07 14:12:10 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,66 +33,6 @@ mat4x4	*init_matProj(void)
 	return (matProj);
 }
 
-triangle	*init_cube(void)
-{
-	triangle *triangles = malloc(sizeof(triangle) * 12);
-
-	// face front
-	triangles[0].p[0] = (vec3d){0.0f, 0.0f, 0.0f};
-    triangles[0].p[1] = (vec3d){0.0f, 1.0f, 0.0f};
-    triangles[0].p[2] = (vec3d){1.0f, 1.0f, 0.0f};
-
-	triangles[1].p[0] = (vec3d){0.0f, 0.0f, 0.0f};
-    triangles[1].p[1] = (vec3d){1.0f, 1.0f, 0.0f};
-    triangles[1].p[2] = (vec3d){1.0f, 0.0f, 0.0f};
-
-	// face right
-	triangles[2].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
-    triangles[2].p[1] = (vec3d){1.0f, 1.0f, 0.0f};
-    triangles[2].p[2] = (vec3d){1.0f, 1.0f, 1.0f};
-
-	triangles[3].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
-    triangles[3].p[1] = (vec3d){1.0f, 1.0f, 1.0f};
-    triangles[3].p[2] = (vec3d){1.0f, 0.0f, 1.0f};
-
-	// face back
-	triangles[4].p[0] = (vec3d){1.0f, 0.0f, 1.0f};
-    triangles[4].p[1] = (vec3d){1.0f, 1.0f, 1.0f};
-    triangles[4].p[2] = (vec3d){0.0f, 1.0f, 1.0f};
-
-	triangles[5].p[0] = (vec3d){1.0f, 0.0f, 1.0f};
-    triangles[5].p[1] = (vec3d){0.0f, 1.0f, 1.0f};
-    triangles[5].p[2] = (vec3d){0.0f, 0.0f, 1.0f};
-
-	// face left
-	triangles[6].p[0] = (vec3d){0.0f, 0.0f, 1.0f};
-    triangles[6].p[1] = (vec3d){0.0f, 1.0f, 1.0f};
-    triangles[6].p[2] = (vec3d){0.0f, 1.0f, 0.0f};
-
-	triangles[7].p[0] = (vec3d){0.0f, 0.0f, 1.0f};
-    triangles[7].p[1] = (vec3d){0.0f, 1.0f, 0.0f};
-    triangles[7].p[2] = (vec3d){0.0f, 0.0f, 0.0f};
-
-	// face Top
-	triangles[8].p[0] = (vec3d){0.0f, 1.0f, 0.0f};
-    triangles[8].p[1] = (vec3d){0.0f, 1.0f, 1.0f};
-    triangles[8].p[2] = (vec3d){1.0f, 1.0f, 1.0f};
-
-	triangles[9].p[0] = (vec3d){0.0f, 1.0f, 0.0f};
-    triangles[9].p[1] = (vec3d){1.0f, 1.0f, 1.0f};
-    triangles[9].p[2] = (vec3d){1.0f, 1.0f, 0.0f};
-
-	// face Bottom
-	triangles[10].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
-    triangles[10].p[1] = (vec3d){0.0f, 0.0f, 1.0f};
-    triangles[10].p[2] = (vec3d){0.0f, 0.0f, 0.0f};
-
-	triangles[11].p[0] = (vec3d){1.0f, 0.0f, 0.0f};
-    triangles[11].p[1] = (vec3d){1.0f, 0.0f, 1.0f};
-    triangles[11].p[2] = (vec3d){0.0f, 0.0f, 1.0f};
-	return (triangles);
-}
-
 void	init_rt(t_rt *rt)
 {
 	rt->map = malloc(sizeof(t_map));
@@ -103,9 +43,9 @@ void	init_rt(t_rt *rt)
 	rt->y_ref = -1;
 	rt->color = 0xFCBE11;
 	rt->zoom = 1.0f;
-	// rt->offset_x = SIZE / 2;
-	// rt->offset_y = SIZE / 2;
-	rt->matProj = NULL;
+
+	rt->camera = (vec2d){0, 0};
+	rt->matProj = init_matProj();
 	rt->meshCube.num_triangles = 0;
 	rt->meshCube.tris = NULL;
 }

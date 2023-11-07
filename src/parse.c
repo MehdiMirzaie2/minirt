@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/27 15:41:55 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:50:29 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	parse(t_map **map, char	*fname)
 	char	*line;
 	t_map	*map_ref;
 
-	map_ref = *map;
+	map_ref = map[0];
 	line = get_next_line(fd);
 	while (line != NULL)
 	{

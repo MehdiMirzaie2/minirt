@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/06 11:55:31 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:51:32 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,18 @@ float max(float arg1, float arg2)
     return (arg1);
 }
 
-void ft_draw(t_rt *rt, vec2d coord, vec2d notnorm)
+/*
+    a = ray origin -> forward negative z.
+    b = ray direction
+    r = radius
+    t = hitpoint
+*/
+
+int ft_draw(t_rt *rt, vec2d coord, vec2d notnorm)
 {
     vec3d rayDirections = (vec3d){coord.x, coord.y, -1.0f};
     vec3d rayOrigin = (vec3d){0.0f, 0.0f, rt->zoom};
+    // vec3d rayOrigin = (vec3d){0.0, rt->camera.y, rt->zoom};
     float radius = 0.5f;
 
     float a = dot(rayDirections, rayDirections);
@@ -136,6 +144,74 @@ void ft_draw(t_rt *rt, vec2d coord, vec2d notnorm)
         float intensity = max(dot(normal, vec3d_scale(rt->light_dir, -1)), 0.0);
         put_color_to_pixel(rt, notnorm.x, notnorm.y, ConvertToRGBA((vec3d){intensity, intensity, intensity}));
     }
+    else
+        return (0);
+}
+
+void ft_draw2(t_rt *rt, vec2d coord, vec2d notnorm)
+{
+    vec3d rayDirections = (vec3d){coord.x, coord.y, -1.0f};
+    // vec3d rayOrigin = (vec3d){0.0f, 0.0f, rt->zoom};
+    vec3d rayOrigin = (vec3d){0.5f, 0.5f, rt->zoom};
+    float radius = 0.5f;
+
+    float a = dot(rayDirections, rayDirections);
+    float b = 2.0f * dot(rayOrigin, rayDirections);
+    float c = dot(rayOrigin, rayOrigin) - radius * radius;
+
+    float discriminant = b * b - 4.0f * a * c;
+    if (discriminant >= 0.0f)
+    {
+        float t = (-b + sqrt(discriminant)) / (2.0f * a);
+        float nt = (-b - sqrt(discriminant)) / (2.0f * a);
+
+        vec3d fulldir = vec3d_scale(rayDirections, nt);
+
+        vec3d hit_point = vec3d_add(rayOrigin, vec3d_scale(rayDirections, nt));
+        vec3d normal = hit_point;
+        normalize(&normal);
+        normalize(&rt->light_dir);
+        float intensity = max(dot(normal, vec3d_scale(rt->light_dir, -1)), 0.0);
+        put_color_to_pixel(rt, notnorm.x, notnorm.y, ConvertToRGBA((vec3d){intensity, intensity, intensity}));
+    }
+    else if (ft_draw(rt, coord, notnorm) == 0)
+        put_color_to_pixel(rt, notnorm.x, notnorm.y, 0x000000000);
+}
+
+void ft_cone(t_rt *rt, vec2d coord, vec2d notnorm)
+{
+    vec3d rayDirections = (vec3d){coord.x, coord.y, -1.0f};
+    vec3d rayOrigin = (vec3d){0.0f, 0.0f, 2};
+    float radius = 0.5f;
+
+    // (bx^2 - by^2 + bz^2)t^2 + (2(ax)(bx) - 2(ay)(by) + 2(az)(bz))t + (ax^2 - ay^2 + az^2)
+
+    float a = ((rayDirections.x * rayDirections.x) - (rayDirections.y * rayDirections.y) + (rayDirections.z * rayDirections.z));
+    float b = 2.0f * (rayOrigin.x * rayDirections.x - rayOrigin.y * rayDirections.y + rayOrigin.x * rayDirections.z);
+    float c = ((rayOrigin.x * rayOrigin.x) - (rayOrigin.y * rayOrigin.y) + (rayOrigin.z * rayOrigin.z));
+
+    // float a = dot(rayDirections, rayDirections);
+    // float b = 2.0f * dot(rayOrigin, rayDirections);
+    // float c = dot(rayOrigin, rayOrigin) - radius * radius;
+
+    float discriminant = b * b - 4.0f * a * c;
+    if (discriminant >= 0.0f)
+    {
+        put_color_to_pixel(rt, notnorm.x, notnorm.y, 0xffffffff);
+        // float t = (-b + sqrt(discriminant)) / (2.0f * a);
+        // float nt = (-b - sqrt(discriminant)) / (2.0f * a);
+
+        // vec3d fulldir = vec3d_scale(rayDirections, nt);
+
+        // vec3d hit_point = vec3d_add(rayOrigin, vec3d_scale(rayDirections, nt));
+        // vec3d normal = hit_point;
+        // normalize(&normal);
+        // normalize(&rt->light_dir);
+        // float intensity = max(dot(normal, vec3d_scale(rt->light_dir, -1)), 0.0);
+        // put_color_to_pixel(rt, notnorm.x, notnorm.y, ConvertToRGBA((vec3d){intensity, intensity, intensity}));
+    }
+    // else if (ft_draw(rt, coord, notnorm) == 0)
+        // put_color_to_pixel(rt, notnorm.x, notnorm.y, 0x00000000);
     else
         put_color_to_pixel(rt, notnorm.x, notnorm.y, 0x000000000);
 }
@@ -159,9 +235,10 @@ void loop(t_rt *rt)
             vec2d point = (vec2d){x, y};
             point.x /= (float)SIZE;
             point.y /= (float)SIZE;
-            point.x = point.x * 2.0f - 1.0f;
+            point.x = point.x * 2.0f - 1.0f; // -1 -> 1
             point.y = point.y * 2.0f - 1.0f;
-            ft_draw(rt, point, (vec2d){x, y});
+            ft_cone(rt, point, (vec2d){x, y});
+            // ft_draw2(rt, point, (vec2d){x, y});
         }
     }
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
@@ -176,6 +253,7 @@ int main(void)
     init_rt(rt);
     init_mlx(rt);
     rt->matProj = init_matProj();
+    parse(&rt->map, "test.rt");
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, mouse_hook, rt);
 
@@ -183,3 +261,6 @@ int main(void)
     mlx_loop(rt->mlx);
     return 0;
 }
+
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sscanf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:47:03 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/27 13:48:23 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:30:09 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ int	ft_sscanf(const char *tosplit, const char *str, ...)
 	va_start(args, str);
 	while (str[i])
 	{
-		start = j;
-		while (tosplit[j] != ' ' && tosplit[j] != ',')
+		while (ft_isspace(tosplit[j]) || tosplit[j] == ',')
 			j++;
-		j++;
+		start = j;
+		// while (tosplit[j] != ' ' && tosplit[j] != ',')
+		while ((tosplit[j] >= 48 && tosplit[j] <= 57) || tosplit[j] == '.')
+			j++;
+		// j++;
 		substring = ft_substr(tosplit, start, j);
 		while (str[i] != '%')
 			i++;
@@ -59,6 +62,8 @@ int	ft_sscanf(const char *tosplit, const char *str, ...)
 			length += ft_format(substring, args, str[i + 1]);
 			i++;
 		}
+		// while (ft_isspace(tosplit[j]))
+		// 	j++;
 		i++;
 	}
 	va_end(args);

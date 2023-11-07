@@ -65,10 +65,11 @@ typedef struct s_rt
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-	int	x;
-	int	y;
-	int	x_ref;
-	int	y_ref;
+	int		x;
+	int		y;
+	int		x_ref;
+	int		y_ref;
+	vec2d	camera;
 	// double	z;
 	float	offset_x;
 	float	offset_y;

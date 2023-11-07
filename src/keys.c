@@ -4,10 +4,16 @@ int	key_hook(int keycode, t_rt *rt)
 {
 	if (keycode == UP)
 	{
-		clearScreen(rt);
+		// clearScreen(rt);
 		rt->fTheta += 0.001f;
 		// draw(rt);
 	}
+	else if (keycode == LEFT)
+	{
+		rt->camera.x += 0.5;
+		rt->camera.y += 0.5;
+	}
+	loop(rt);
 	return 0;
 }
 
