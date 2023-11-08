@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 11:42:18 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:23:58 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,11 +238,11 @@ void loop(t_rt *rt)
             point.x = point.x * 2.0f - 1.0f; // -1 -> 1
             point.y = point.y * 2.0f - 1.0f;
             // ft_cone(rt, point, (vec2d){x, y});
-            ft_draw2(rt, point, (vec2d){x, y});
+            //ft_draw2(rt, point, (vec2d){x, y});
+			ft_draw(rt, point, (vec2d){x, y});
         }
     }
-    mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
-                            0);
+    mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
 
 
@@ -271,7 +271,7 @@ void test_parser(t_map *map)
 	}
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     t_rt *rt;
 
@@ -279,8 +279,11 @@ int main(void)
     init_rt(rt);
     init_mlx(rt);
     rt->matProj = init_matProj();
-    parse(&rt->map, "test.rt");
+
+    parse(&rt->map, argv[1]);
     test_parser(rt->map);
+	
+
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, mouse_hook, rt);
 

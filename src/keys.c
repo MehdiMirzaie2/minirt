@@ -13,6 +13,8 @@ int	key_hook(int keycode, t_rt *rt)
 		rt->camera.x += 0.5;
 		rt->camera.y += 0.5;
 	}
+	else if (keycode == ESC)
+		exit_mlx(rt);
 	loop(rt);
 	return 0;
 }

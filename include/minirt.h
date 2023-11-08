@@ -81,11 +81,37 @@ typedef struct s_rt
 	mesh 	meshCube;
 }			t_rt;
 
+typedef struct s_color
+{
+	double	r;
+	double	b;
+	double	g;
+}	t_color;
+
+typedef struct s_vec3
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_vec3;
+
+typedef struct s_cylinder
+{
+	t_vec3	center;
+	t_vec3	cap1;
+	t_vec3	cap2;
+	t_vec3	normal;
+	double	radius;
+	double	height;
+	t_color	color;
+}	t_cylinder;
+
 // src/init.c
 void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
 triangle	*init_cube(void);
 mat4x4	*init_matProj(void);
+int	exit_mlx(t_rt *rt);
 
 // src/keys.c
 int	key_hook(int keycode, t_rt *rt);

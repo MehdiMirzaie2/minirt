@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/07 14:12:10 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/08 15:29:50 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void	init_mlx(t_rt *rt)
 			&rt->bits_per_pixel,
 			&rt->size_line,
 			&rt->endian);
+}
+
+int	exit_mlx(t_rt *rt)
+{
+	mlx_destroy_image(rt->mlx, rt->image);
+	mlx_destroy_window(rt->mlx, rt->window);
+	free(rt->mlx);
+	free(rt);
+	exit(0);
 }

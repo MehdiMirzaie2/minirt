@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 11:39:04 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:36:20 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	get_map(t_map *map, char *line)
 	if (!line)
 		return (-1);
 	map->type = *line;
+	printf("line - %s\n", line);
 	if (!ft_isspace(*(++line)))
 		map->type *= *line;
 	if (!ft_isspace(*line))
@@ -43,8 +44,16 @@ int	get_map(t_map *map, char *line)
 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->point[0], &map->point[1],
 			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTCY)
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->diameter, &map->height, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+	{
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", \
+			&map->point[0], &map->point[1], &map->point[2], \
+			&map->normalized[0], &map->normalized[1], &map->normalized[2], \
+			&map->diameter, &map->height, \
+			&map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		printf("inside parsing map - %f\n", map->point[0]);
+		printf("inside parsing map - %f\n", map->point[1]);
+		printf("inside parsing map - %f\n", map->point[2]);
+	}
 	return (0);
 }
 

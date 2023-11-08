@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sscanf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:47:03 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 11:19:22 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:44:38 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int	ft_id(int *num, char *string)
 {
