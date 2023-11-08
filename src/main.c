@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 14:30:33 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:59:54 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,40 @@ void ft_draw2(t_rt *rt, vec2d coord, vec2d notnorm)
         put_color_to_pixel(rt, notnorm.x, notnorm.y, 0x000000000);
 }
 
+void rotate_x(vec3d *coord, t_rt *rt)
+{
+    float t_y = coord->y;
+
+    coord->x = t_y * cos(rt->fTheta) + coord->z * sin(rt->fTheta);
+    coord->z = t_y * -sin(rt->fTheta) + coord->z * cos(rt->fTheta);
+}
+
+void rotate_y(vec3d *coord, t_rt *rt)
+{
+    float t_x = coord->x;
+
+    coord->x = t_x*cos(rt->fTheta) + coord->z*-sin(rt->fTheta);
+    coord->z = t_x*sin(rt->fTheta) + coord->z*cos(rt->fTheta);
+}
+
+void rotate_z(vec3d *coord, t_rt *rt)
+{
+    float t_x = coord->x;
+
+    coord->x = t_x*cos(rt->fTheta) + coord->y * sin(rt->fTheta);
+    coord->y = t_x* -sin(rt->fTheta) + coord->y * cos(rt->fTheta);
+}
+
 void ft_cone(t_rt *rt, vec2d coord, vec2d notnorm)
 {
     vec3d rayDirections = (vec3d){coord.x, coord.y, -1.0f};
-    vec3d rayOrigin = (vec3d){0.0f, 0.0f, rt->zoom};
-    float radius = 0.5f;
+    vec3d rayOrigin = (vec3d){0.4f, 0.0f, rt->zoom};
+    // rotate_y(&rayDirections);
+    rotate_z(&rayDirections, rt);
+    // rt->fTheta += 0.01;
+    // rotate_x(&rayDirections);
+
+
 
     // (bx^2 - by^2 + bz^2)t^2 + (2(ax)(bx) - 2(ay)(by) + 2(az)(bz))t + (ax^2 - ay^2 + az^2)
 
@@ -222,6 +251,7 @@ void loop(t_rt *rt)
         }
     }
     clearScreen(rt);
+    // printf("zoom level: %f\n", rt->zoom);
     for (int y = 0; y < SIZE; y++)
     {
         for (int x = 0; x < SIZE; x++)
@@ -280,6 +310,7 @@ int main(void)
     mlx_mouse_hook(rt->window, mouse_hook, rt);
 
     mlx_loop_hook(rt->mlx, loop, rt);
+    // loop(rt);
     mlx_loop(rt->mlx);
     return 0;
 }
