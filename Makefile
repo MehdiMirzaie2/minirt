@@ -17,7 +17,9 @@ SRCS        :=	main.c	\
                 init.c	\
 				keys.c	\
 				triangle.c	\
-				line.c
+				line.c	\
+				shapes.c	\
+				utils.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 
@@ -27,7 +29,8 @@ DEPS        := $(OBJS:.o=.d)
 
 CC          := gcc
 # remove -w at the end of project;
-CFLAGS      := -Wall -Wextra -Werror -w -g -fsanitize=address $(DFLAGS)
+# CFLAGS      := -Wall -Wextra -Werror -w -g -fsanitize=address $(DFLAGS)
+CFLAGS      := -Wall -Wextra -Werror -w -O3 $(DFLAGS)
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := -fsanitize=address $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
 LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library

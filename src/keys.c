@@ -35,7 +35,7 @@ void	mouse_hook(int mousecode, int x, int y, t_rt *rt)
 	}
 	else if (mousecode == 5)
 	{
-		printf("zomming\n");
+		// printf("zomming\n");
 		rt->zoom += 0.1f;
 	}
 	else if (mousecode == 4)
