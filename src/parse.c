@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/07 15:50:29 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/08 11:39:04 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_map(t_map *map, char *line)
 		return (-1);
 	map->type = *line;
 	if (!ft_isspace(*(++line)))
-		map->type += *line;
+		map->type *= *line;
 	if (!ft_isspace(*line))
 		++line;
 	++line;
@@ -72,8 +72,10 @@ int	parse(t_map **map, char	*fname)
 			{
 				map_ref->next = malloc(sizeof(t_map));
 				map_ref = map_ref->next;
+				map_ref->next = NULL;
 			}
 		}
 	}
 	return (0);
 }
+

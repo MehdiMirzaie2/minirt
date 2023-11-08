@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sscanf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:47:03 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/07 16:30:09 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/08 11:19:22 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_sscanf(const char *tosplit, const char *str, ...)
 			j++;
 		start = j;
 		// while (tosplit[j] != ' ' && tosplit[j] != ',')
-		while ((tosplit[j] >= 48 && tosplit[j] <= 57) || tosplit[j] == '.')
+		while ((tosplit[j] >= 48 && tosplit[j] <= 57) || tosplit[j] == '.' || tosplit[j] == '-')
 			j++;
 		// j++;
 		substring = ft_substr(tosplit, start, j);
