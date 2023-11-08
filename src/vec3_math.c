@@ -1,21 +1,21 @@
-#include "../include/vec3.h"
+#include "minirt.h"
 
-t_vec3	vec3_add(t_vec3 v, t_vec3 u)
+vec3d	vec3_add(vec3d v, vec3d u)
 {
-	return ((t_vec3){v.x + u.x, v.y + u.y, v.z + u.z});
+	return ((vec3d){v.x + u.x, v.y + u.y, v.z + u.z});
 }
 
-t_vec3	vec3_sub(t_vec3 v, t_vec3 u)
+vec3d	vec3_sub(vec3d v, vec3d u)
 {
-	return ((t_vec3){v.x - u.x, v.y - u.y, v.z - u.z});
+	return ((vec3d){v.x - u.x, v.y - u.y, v.z - u.z});
 }
 
-t_vec3	vec3_multifly(t_vec3 v, double t)
+vec3d	vec3_multiply(vec3d v, float t)
 {
-	return ((t_vec3){v.x * t, v.y * t, v.z * t});
+	return ((vec3d){v.x * t, v.y * t, v.z * t});
 }
 
-t_vec3	vec3_divide(t_vec3 v, double t)
+vec3d	vec3_divide(vec3d v, float t)
 {
-	return ((t_vec3){v.x / t, v.y / t, v.z / t});
+	return ((vec3d){v.x / t, v.y / t, v.z / t});
 }

@@ -6,17 +6,11 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 16:23:58 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/08 22:24:22 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "libft.h"
-#include "get_next_line.h"
-#include <mlx.h>
-#include "map.h"
 #include "minirt.h"
-#include <stdbool.h>
 
 void put_color_to_pixel(t_rt *rt, int x, int y, int color)
 {
@@ -282,7 +276,7 @@ int main(int argc, char **argv)
 
     parse(&rt->map, argv[1]);
     test_parser(rt->map);
-	
+
 
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, mouse_hook, rt);

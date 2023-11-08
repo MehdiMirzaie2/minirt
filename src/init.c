@@ -6,12 +6,11 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 15:29:50 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/08 22:25:59 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "libft.h"
 
 mat4x4	*init_matProj(void)
 {

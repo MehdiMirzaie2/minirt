@@ -1,13 +1,13 @@
-#include "../include/vec3.h"
+#include "minirt.h"
 
-double	vec3_dot(t_vec3 v1, t_vec3 v2)
+float	vec3_dot(vec3d v1, vec3d v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-t_vec3	vec3_cross(t_vec3 v1, t_vec3 v2)
+vec3d	vec3_cross(vec3d v1, vec3d v2)
 {
-	t_vec3	v3;
+	vec3d	v3;
 
 	v3.x = v1.y * v2.z - v1.z * v2.y;
 	v3.y = v1.z * v2.x - v1.x * v2.z;
@@ -15,7 +15,7 @@ t_vec3	vec3_cross(t_vec3 v1, t_vec3 v2)
 	return (v3);
 }
 
-t_vec3	unit_vector(t_vec3 v)
+vec3d	unit_vector(vec3d v)
 {
-	return vec3_divide(v, vec3_len(v));
+	return vec3_multiply(v, vec3_len(v));
 }

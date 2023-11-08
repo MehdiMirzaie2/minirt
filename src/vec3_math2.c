@@ -1,18 +1,18 @@
-#include "../include/vec3.h"
+#include "minirt.h"
 
-double	vec3_len_squared(t_vec3 v)
+float	vec3_len_squared(vec3d v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
-double	vec3_len(t_vec3 v)
+float	vec3_len(vec3d v)
 {
 	return (sqrt(vec3_len_squared(v)));
 }
 
-double	vec3_normalize(t_vec3 v)
+float	vec3_normalize(vec3d v)
 {
-	double	l;
+	float	l;
 
 	l = vec3_len(v);
 	vec3_divide(v, l);
@@ -20,11 +20,11 @@ double	vec3_normalize(t_vec3 v)
 	return (l);
 }
 
-t_vec3	vec3_normalized(void)
+vec3d	vec3_normalized(void)
 {
-	t_vec3	*v;
+	vec3d	*v;
 
-	v = malloc(sizeof(t_vec3));
+	v = malloc(sizeof(vec3d));
 	vec3_normalize(*v);
 	return (*v);
 }

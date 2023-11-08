@@ -6,15 +6,11 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 17:36:20 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/08 22:25:50 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include "get_next_line.h"
-#include "libft.h"
-#include <fcntl.h>
-#include <stdio.h>
+#include "minirt.h"
 
 int	get_map(t_map *map, char *line)
 {
