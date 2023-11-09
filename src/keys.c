@@ -34,10 +34,10 @@ void	mouse_hook(int mousecode, int x, int y, t_rt *rt)
 	if (mousecode == 1)
 	{
 		update_light_dir(&rt->light_dir, x, y);
-
 	}
 	else if (mousecode == 5)
 	{
+		// printf("zomming\n");
 		rt->zoom += 0.1f;
 	}
 	else if (mousecode == 4)
