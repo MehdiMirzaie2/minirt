@@ -6,15 +6,15 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 22:25:59 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/09 15:36:17 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-mat4x4	*init_matProj(void)
+t_mat4	*init_matProj(void)
 {
-	mat4x4 *matProj = malloc(sizeof(mat4x4));
+	t_mat4 *matProj = malloc(sizeof(t_mat4));
 	float fNear = 0.1f;
 	float fFar = 1000.0f;
 	float fFov = 90.0f;
@@ -22,7 +22,7 @@ mat4x4	*init_matProj(void)
 	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
 
 	if (matProj->m != NULL)
-    	ft_memset(matProj, 0.0f, sizeof(mat4x4));
+    	ft_memset(matProj, 0.0f, sizeof(t_mat4));
 	matProj->m[0][0] = fAspectRatio * fFovRad;
 	matProj->m[1][1] = fFovRad;
 	matProj->m[2][2] = fFar / (fFar - fNear);

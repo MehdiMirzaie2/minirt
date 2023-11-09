@@ -6,10 +6,10 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 22:24:22 by jaeshin          ###   ########.fr       */
-/*   Updated: 2023/11/08 16:38:05 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:32:03 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minirt.h"
 
@@ -21,7 +21,7 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
     buffer[(y * rt->size_line / 4) + x] = color;
 }
 
-void MultiplyMatrixVector(vec3d *i, vec3d *o, mat4x4 *m)
+void MultiplyMatrixVector(vec3d *i, vec3d *o, t_mat4 *m)
 {
     o->x = i->x * m->m[0][0] + i->y * m->m[1][0] + i->z * m->m[2][0] + m->m[3][0];
     o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
@@ -77,15 +77,15 @@ void loop(t_rt *rt)
     {
         for (int x = 0; x < SIZE; x++)
         {
-            vec3d   point1;
-            vec2d point = (vec2d){x, y};
+            vec3d	point1;
+            vec2d	point = (vec2d){x, y};
             point.x /= (float)SIZE;
             point.y /= (float)SIZE;
             point.x = point.x * 2.0f - 1.0f; // -1 -> 1
             point.y = point.y * 2.0f - 1.0f;
             // ft_cone(rt, point, (vec2d){x, y});
             //ft_draw2(rt, point, (vec2d){x, y});
-			ft_draw(rt, point, (vec2d){x, y});
+			// ft_draw(rt, point, (vec2d){x, y});
             MultiplyMatrixVector(&(vec3d){point.x , point.y, -1.0}, &point1, rt->matProj);
             ft_sphere(rt, point, (vec2d){x, y});
         }

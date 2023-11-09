@@ -14,6 +14,7 @@
 #include "structs.h"
 #include "map.h"
 #include "vec3.h"
+#include "camera.h"
 
 // Srceen dimensions
 # define SIZE 700
@@ -33,62 +34,9 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-typedef struct vec2d
-{
-	float x, y;
-} vec2d;
-
-typedef struct
-{
-    float x, y, z;
-} vec3d;
-
-typedef struct
-{
-    vec3d p[3];
-} triangle;
-
-typedef struct
-{
-    triangle* tris;
-	int num_triangles;
-} mesh;
-
-typedef struct
-{
-    float m[4][4];
-} mat4x4;
-
-typedef struct s_rt
-{
-	t_map	*map;
-	void	*mlx;
-	void	*window;
-	void	*image;
-	void	*pointer_to_image;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
-	int		x;
-	int		y;
-	int		x_ref;
-	int		y_ref;
-	vec2d	camera;
-	// double	z;
-	float	offset_x;
-	float	offset_y;
-	float	zoom;
-	vec3d	light_dir;
-	int		color;
-	float	fTheta;
-	mat4x4	*matProj;
-	mesh 	meshCube;
-}			t_rt;
-
-
 // src/utils.c
 float	max(float arg1, float arg2);
-static	uint32_t ConvertToRGBA(const vec3d color);
+uint32_t ConvertToRGBA(const vec3d color);
 float	dot(vec3d v1, vec3d v2);
 vec3d	vec3d_add(vec3d v1, vec3d v2);
 vec3d	vec3d_scale(vec3d v1, float scalar);
@@ -98,7 +46,7 @@ void	normalize(vec3d *vec);
 void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
 triangle	*init_cube(void);
-mat4x4	*init_matProj(void);
+t_mat4	*init_matProj(void);
 int		exit_mlx(t_rt *rt);
 
 // src/keys.c
@@ -127,6 +75,5 @@ int 	draw(t_rt *rt);
 void	loop(t_rt *rt);
 void	clearScreen(t_rt *rt);
 void	put_color_to_pixel(t_rt *rt, int x, int y, int color);
-
 
 #endif

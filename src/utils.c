@@ -38,7 +38,7 @@ float dot(vec3d v1, vec3d v2)
     return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-static uint32_t ConvertToRGBA(const vec3d color)
+uint32_t ConvertToRGBA(const vec3d color)
 {
     uint8_t r = (uint8_t)(color.x * 255.0f);
     uint8_t g = (uint8_t)(color.y * 255.0f);
