@@ -1,15 +1,19 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include <mlx.h>
-# include <math.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "map.h"
-#include <stdio.h>
-# include "map.h"
-#include <stdio.h>
+#include <mlx.h>
 #include <math.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <fcntl.h>
+
+#include "libft.h"
+#include "get_next_line.h"
+#include "structs.h"
+#include "map.h"
+#include "vec3.h"
 
 // Srceen dimensions
 # define SIZE 700
@@ -95,6 +99,7 @@ void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
 triangle	*init_cube(void);
 mat4x4	*init_matProj(void);
+int		exit_mlx(t_rt *rt);
 
 // src/keys.c
 int		key_hook(int keycode, t_rt *rt);
@@ -107,13 +112,18 @@ int		ft_cone(t_rt *rt, vec3d coord, vec2d notnorm);
 int		ft_sphere(t_rt *rt, vec2d coord, vec2d notnorm);
 
 // src/line.c
-void draw_line(t_rt *rt, vec2d p1, vec2d p2, int color);
+void 	draw_line(t_rt *rt, vec2d p1, vec2d p2, int color);
 
 // src/triangle.c
 void	draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 void	draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 
 // src/main.c
+
+void 	loop(t_rt *rt);
+void	clearScreen(t_rt *rt);
+int 	draw(t_rt *rt);
+
 void	loop(t_rt *rt);
 void	clearScreen(t_rt *rt);
 void	put_color_to_pixel(t_rt *rt, int x, int y, int color);

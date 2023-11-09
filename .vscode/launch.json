@@ -18,8 +18,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/Users/mehdimirzaie/Desktop/m1/src",
-      "program": "/Users/mehdimirzaie/Desktop/m1/src/build/Debug/outDebug",
+      "cwd": "/Users/jaejunshin/Desktop/minirt",
+      "program": "/Users/jaejunshin/Desktop/minirt",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

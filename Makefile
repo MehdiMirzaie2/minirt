@@ -17,9 +17,11 @@ SRCS        :=	main.c	\
                 init.c	\
 				keys.c	\
 				triangle.c	\
-				line.c	\
-				shapes.c	\
-				utils.c
+				line.c \
+				cylinder.c \
+				vec3_math.c \
+				vec3_math2.c \
+				vec3_math3.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 

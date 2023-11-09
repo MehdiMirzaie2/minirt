@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
+/*   Updated: 2023/11/08 22:24:22 by jaeshin          ###   ########.fr       */
 /*   Updated: 2023/11/08 16:38:05 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "libft.h"
-#include "get_next_line.h"
-#include <mlx.h>
-#include "map.h"
 #include "minirt.h"
-#include <stdbool.h>
 
 void put_color_to_pixel(t_rt *rt, int x, int y, int color)
 {
@@ -88,15 +83,42 @@ void loop(t_rt *rt)
             point.y /= (float)SIZE;
             point.x = point.x * 2.0f - 1.0f; // -1 -> 1
             point.y = point.y * 2.0f - 1.0f;
+            // ft_cone(rt, point, (vec2d){x, y});
+            //ft_draw2(rt, point, (vec2d){x, y});
+			ft_draw(rt, point, (vec2d){x, y});
             MultiplyMatrixVector(&(vec3d){point.x , point.y, -1.0}, &point1, rt->matProj);
             ft_sphere(rt, point, (vec2d){x, y});
         }
     }
-    mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
-                            0);
+    mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
 
-int main(void)
+void test_parser(t_map *map)
+{
+	while (map)
+	{
+		if (map->type == 'A')
+			printf("A: %f\t %d,%d,%d\n", map->light, map->rgb[0], map->rgb[1], map->rgb[2]);
+		if (map->type == 'C')
+			printf("C: %f,%f,%f\t %f,%f,%f\t %d\n", map->point[0], map->point[1],
+				map->point[2], map->normalized[0], map->normalized[1], map->normalized[2], map->fov);
+		if (map->type == 'L')
+			printf("L: %f,%f,%f\t %f\t %d,%d,%d\n", map->point[0], map->point[1],
+				map->point[2], map->brightness, map->rgb[0], map->rgb[1], map->rgb[2]);
+		if (map->type == E_TTSP)
+			printf("sp: %f,%f,%f\t %f\t %d,%d,%d\n", map->point[0], map->point[1],
+				map->point[2], map->diameter, map->rgb[0], map->rgb[1], map->rgb[2]);
+		if (map->type == E_TTPL)
+			printf("pl: %f,%f,%f\t %f,%f,%f\t %d,%d,%d\n", map->point[0], map->point[1],
+				map->point[2], map->normalized[0], map->normalized[1], map->normalized[2], map->rgb[0], map->rgb[1], map->rgb[2]);
+		if (map->type == E_TTCY)
+			printf("cy: %f,%f,%f\t %f,%f,%f\t %f\t %f\t %d,%d,%d\n", map->point[0], map->point[1],
+				map->point[2], map->normalized[0], map->normalized[1], map->normalized[2], map->diameter, map->height, map->rgb[0], map->rgb[1], map->rgb[2]);
+		map = map->next;
+	}
+}
+
+int main(int argc, char **argv)
 {
     t_rt *rt;
 
@@ -104,6 +126,10 @@ int main(void)
     init_rt(rt);
     init_mlx(rt);
     rt->matProj = init_matProj();
+    parse(&rt->map, argv[1]);
+    test_parser(rt->map);
+
+
     parse(&rt->map, "test.rt");
     // test_parser(rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
