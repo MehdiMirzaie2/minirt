@@ -1,15 +1,19 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef struct vec2d
+typedef struct s_vec2
 {
-	float x, y;
-}	vec2d;
+	float	x;
+	float	y;
+}	t_vec2;
 
-typedef struct
+typedef struct s_vec3
 {
-	float x, y, z, m;
-}	vec3d;
+	float	x;
+	float	y;
+	float	z;
+	float	m;
+}	t_vec3;
 
 typedef struct s_color
 {
@@ -18,37 +22,34 @@ typedef struct s_color
 	float	g;
 }	t_color;
 
-typedef struct s_camera
-{
-	float vertical_fov;
-	float near_clip;
-	float far_clip;
-}	t_camera;
-
-typedef struct
-{
-	vec3d p[3];
-}	triangle;
-
-typedef struct
-{
-	triangle* tris;
-	int num_triangles;
-}	mesh;
-
 typedef struct s_mat4
 {
-	float m[4][4];
+	float	m[4][4];
 }	t_mat4;
+
+typedef struct s_camera
+{
+	t_vec3	pos;
+	t_vec3	dir;
+	float	fov;
+}	t_camera;
+
+typedef	struct s_viewport
+{
+	float	width;
+	float	height;
+	float	dist;
+	float	aspect_ratio;
+}
 
 typedef struct s_map
 {
 	int				type;
-	float			point[3];
 	float			light;
 	int				rgb[3];
-	float			normalized[3];
-	int				fov;
+	t_vec3			pos;
+	t_vec3			dir;
+	float			fov;
 	float			brightness;
 	float			diameter;
 	float			height;
@@ -69,12 +70,12 @@ typedef struct s_rt
 	int		y;
 	int		x_ref;
 	int		y_ref;
-	vec2d	camera;
+	t_vec2	camera;
 	// double	z;
 	float	offset_x;
 	float	offset_y;
 	float	zoom;
-	vec3d	light_dir;
+	t_vec3	light_dir;
 	int		color;
 	float	fTheta;
 	t_mat4	*matProj;
@@ -83,13 +84,24 @@ typedef struct s_rt
 
 typedef struct s_cylinder
 {
-	vec3d	center;
-	vec3d	cap1;
-	vec3d	cap2;
-	vec3d	normal;
+	t_vec3	center;
+	t_vec3	cap1;
+	t_vec3	cap2;
+	t_vec3	normal;
 	float	radius;
 	float	height;
 	t_color	color;
 }	t_cylinder;
+
+typedef struct
+{
+	t_vec3 p[3];
+}	triangle;
+
+typedef struct
+{
+	triangle* tris;
+	int num_triangles;
+}	mesh;
 
 #endif

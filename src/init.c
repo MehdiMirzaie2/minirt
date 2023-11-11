@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/09 15:36:17 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/11 15:13:42 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_rt(t_rt *rt)
 	rt->color = 0xFCBE11;
 	rt->zoom = 1.0f;
 
-	rt->camera = (vec2d){0, 0};
+	rt->camera = (t_vec2){0, 0};
 	rt->matProj = init_matProj();
 	rt->meshCube.num_triangles = 0;
 	rt->meshCube.tris = NULL;

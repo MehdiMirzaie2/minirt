@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void draw_line(t_rt *rt, vec2d p1, vec2d p2, int color)
+void draw_line(t_rt *rt, t_vec2 p1, t_vec2 p2, int color)
 {
     double dx = fabs(p2.x - p1.x);
     int sx = p1.x < p2.x ? 1 : -1;
