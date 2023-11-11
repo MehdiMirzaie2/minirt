@@ -14,11 +14,14 @@ SRC_DIR     :=    src
 
 SRCS        :=	main.c	\
 				parse.c	\
+				camera.c \
                 init.c	\
 				keys.c	\
 				triangle.c	\
 				line.c \
 				cylinder.c \
+				shapes.c \
+				utils.c \
 				vec3_math.c \
 				vec3_math2.c \
 				vec3_math3.c

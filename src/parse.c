@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 22:25:50 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/11 18:45:52 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	get_map(t_map *map, char *line)
 	if (map->type == 'A')
 		ft_sscanf(line, "%f %d,%d,%d", &map->light, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == 'C')
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point[0], &map->point[1],
-			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->fov);
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f", &map->pos.x, &map->pos.y,
+			&map->pos.z, &map->dir.x, &map->dir.y, &map->dir.z, &map->fov);
 	if (map->type == 'L')
 		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
 			&map->point[2], &map->brightness, &map->rgb[0], &map->rgb[1], &map->rgb[2]);

@@ -12,8 +12,10 @@
 #include "libft.h"
 #include "get_next_line.h"
 #include "structs.h"
-#include "map.h"
 #include "vec3.h"
+#include "map.h"
+#include "camera.h"
+#include "viewport.h"
 
 // Srceen dimensions
 # define SIZE 700
@@ -33,86 +35,33 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-typedef struct vec2d
-{
-	float x, y;
-} vec2d;
-
-typedef struct
-{
-    float x, y, z;
-} vec3d;
-
-typedef struct
-{
-    vec3d p[3];
-} triangle;
-
-typedef struct
-{
-    triangle* tris;
-	int num_triangles;
-} mesh;
-
-typedef struct
-{
-    float m[4][4];
-} mat4x4;
-
-typedef struct s_rt
-{
-	t_map	*map;
-	void	*mlx;
-	void	*window;
-	void	*image;
-	void	*pointer_to_image;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
-	int		x;
-	int		y;
-	int		x_ref;
-	int		y_ref;
-	vec2d	camera;
-	// double	z;
-	float	offset_x;
-	float	offset_y;
-	float	zoom;
-	vec3d	light_dir;
-	int		color;
-	float	fTheta;
-	mat4x4	*matProj;
-	mesh 	meshCube;
-}			t_rt;
-
+// PI
+# define PI 3.1415926
 
 // src/utils.c
 float	max(float arg1, float arg2);
-static	uint32_t ConvertToRGBA(const vec3d color);
-float	dot(vec3d v1, vec3d v2);
-vec3d	vec3d_add(vec3d v1, vec3d v2);
-vec3d	vec3d_scale(vec3d v1, float scalar);
-void	normalize(vec3d *vec);
+uint32_t	ConvertToRGBA(const t_vec3 color);
+void	set_fov(float degrees);
 
 // src/init.c
 void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
 triangle	*init_cube(void);
-mat4x4	*init_matProj(void);
+t_mat4	*init_matProj(void);
 int		exit_mlx(t_rt *rt);
 
 // src/keys.c
 int		key_hook(int keycode, t_rt *rt);
 void	mouse_hook(int mousecode, int x, int y, t_rt *rt);
 void	mouse_move(int mousecode, int x, int y, t_rt *rt);
-void	update_light_dir(vec3d	*light_dir, int x, int y);
+void	update_light_dir(t_vec3	*light_dir, int x, int y);
 
 // src/shapes.c
-int		ft_cone(t_rt *rt, vec3d coord, vec2d notnorm);
-int		ft_sphere(t_rt *rt, vec2d coord, vec2d notnorm);
+int		ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm);
+int		ft_sphere(t_rt *rt, t_vec2 coord, t_vec2 notnorm);
 
 // src/line.c
-void 	draw_line(t_rt *rt, vec2d p1, vec2d p2, int color);
+void 	draw_line(t_rt *rt, t_vec2 p1, t_vec2 p2, int color);
 
 // src/triangle.c
 void	draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
@@ -124,9 +73,6 @@ void 	loop(t_rt *rt);
 void	clearScreen(t_rt *rt);
 int 	draw(t_rt *rt);
 
-void	loop(t_rt *rt);
-void	clearScreen(t_rt *rt);
 void	put_color_to_pixel(t_rt *rt, int x, int y, int color);
-
 
 #endif

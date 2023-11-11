@@ -19,7 +19,7 @@ int	key_hook(int keycode, t_rt *rt)
 	return 0;
 }
 
-void	update_light_dir(vec3d	*light_dir, int x, int y)
+void	update_light_dir(t_vec3	*light_dir, int x, int y)
 {
 	light_dir->x = (float)x / (float)SIZE;
 	light_dir->y = (float)y / (float)SIZE;
