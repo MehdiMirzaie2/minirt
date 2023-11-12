@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/11 20:13:12 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/12 17:57:13 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void clearScreen(t_rt *rt)
     r = radius
     t = hitpoint
 */
-
 void loop(t_rt *rt)
 {
     mlx_mouse_get_pos(rt->window, &rt->x, &rt->y);
@@ -72,7 +71,9 @@ void loop(t_rt *rt)
         }
     }
     clearScreen(rt);
-    // printf("zoom level: %f\n", rt->zoom);
+	t_mat4	m;
+
+	m = rotate_camera();
     for (int y = 0; y < SIZE; y++)
     {
         for (int x = 0; x < SIZE; x++)
@@ -90,53 +91,46 @@ void loop(t_rt *rt)
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
 
-void test_parser(t_map *map)
-{
-	while (map)
-	{
-		if (map->type == 'A')
-			printf("A: %f\t %d,%d,%d\n", map->light, map->rgb[0], map->rgb[1], map->rgb[2]);
-		if (map->type == 'C')
-			printf("C: %f,%f,%f\t %f,%f,%f\t %d\n", map->point[0], map->point[1],
-				map->point[2], map->normalized[0], map->normalized[1], map->normalized[2], map->fov);
-		if (map->type == 'L')
-			printf("L: %f,%f,%f\t %f\t %d,%d,%d\n", map->point[0], map->point[1],
-				map->point[2], map->brightness, map->rgb[0], map->rgb[1], map->rgb[2]);
-		if (map->type == E_TTSP)
-			printf("sp: %f,%f,%f\t %f\t %d,%d,%d\n", map->point[0], map->point[1],
-				map->point[2], map->diameter, map->rgb[0], map->rgb[1], map->rgb[2]);
-		if (map->type == E_TTPL)
-			printf("pl: %f,%f,%f\t %f,%f,%f\t %d,%d,%d\n", map->point[0], map->point[1],
-				map->point[2], map->normalized[0], map->normalized[1], map->normalized[2], map->rgb[0], map->rgb[1], map->rgb[2]);
-		if (map->type == E_TTCY)
-			printf("cy: %f,%f,%f\t %f,%f,%f\t %f\t %f\t %d,%d,%d\n", map->point[0], map->point[1],
-				map->point[2], map->normalized[0], map->normalized[1], map->normalized[2], map->diameter, map->height, map->rgb[0], map->rgb[1], map->rgb[2]);
-		map = map->next;
-	}
-}
+//void test_parser(t_map *map)
+//{
+//	while (map)
+//	{
+//		if (!ft_strncmp(map->type, "A", 1))
+//			printf("A: %f\t %d,%d,%d\n", map->light, map->rgb[0], map->rgb[1], map->rgb[2]);
+//		if (!ft_strncmp(map->type, "C", 1))
+//			printf("C: %f,%f,%f\t %f,%f,%f\t %d\n", map->pos.x, map->pos.y,
+//				map->pos.z, map->dir.x, map->dir.y, map->dir.z, map->fov);
+//		if (!ft_strncmp(map->type, "L", 1))
+//			printf("L: %f,%f,%f\t %f\t %d,%d,%d\n", map->pos.x, map->pos.y,
+//				map->pos.z, map->brightness, map->rgb[0], map->rgb[1], map->rgb[2]);
+//		if (!ft_strncmp(map->type, "SP", 2))
+//			printf("sp: %f,%f,%f\t %f\t %d,%d,%d\n", map->pos.x, map->pos.y,
+//				map->pos.z, map->diameter, map->rgb[0], map->rgb[1], map->rgb[2]);
+//		if (!ft_strncmp(map->type, "PL", 2))
+//			printf("pl: %f,%f,%f\t %f,%f,%f\t %d,%d,%d\n", map->pos.x, map->pos.y,
+//				map->pos.z, map->dir.x, map->dir.y, map->dir.z, map->rgb[0], map->rgb[1], map->rgb[2]);
+//		if (!ft_strncmp(map->type, "CY", 2))
+//		map = map->next;
+//	}
+//}
 
 int main(int argc, char **argv)
 {
     t_rt *rt;
 
+	if (argc != 2)
+	{
+		printf("Wrong arguments.\n");
+		exit(1);
+	}
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
     rt->matProj = init_matProj();
     parse(&rt->map, argv[1]);
-    test_parser(rt->map);
-
-
-    parse(&rt->map, "test.rt");
-    // test_parser(rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, mouse_hook, rt);
-
     mlx_loop_hook(rt->mlx, loop, rt);
-    // loop(rt);
     mlx_loop(rt->mlx);
     return 0;
 }
-
-
-

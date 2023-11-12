@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/11 18:45:52 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/12 16:36:54 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,24 @@ int	get_map(t_map *map, char *line)
 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f", &map->pos.x, &map->pos.y,
 			&map->pos.z, &map->dir.x, &map->dir.y, &map->dir.z, &map->fov);
 	if (map->type == 'L')
-		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->brightness, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->pos.x, &map->pos.y,
+			&map->pos.z, &map->brightness, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTSP)
-		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->diameter, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->pos.x, &map->pos.y,
+			&map->pos.z, &map->diameter, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTPL)
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->pos.x, &map->pos.y,
+			&map->pos.z, &map->dir.x, &map->dir.y, &map->dir.z, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTCY)
 	{
 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", \
-			&map->point[0], &map->point[1], &map->point[2], \
-			&map->normalized[0], &map->normalized[1], &map->normalized[2], \
+			&map->pos.x, &map->pos.y, &map->pos.z, \
+			&map->dir.x, &map->dir.y, &map->dir.z, \
 			&map->diameter, &map->height, \
 			&map->rgb[0], &map->rgb[1], &map->rgb[2]);
-		printf("inside parsing map - %f\n", map->point[0]);
-		printf("inside parsing map - %f\n", map->point[1]);
-		printf("inside parsing map - %f\n", map->point[2]);
+		printf("inside parsing map - %f\n", map->pos.x);
+		printf("inside parsing map - %f\n", map->pos.y);
+		printf("inside parsing map - %f\n", map->pos.z);
 	}
 	return (0);
 }

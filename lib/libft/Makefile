@@ -44,7 +44,7 @@ clean:
 	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	$(NAME) $(RM) $(NAME)
+	$(RM) $(NAME)
 
 re:
 	$(MAKE) fclean

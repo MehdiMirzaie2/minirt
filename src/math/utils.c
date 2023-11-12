@@ -18,7 +18,7 @@ float max(float arg1, float arg2)
     return (arg1);
 }
 
-void	set_fov(float degrees)
+float	set_fov(float degrees)
 {
 	float	radians;
 	float	hipo;
@@ -28,7 +28,7 @@ void	set_fov(float degrees)
 	radians = (degrees * (PI / 180)) / 2;
 	viewport()->width = (tan(radians) * viewport()->dist) * 2;
 	viewport()->height = viewport()->width / viewport()->aspect_ratio;
-	hipo = sprt(pow(viewport()->width / 2, 2)) + pow(viewport()->dist, 2);
+	hipo = sqrt(pow(viewport()->width / 2, 2)) + pow(viewport()->dist, 2);
 	sine = (viewport()->width / 2) / hipo;
 	fov = (asin(sine) * 2) * 180 / PI;
 	return (fov);

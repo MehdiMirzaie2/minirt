@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/11 15:13:42 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/12 15:28:55 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,13 @@ t_mat4	*init_matProj(void)
 void	init_rt(t_rt *rt)
 {
 	rt->map = malloc(sizeof(t_map));
-	rt->fTheta = 2.0f;
 	rt->x = -1;
 	rt->y = -1;
 	rt->x_ref = -1;
 	rt->y_ref = -1;
-	rt->color = 0xFCBE11;
 	rt->zoom = 1.0f;
 
-	rt->camera = (t_vec2){0, 0};
 	rt->matProj = init_matProj();
-	rt->meshCube.num_triangles = 0;
-	rt->meshCube.tris = NULL;
 }
 
 void	init_mlx(t_rt *rt)
