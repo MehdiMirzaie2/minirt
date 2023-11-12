@@ -23,10 +23,10 @@ void	set_camera(t_map map)
 
 t_mat4	create_matrix(t_vec3 axis, float angle)
 {
-	t_mat4		matrix;
-	float		cos_theta;
-	float		sin_theta;
-	float		one_minus_cos_theta;
+	t_mat4	matrix;
+	float	cos_theta;
+	float	sin_theta;
+	float	one_minus_cos_theta;
 
 	cos_theta = cos(angle);
 	sin_theta = sin(angle);

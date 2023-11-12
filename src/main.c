@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/12 17:57:13 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/12 23:23:49 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,6 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
 
     buffer = rt->pointer_to_image;
     buffer[(y * rt->size_line / 4) + x] = color;
-}
-
-void MultiplyMatrixVector(t_vec3 *i, t_vec3 *o, t_mat4 *m)
-{
-    o->x = i->x * m->m[0][0] + i->y * m->m[1][0] + i->z * m->m[2][0] + m->m[3][0];
-    o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
-    o->z = i->x * m->m[0][2] + i->y * m->m[1][2] + i->z * m->m[2][2] + m->m[3][2];
-    float w = i->x * m->m[0][3] + i->y * m->m[1][3] + i->z * m->m[2][3] + m->m[3][3];
-
-    if (w != 0.0f)
-    {
-        o->x /= w;
-        o->y /= w;
-        o->z /= w;
-    }
 }
 
 void clearScreen(t_rt *rt)
@@ -51,7 +36,6 @@ void clearScreen(t_rt *rt)
         rt->y = 0;
     }
 }
-
 
 /*
     a = ray origin -> forward negative z.
@@ -71,20 +55,24 @@ void loop(t_rt *rt)
         }
     }
     clearScreen(rt);
+
 	t_mat4	m;
+	t_ray	ray;
+	t_color	color;
 
 	m = rotate_camera();
     for (int y = 0; y < SIZE; y++)
     {
         for (int x = 0; x < SIZE; x++)
         {
-            t_vec3	point1;
             t_vec2	point = (t_vec2){x, y};
             point.x /= (float)SIZE;
             point.y /= (float)SIZE;
             point.x = point.x * 2.0f - 1.0f; // -1 -> 1
             point.y = point.y * 2.0f - 1.0f;
-            MultiplyMatrixVector(&(t_vec3){point.x , point.y, -1.0}, &point1, rt->matProj);
+			ray.dir = mult_mtrx_vector(&m, (t_vec3){point.x, point.y, -1.0});
+			// this ray direction can be used for tracing rays and put colors on them.
+			// the equeation of that can be extracted from drawing functions. (note for jaejun)
             ft_sphere(rt, point, (t_vec2){x, y});
         }
     }

@@ -41,6 +41,7 @@
 float	max(float arg1, float arg2);
 uint32_t	ConvertToRGBA(const t_vec3 color);
 float	set_fov(float degrees);
+t_vec3	mult_mtrx_vector(t_mat4 *matrix, t_vec3 vector);
 
 // src/init.c
 void	init_rt(t_rt *rt);
