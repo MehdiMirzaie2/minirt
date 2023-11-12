@@ -4,14 +4,11 @@ int	key_hook(int keycode, t_rt *rt)
 {
 	if (keycode == UP)
 	{
-		// clearScreen(rt);
-		rt->fTheta += 0.001f;
-		// draw(rt);
+		//rt->fTheta += 0.001f;
 	}
 	else if (keycode == LEFT)
 	{
-		rt->camera.x += 0.5;
-		rt->camera.y += 0.5;
+
 	}
 	else if (keycode == ESC)
 		exit_mlx(rt);

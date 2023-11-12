@@ -1,30 +1,30 @@
-NAME        := minirt
+NAME		:=	minirt
 
-LIBS        := ft
-LIBFT_TARGET := lib/libft/libft.a
+LIBS		:=	ft
+LIBFT_TARGET:=	lib/libft/libft.a
 
 # Add the path to the MLX library here
-MLX_LIB_DIR := lib/libmlx
+MLX_LIB_DIR	:=	lib/libmlx
 
-INCS        = include    \
-               lib/libft/include    \
-               lib/libmlx/include
+INCS		= 	include    \
+				lib/libft/include    \
+				lib/libmlx/include
 
-SRC_DIR     :=    src
+SRC_DIR		:=	src
 
-SRCS        :=	main.c	\
-				parse.c	\
-				camera.c \
-                init.c	\
-				keys.c	\
-				triangle.c	\
-				line.c \
-				cylinder.c \
-				shapes.c \
-				utils.c \
-				vec3_math.c \
-				vec3_math2.c \
-				vec3_math3.c
+SRCS		:=	init/init.c	\
+				init/viewport.c \
+				init/camera.c \
+				init/cylinder.c \
+				renderer/line.c \
+				renderer/shapes.c \
+				parser/parse.c	\
+				math/utils.c \
+				math/vec3_math.c \
+				math/vec3_math2.c \
+				math/vec3_math3.c \
+				key_input/keys.c \
+				main.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 
@@ -40,15 +40,6 @@ CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := -fsanitize=address $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
 LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library
 MLXFLAGS    := -L$(MLX_LIB_DIR) -lmlx -framework OpenGL -framework AppKit  # MLX-specific flags
-RLFLAGS     := -lreadline
-
-# CC          := gcc
-# CFLAGS      := -Wall -Wextra -Werror -w -g $(DFLAGS)
-# CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
-# LDFLAGS     := $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
-# LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library
-# MLXFLAGS    := -L$(MLX_LIB_DIR) -lmlx -framework OpenGL -framework AppKit  # MLX-specific flags
-# RLFLAGS     := -lreadline
 
 RM          := rm -f
 MAKEFLAGS   += --silent --no-print-directory
@@ -57,7 +48,7 @@ DIR_DUP     = mkdir -p $(@D)
 all: $(NAME)
 
 $(NAME): $(LIBFT_TARGET) $(OBJS)
-	$(CC) $(LDFLAGS) $(MLXFLAGS) $(OBJS) $(LDLIBS) -o $(NAME) $(RLFLAGS) $(DFLAGS)
+	$(CC) $(LDFLAGS) $(MLXFLAGS) $(OBJS) $(LDLIBS) -o $(NAME) $(DFLAGS)
 	$(call print_linking, $(NAME))
 
 $(LIBFT_TARGET):

@@ -13,7 +13,6 @@
 #include "get_next_line.h"
 #include "structs.h"
 #include "vec3.h"
-#include "map.h"
 #include "camera.h"
 #include "viewport.h"
 
@@ -41,12 +40,12 @@
 // src/utils.c
 float	max(float arg1, float arg2);
 uint32_t	ConvertToRGBA(const t_vec3 color);
-void	set_fov(float degrees);
+float	set_fov(float degrees);
 
 // src/init.c
 void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
-triangle	*init_cube(void);
+//triangle	*init_cube(void);
 t_mat4	*init_matProj(void);
 int		exit_mlx(t_rt *rt);
 
@@ -55,6 +54,9 @@ int		key_hook(int keycode, t_rt *rt);
 void	mouse_hook(int mousecode, int x, int y, t_rt *rt);
 void	mouse_move(int mousecode, int x, int y, t_rt *rt);
 void	update_light_dir(t_vec3	*light_dir, int x, int y);
+
+// src/parse.c
+int		parse(t_map **map, char	*fname);
 
 // src/shapes.c
 int		ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm);

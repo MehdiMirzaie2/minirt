@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void MultiplyMatrixVector(vec3d	*i, vec3d *o, mat4x4 *m)
+void MultiplyMatrixVector(t_vec3 *i, t_vec3 *o, t_mat4 *m)
 {
     o->x = i->x * m->m[0][0] + i->y * m->m[1][0] + i->z * m->m[2][0] + m->m[3][0];
     o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];

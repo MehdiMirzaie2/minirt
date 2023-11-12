@@ -3,26 +3,29 @@
 
 void rotate_x(t_vec3 *coord, t_rt *rt)
 {
-    float t_y = coord->y;
+    float	t_y = coord->y;
+	float	fTheta = 2.0f;
 
-    coord->x = t_y * cos(rt->fTheta) + coord->z * sin(rt->fTheta);
-    coord->z = t_y * -sin(rt->fTheta) + coord->z * cos(rt->fTheta);
+    coord->x = t_y * cos(fTheta) + coord->z * sin(fTheta);
+    coord->z = t_y * -sin(fTheta) + coord->z * cos(fTheta);
 }
 
 void rotate_y(t_vec3 *coord, t_rt *rt)
 {
-    float t_x = coord->x;
+    float	t_x = coord->x;
+	float	fTheta = 2.0f;
 
-    coord->x = t_x*cos(rt->fTheta) + coord->z*-sin(rt->fTheta);
-    coord->z = t_x*sin(rt->fTheta) + coord->z*cos(rt->fTheta);
+    coord->x = t_x*cos(fTheta) + coord->z*-sin(fTheta);
+    coord->z = t_x*sin(fTheta) + coord->z*cos(fTheta);
 }
 
 void rotate_z(t_vec3 *coord, t_rt *rt)
 {
-    float t_x = coord->x;
+    float	t_x = coord->x;
+	float	fTheta = 2.0f;
 
-    coord->x = t_x*cos(rt->fTheta) + coord->y * sin(rt->fTheta);
-    coord->y = t_x* -sin(rt->fTheta) + coord->y * cos(rt->fTheta);
+    coord->x = t_x*cos(fTheta) + coord->y * sin(fTheta);
+    coord->y = t_x* -sin(fTheta) + coord->y * cos(fTheta);
 }
 
 int ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm)

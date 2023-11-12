@@ -1,6 +1,15 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# define t_vec3 t_color
+
+enum	e_identifier
+{
+	E_TTSP = 's' * 'p',
+	E_TTPL = 'p' * 'l',
+	E_TTCY = 'c' * 'y',
+};
+
 typedef struct s_vec2
 {
 	float	x;
@@ -12,15 +21,13 @@ typedef struct s_vec3
 	float	x;
 	float	y;
 	float	z;
-	float	m;
 }	t_vec3;
 
-typedef struct s_color
+typedef struct s_ray
 {
-	float	r;
-	float	b;
-	float	g;
-}	t_color;
+	t_vec3	orig;
+	t_vec3	dir;
+}	t_ray;
 
 typedef struct s_mat4
 {
@@ -31,6 +38,7 @@ typedef struct s_camera
 {
 	t_vec3	pos;
 	t_vec3	dir;
+	t_vec3	initial_dir;
 	float	fov;
 }	t_camera;
 
@@ -40,7 +48,7 @@ typedef	struct s_viewport
 	float	height;
 	float	dist;
 	float	aspect_ratio;
-}
+}	t_viewport;
 
 typedef struct s_map
 {
@@ -66,20 +74,14 @@ typedef struct s_rt
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
+
 	int		x;
 	int		y;
 	int		x_ref;
 	int		y_ref;
-	t_vec2	camera;
-	// double	z;
-	float	offset_x;
-	float	offset_y;
 	float	zoom;
 	t_vec3	light_dir;
-	int		color;
-	float	fTheta;
 	t_mat4	*matProj;
-	mesh 	meshCube;
 }	t_rt;
 
 typedef struct s_cylinder
@@ -93,15 +95,15 @@ typedef struct s_cylinder
 	t_color	color;
 }	t_cylinder;
 
-typedef struct
-{
-	t_vec3 p[3];
-}	triangle;
+//typedef struct
+//{
+//	t_vec3 p[3];
+//}	triangle;
 
-typedef struct
-{
-	triangle* tris;
-	int num_triangles;
-}	mesh;
+//typedef struct
+//{
+//	triangle* tris;
+//	int num_triangles;
+//}	mesh;
 
 #endif
