@@ -13,7 +13,6 @@ float	vec3_len(t_vec3 v);
 float	vec3_normalize(t_vec3 v);
 t_vec3	vec3_normalized(void);
 
-float	vec3_magnitude(t_vec3 v);
 float	vec3_dot(t_vec3 v1, t_vec3 v2);
 float	vec3_angle(t_vec3 v1, t_vec3 v2);
 t_vec3	vec3_cross(t_vec3 v1, t_vec3 v2);

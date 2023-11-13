@@ -72,7 +72,7 @@ void	draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 
 // src/main.c
 
-void 	loop(t_rt *rt);
+void 	render(t_rt *rt);
 void	clearScreen(t_rt *rt);
 int 	draw(t_rt *rt);
 

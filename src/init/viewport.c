@@ -12,5 +12,5 @@ void	set_viewport(void)
 	viewport()->width = 1.0;
 	viewport()->height = 1.0;
 	viewport()->dist = 1.0;
-	viewport()->aspect_ratio = 1.0;
+	viewport()->aspect_ratio = (float)SIZE / (float)SIZE;
 }
