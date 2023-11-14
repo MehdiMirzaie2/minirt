@@ -13,9 +13,16 @@ float	vec3_len(t_vec3 v)
 t_vec3	vec3_normalized(t_vec3 v)
 {
 	float	l;
+	t_vec3	normed_vec;
 
 	l = vec3_len(v);
-	vec3_divide(v, l);
-
-	return (v);
+	if (l != 0.0)
+		vec3_divide(normed_vec, l);
+	else
+	{
+		normed_vec.x = v.x;
+		normed_vec.y = v.y;
+		normed_vec.z = v.z;
+	}
+	return (normed_vec);
 }

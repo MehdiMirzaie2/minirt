@@ -19,7 +19,7 @@
 // Srceen dimensions
 # define SIZE 700
 
-# define TMIN 0
+# define TMIN 1
 # define TMAX 2147483647
 
 // KEYCODES
@@ -64,7 +64,7 @@ int		parse(t_map **map, char	*fname);
 
 // src/shapes.c
 int		ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm);
-int		ft_sphere(t_rt *rt, t_vec2 coord, t_vec2 notnorm);
+int		ft_sphere(t_rt *rt, t_ray ray, t_vec2 notnorm);
 
 // src/line.c
 void 	draw_line(t_rt *rt, t_vec2 p1, t_vec2 p2, int color);

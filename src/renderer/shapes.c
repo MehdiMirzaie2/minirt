@@ -32,7 +32,7 @@ int ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm)
 {
     t_vec3 rayDirections = (t_vec3){coord.x, coord.y, -1.0f};
     t_vec3 rayOrigin = (t_vec3){0.4f, 0.0f, rt->zoom};
-    rotate_z(&rayDirections, rt);
+    // rotate_z(&rayDirections, rt);
 
     float a = ((rayDirections.x * rayDirections.x) - (rayDirections.y * rayDirections.y) + (rayDirections.z * rayDirections.z));
     float b = 2.0f * (rayOrigin.x * rayDirections.x - rayOrigin.y * rayDirections.y + rayOrigin.z * rayDirections.z);
@@ -57,10 +57,10 @@ int ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm)
         return (0);
 }
 
-int ft_sphere(t_rt *rt, t_vec2 coord, t_vec2 notnorm)
+int ft_sphere(t_rt *rt, t_ray ray, t_vec2 notnorm)
 {
-    t_vec3 rayDirections = (t_vec3){coord.x, coord.y, -1.0f};
-    t_vec3 rayOrigin = (t_vec3){0.0f, 0.0f, rt->zoom};
+    t_vec3 rayDirections = ray.dir;
+    t_vec3 rayOrigin = camera()->pos;
     float radius = 0.5f;
 
     float a = vec3_dot(rayDirections, rayDirections);
@@ -82,6 +82,6 @@ int ft_sphere(t_rt *rt, t_vec2 coord, t_vec2 notnorm)
         float intensity = max(vec3_dot(normal, vec3_scale(rt->light_dir, -1)), 0.0);
         put_color_to_pixel(rt, notnorm.x, notnorm.y, ConvertToRGBA((t_vec3){intensity, intensity, intensity}));
     }
-    else if (ft_cone(rt, (t_vec3){coord.x, coord.y, -1.0}, notnorm) == 0)
+    else if (ft_cone(rt, camera()->pos, notnorm) == 0)
         return (0);
 }

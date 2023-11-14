@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/14 15:46:46 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/14 16:56:27 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,17 @@ void clearScreen(t_rt *rt)
     }
 }
 
-t_color	trace_ray(t_ray ray, int tmin, int tmax)
-{
+// t_color	trace_ray(t_ray ray, int tmin, int tmax)
+// {
+// 	float	closest_intersect;
+// 	t_vec3	dir;
+// 	t_vec3	point;
 	
-}
+// 	dir = vec3_scale(ray, closest_intersect);
+// 	point = vec3_add(camera()->pos, dir);
+	
+	
+// }
 
 /*
     a = ray origin -> forward negative z.
@@ -76,7 +83,8 @@ void render(t_rt *rt)
 		while (++x <= (SIZE / 2))
 		{
 			ray.dir = mult_mtrx_vector(&m, (t_vec3){x, y, -1.0});
-			color = trace_ray(ray, TMIN, TMAX);
+			// color = trace_ray(ray, TMIN, TMAX);
+			ft_sphere(rt, ray, (t_vec2){x, y});
 		}
 		x = ((SIZE / 2) * -1);
 	}
