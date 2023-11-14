@@ -10,8 +10,7 @@ t_vec3	vec3_divide(t_vec3 v, float t);
 
 float	vec3_len_squared(t_vec3 v);
 float	vec3_len(t_vec3 v);
-float	vec3_normalize(t_vec3 v);
-t_vec3	vec3_normalized(void);
+t_vec3	vec3_normalized(t_vec3 v);
 
 float	vec3_dot(t_vec3 v1, t_vec3 v2);
 float	vec3_angle(t_vec3 v1, t_vec3 v2);

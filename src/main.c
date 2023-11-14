@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/13 23:39:23 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/14 15:46:46 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void clearScreen(t_rt *rt)
     }
 }
 
+t_color	trace_ray(t_ray ray, int tmin, int tmax)
+{
+	
+}
+
 /*
     a = ray origin -> forward negative z.
     b = ray direction
@@ -57,42 +62,42 @@ void render(t_rt *rt)
     clearScreen(rt);
 
 	t_mat4	m;
-	//int		x;
-	//int		y;
+	int		x;
+	int		y;
 	t_ray	ray;
 	t_color	color;
 
 	m = rotate_camera();
-	//x = ((SIZE / 2) * -1);
-	//y = (SIZE / 2);
-	//// this loop generates from the centre
-	//while (--y >= (SIZE / 2) * -1)
-	//{
-	//	while (++x <= (SIZE / 2))
-	//	{
-	//		ray.dir = ray.dir = mult_mtrx_vector(&m, (t_vec3){x, y, -1.0});
-	//		// this ray direction can be used for tracing rays and put colors on them.
-	//		// the equeation of that can be extracted from drawing functions. (note for jaejun)
-	//	}
-	//	x = ((SIZE / 2) * -1);
-	//}
+	x = ((SIZE / 2) * -1);
+	y = (SIZE / 2);
+	// this loop generates from the centre
+	while (--y >= (SIZE / 2) * -1)
+	{
+		while (++x <= (SIZE / 2))
+		{
+			ray.dir = mult_mtrx_vector(&m, (t_vec3){x, y, -1.0});
+			color = trace_ray(ray, TMIN, TMAX);
+		}
+		x = ((SIZE / 2) * -1);
+	}
 
-
-    for (int y = 0; y < SIZE; y++)
-    {
-        for (int x = 0; x < SIZE; x++)
-        {
-            t_vec2	point = (t_vec2){x, y};
-            point.x /= (float)SIZE;
-            point.y /= (float)SIZE;
-            point.x = point.x * 2.0f - 1.0f; // -1 -> 1
-            point.y = point.y * 2.0f - 1.0f;
-			ray.dir = mult_mtrx_vector(&m, (t_vec3){point.x, point.y, -1.0});
-            ft_sphere(rt, point, (t_vec2){x, y});
-        }
-    }
+    // for (int y = 0; y < SIZE; y++)
+    // {
+    //     for (int x = 0; x < SIZE; x++)
+    //     {
+    //         t_vec2	point = (t_vec2){x, y};
+    //         point.x /= (float)SIZE;
+    //         point.y /= (float)SIZE;
+    //         point.x = point.x * 2.0f - 1.0f; // -1 -> 1
+    //         point.y = point.y * 2.0f - 1.0f;
+	// 		   ray.dir = mult_mtrx_vector(&m, (t_vec3){point.x, point.y, -1.0});
+    //         ft_sphere(rt, point, (t_vec2){x, y});
+    //     }
+    // }
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
+
+
 
 //void test_parser(t_map *map)
 //{
@@ -129,7 +134,7 @@ int main(int argc, char **argv)
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
-    rt->matProj = init_matProj();
+    // rt->matProj = init_matProj();
     parse(&rt->map, argv[1]);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, mouse_hook, rt);

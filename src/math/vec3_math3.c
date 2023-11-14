@@ -12,8 +12,8 @@ float	vec3_angle(t_vec3 v1, t_vec3 v2)
 	float	dot;
 	float	radians;
 
-	len1 = vec3_len_squared(v1);
-	len2 = vec3_len_squared(v2);
+	len1 = vec3_len(v1);
+	len2 = vec3_len(v2);
 	dot = vec3_dot(v1, v2);
 	radians = (acos(dot / (len1 * len2)));
 	return (radians);
@@ -31,5 +31,5 @@ t_vec3	vec3_cross(t_vec3 v1, t_vec3 v2)
 
 t_vec3	unit_vector(t_vec3 v)
 {
-	return vec3_scale(v, vec3_len_squared(v));
+	return vec3_scale(v, vec3_len(v));
 }

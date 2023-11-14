@@ -19,6 +19,9 @@
 // Srceen dimensions
 # define SIZE 700
 
+# define TMIN 0
+# define TMAX 2147483647
+
 // KEYCODES
 # define ESC 53
 # define UP 126

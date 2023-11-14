@@ -48,8 +48,8 @@ int ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm)
 
         t_vec3 hit_point = vec3_add(rayOrigin, vec3_scale(rayDirections, nt));
         t_vec3 normal = hit_point;
-    	vec3_normalize(normal);
-        vec3_normalize(rt->light_dir);
+    	normal = vec3_normalized(normal);
+        rt->light_dir = vec3_normalized(rt->light_dir);
         float intensity = max(vec3_dot(normal, vec3_scale(rt->light_dir, -1)), 0.0);
         put_color_to_pixel(rt, notnorm.x, notnorm.y, ConvertToRGBA((t_vec3){intensity, intensity, 0xFF0000}));
     }
@@ -77,8 +77,8 @@ int ft_sphere(t_rt *rt, t_vec2 coord, t_vec2 notnorm)
 
         t_vec3 hit_point = vec3_add(rayOrigin, vec3_scale(rayDirections, nt));
         t_vec3 normal = hit_point;
-        vec3_normalize(normal);
-        vec3_normalize(rt->light_dir);
+        normal = vec3_normalized(normal);
+        rt->light_dir = vec3_normalized(rt->light_dir);
         float intensity = max(vec3_dot(normal, vec3_scale(rt->light_dir, -1)), 0.0);
         put_color_to_pixel(rt, notnorm.x, notnorm.y, ConvertToRGBA((t_vec3){intensity, intensity, intensity}));
     }
