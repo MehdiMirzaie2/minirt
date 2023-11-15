@@ -1,7 +1,7 @@
 
 #include "minirt.h"
 
-void normalize(vec3d *vec)
+void normalize(t_vec3d *vec)
 {
     float length = sqrt(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
 
@@ -13,9 +13,9 @@ void normalize(vec3d *vec)
     }
 }
 
-vec3d vec3d_scale(vec3d v1, float scalar)
+t_vec3d t_vec3d_scale(t_vec3d v1, float scalar)
 {
-    vec3d result;
+    t_vec3d result;
 
     result.x = v1.x * scalar;
     result.y = v1.y * scalar;
@@ -23,9 +23,9 @@ vec3d vec3d_scale(vec3d v1, float scalar)
     return (result);
 }
 
-vec3d vec3d_add(vec3d v1, vec3d v2)
+t_vec3d t_vec3d_add(t_vec3d v1, t_vec3d v2)
 {
-    vec3d result;
+    t_vec3d result;
 
     result.x = v1.x + v2.x;
     result.y = v1.y + v2.y;
@@ -33,12 +33,22 @@ vec3d vec3d_add(vec3d v1, vec3d v2)
     return (result);
 }
 
-float dot(vec3d v1, vec3d v2)
+t_vec3d t_vec3d_sub(t_vec3d v1, t_vec3d v2)
+{
+    t_vec3d result;
+
+    result.x = v1.x - v2.x;
+    result.y = v1.y - v2.y;
+    result.z = v1.z - v2.z;
+    return (result);
+}
+
+float dot(t_vec3d v1, t_vec3d v2)
 {
     return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-static uint32_t ConvertToRGBA(const vec3d color)
+uint32_t ConvertToRGBA(const t_vec3d color)
 {
     uint8_t r = (uint8_t)(color.x * 255.0f);
     uint8_t g = (uint8_t)(color.y * 255.0f);

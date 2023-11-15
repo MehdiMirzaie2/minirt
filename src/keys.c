@@ -8,16 +8,16 @@ int	key_hook(int keycode, t_rt *rt)
 		rt->fTheta += 0.001f;
 		// draw(rt);
 	}
-	else if (keycode == LEFT)
-	{
-		rt->camera.x += 0.5;
-		rt->camera.y += 0.5;
-	}
+	// else if (keycode == LEFT)
+	// {
+	// 	rt->camera.x += 0.5;
+	// 	rt->camera.y += 0.5;
+	// }
 	loop(rt);
 	return 0;
 }
 
-void	update_light_dir(vec3d	*light_dir, int x, int y)
+void	update_light_dir(t_vec3d	*light_dir, int x, int y)
 {
 	light_dir->x = (float)x / (float)SIZE;
 	light_dir->y = (float)y / (float)SIZE;

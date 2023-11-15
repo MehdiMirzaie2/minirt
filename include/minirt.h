@@ -10,6 +10,7 @@
 # include "map.h"
 #include <stdio.h>
 #include <math.h>
+#include "vec.h"
 
 // Srceen dimensions
 # define SIZE 700
@@ -29,35 +30,10 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-typedef struct vec2d
-{
-	float x, y;
-} vec2d;
-
-typedef struct
-{
-    float x, y, z;
-} vec3d;
-
-typedef struct
-{
-    vec3d p[3];
-} triangle;
-
-typedef struct
-{
-    triangle* tris;
-	int num_triangles;
-} mesh;
-
-typedef struct
-{
-    float m[4][4];
-} mat4x4;
-
 typedef struct s_rt
 {
 	t_map	*map;
+	// t_scene	*scene;
 	void	*mlx;
 	void	*window;
 	void	*image;
@@ -69,45 +45,51 @@ typedef struct s_rt
 	int		y;
 	int		x_ref;
 	int		y_ref;
-	vec2d	camera;
-	// double	z;
 	float	offset_x;
 	float	offset_y;
 	float	zoom;
-	vec3d	light_dir;
+	t_vec3d	light_dir;
 	int		color;
 	float	fTheta;
-	mat4x4	*matProj;
-	mesh 	meshCube;
+	t_mat4x4	*matProj;
+	// mesh 	meshCube;
 }			t_rt;
 
+int	parse(t_map **map, char	*fname);
+void test_parser(t_map *map);
 
 // src/utils.c
 float	max(float arg1, float arg2);
-static	uint32_t ConvertToRGBA(const vec3d color);
-float	dot(vec3d v1, vec3d v2);
-vec3d	vec3d_add(vec3d v1, vec3d v2);
-vec3d	vec3d_scale(vec3d v1, float scalar);
-void	normalize(vec3d *vec);
+uint32_t ConvertToRGBA(const t_vec3d color);
+float	dot(t_vec3d v1, t_vec3d v2);
+t_vec3d	t_vec3d_add(t_vec3d v1, t_vec3d v2);
+t_vec3d t_vec3d_sub(t_vec3d v1, t_vec3d v2);
+t_vec3d	t_vec3d_scale(t_vec3d v1, float scalar);
+void	normalize(t_vec3d *vec);
 
 // src/init.c
 void	init_rt(t_rt *rt);
 void	init_mlx(t_rt *rt);
-triangle	*init_cube(void);
-mat4x4	*init_matProj(void);
+// triangle	*init_cube(void);
+t_mat4x4	*init_matProj(void);
 
 // src/keys.c
 int		key_hook(int keycode, t_rt *rt);
 void	mouse_hook(int mousecode, int x, int y, t_rt *rt);
 void	mouse_move(int mousecode, int x, int y, t_rt *rt);
-void	update_light_dir(vec3d	*light_dir, int x, int y);
+void	update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-int		ft_cone(t_rt *rt, vec3d coord, vec2d notnorm);
-int		ft_sphere(t_rt *rt, vec2d coord, vec2d notnorm);
+int		ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
+int		ft_sphere(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
+int		ft_cylinder(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
+void plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
+void plane2(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
+void plane3(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
+void plane4(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
 
 // src/line.c
-void draw_line(t_rt *rt, vec2d p1, vec2d p2, int color);
+void draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);
 
 // src/triangle.c
 void	draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);

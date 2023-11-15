@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 11:39:04 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:28:09 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,22 @@ int	get_map(t_map *map, char *line)
 		++line;
 	++line;
 	if (map->type == 'A')
-		ft_sscanf(line, "%f %d,%d,%d", &map->light, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f %d,%d,%d", &map->light, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == 'C')
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point[0], &map->point[1],
-			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->fov);
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point.x, &map->point.y,
+			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->fov);
 	if (map->type == 'L')
-		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->brightness, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point.x, &map->point.y,
+			&map->point.z, &map->brightness, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == E_TTSP)
-		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->diameter, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f,%f,%f %f %d,%d,%d", &map->point.x, &map->point.y,
+			&map->point.z, &map->diameter, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == E_TTPL)
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->point.x, &map->point.y,
+			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == E_TTCY)
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", &map->point[0], &map->point[1],
-			&map->point[2], &map->normalized[0], &map->normalized[1], &map->normalized[2], &map->diameter, &map->height, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", &map->point.x, &map->point.y,
+			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->diameter, &map->height, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	return (0);
 }
 

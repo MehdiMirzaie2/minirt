@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/07 14:12:10 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/15 12:28:48 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "libft.h"
 
-mat4x4	*init_matProj(void)
+t_mat4x4	*init_matProj(void)
 {
-	mat4x4 *matProj = malloc(sizeof(mat4x4));
+	t_mat4x4 *matProj = malloc(sizeof(t_mat4x4));
 	float fNear = 0.1f;
 	float fFar = 1000.0f;
-	float fFov = 90.0f;
+	float fFov = 50.0f;
 	float fAspectRatio = (float)SIZE / (float)SIZE;
 	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
 
-	if (matProj->m != NULL)
-    	ft_memset(matProj, 0.0f, sizeof(mat4x4));
+	// if (matProj->m != NULL)
+    	// ft_memset(matProj, 0.0f, sizeof(t_mat4x4));
 	matProj->m[0][0] = fAspectRatio * fFovRad;
 	matProj->m[1][1] = fFovRad;
 	matProj->m[2][2] = fFar / (fFar - fNear);
@@ -44,10 +44,10 @@ void	init_rt(t_rt *rt)
 	rt->color = 0xFCBE11;
 	rt->zoom = 1.0f;
 
-	rt->camera = (vec2d){0, 0};
+	// rt->camera = (vec2d){0, 0};
 	rt->matProj = init_matProj();
-	rt->meshCube.num_triangles = 0;
-	rt->meshCube.tris = NULL;
+	// rt->meshCube.num_triangles = 0;
+	// rt->meshCube.tris = NULL;
 }
 
 void	init_mlx(t_rt *rt)

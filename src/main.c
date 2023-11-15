@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/08 16:38:05 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:35:49 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
     buffer[(y * rt->size_line / 4) + x] = color;
 }
 
-void MultiplyMatrixVector(vec3d *i, vec3d *o, mat4x4 *m)
+void MultiplyMatrixVector(t_vec3d *i, t_vec3d *o, t_mat4x4 *m)
 {
     o->x = i->x * m->m[0][0] + i->y * m->m[1][0] + i->z * m->m[2][0] + m->m[3][0];
     o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
@@ -77,23 +77,54 @@ void loop(t_rt *rt)
         }
     }
     clearScreen(rt);
-    // printf("zoom level: %f\n", rt->zoom);
     for (int y = 0; y < SIZE; y++)
     {
         for (int x = 0; x < SIZE; x++)
         {
-            vec3d   point1;
-            vec2d point = (vec2d){x, y};
+            // t_vec3d   point1;
+            t_vec2d point = (t_vec2d){x, y};
             point.x /= (float)SIZE;
             point.y /= (float)SIZE;
-            point.x = point.x * 2.0f - 1.0f; // -1 -> 1
+            point.x = point.x * 2.0f - 1.0f;
             point.y = point.y * 2.0f - 1.0f;
-            MultiplyMatrixVector(&(vec3d){point.x , point.y, -1.0}, &point1, rt->matProj);
-            ft_sphere(rt, point, (vec2d){x, y});
+            // MultiplyMatrixVector(&(t_vec3d){point.x , point.y, -1.0}, &point1, rt->matProj);
+            // ft_cone(rt, (t_vec3d){coord.x, coord.y, -1.0}, notnorm) == 0)
+            // ft_cylinder(rt, (t_vec3d){point.x, point.y, -1.0}, (t_vec2d){x, y});
+            plane(rt, point, (t_vec2d){x, y});
+            // plane2(rt, point, (t_vec2d){x, y});
+            // plane3(rt, point, (t_vec2d){x, y});
+            // plane4(rt, point, (t_vec2d){x, y});
+            ft_sphere(rt, point, (t_vec2d){x, y});
         }
     }
+    rt->fTheta += 0.01;
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
                             0);
+}
+
+void test_parser(t_map *map)
+{
+	while (map)
+	{
+		if (map->type == 'A')
+			printf("A: %f\t %d,%d,%d\n", map->light, map->rgb.r, map->rgb.g, map->rgb.b);
+		if (map->type == 'C')
+			printf("C: %f,%f,%f\t %f,%f,%f\t %d\n", map->point.x, map->point.y,
+				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->fov);
+		if (map->type == 'L')
+			printf("L: %f,%f,%f\t %f\t %d,%d,%d\n", map->point.x, map->point.y,
+				map->point.z, map->brightness, map->rgb.r, map->rgb.g, map->rgb.b);
+		if (map->type == E_TTSP)
+			printf("sp: %f,%f,%f\t %f\t %d,%d,%d\n", map->point.x, map->point.y,
+				map->point.z, map->diameter, map->rgb.r, map->rgb.g, map->rgb.b);
+		if (map->type == E_TTPL)
+			printf("pl: %f,%f,%f\t %f,%f,%f\t %d,%d,%d\n", map->point.x, map->point.y,
+				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->rgb.r, map->rgb.g, map->rgb.b);
+		if (map->type == E_TTCY)
+			printf("cy: %f,%f,%f\t %f,%f,%f\t %f\t %f\t %d,%d,%d\n", map->point.x, map->point.y,
+				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->diameter, map->height, map->rgb.r, map->rgb.g, map->rgb.b);
+		map = map->next;
+	}
 }
 
 int main(void)
@@ -103,13 +134,13 @@ int main(void)
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
-    rt->matProj = init_matProj();
+    // rt->matProj = init_matProj();
     parse(&rt->map, "test.rt");
-    // test_parser(rt->map);
+    test_parser(rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
-    mlx_mouse_hook(rt->window, mouse_hook, rt);
+    mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 
-    mlx_loop_hook(rt->mlx, loop, rt);
+    mlx_loop_hook(rt->mlx, (void *)loop, rt);
     // loop(rt);
     mlx_loop(rt->mlx);
     return 0;
