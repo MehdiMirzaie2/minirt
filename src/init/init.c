@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/12 15:28:55 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/15 14:11:03 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_mat4	*init_matProj(void)
 void	init_rt(t_rt *rt)
 {
 	rt->map = malloc(sizeof(t_map));
+	rt->fTheta = 2.0f;
 	rt->x = -1;
 	rt->y = -1;
 	rt->x_ref = -1;

@@ -1,8 +1,6 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# define t_vec3 t_color
-
 enum	e_identifier
 {
 	E_TTSP = 's' * 'p',
@@ -23,6 +21,13 @@ typedef struct s_vec3
 	float	z;
 }	t_vec3;
 
+typedef struct s_color
+{
+	float	r;
+	float	g;
+	float	b;
+}	t_color;
+
 typedef struct s_ray
 {
 	t_vec3	orig;
@@ -38,7 +43,6 @@ typedef struct s_camera
 {
 	t_vec3	pos;
 	t_vec3	dir;
-	t_vec3	initial_dir;
 	float	fov;
 }	t_camera;
 
@@ -80,20 +84,33 @@ typedef struct s_rt
 	int		x_ref;
 	int		y_ref;
 	float	zoom;
+	float	fTheta;
 	t_vec3	light_dir;
 	t_mat4	*matProj;
 }	t_rt;
 
-typedef struct s_cylinder
-{
-	t_vec3	center;
-	t_vec3	cap1;
-	t_vec3	cap2;
-	t_vec3	normal;
-	float	radius;
-	float	height;
-	t_color	color;
-}	t_cylinder;
+//typedef struct s_sphere
+//{
+//	t_vec3	center;
+//	float	diameter;
+//	t_color	color;
+//}	t_sphere;
+
+//typedef struct s_plane
+//{
+//	t_vec3	point;
+//	t_vec3	norm;
+//	t_color	color;
+//}	t_plane;
+
+//typedef struct s_cylinder
+//{
+//	t_vec3	center;
+//	t_vec3	norm;
+//	float	diameter;
+//	float	height;
+//	t_color	color;
+//}	t_cylinder;
 
 //typedef struct
 //{

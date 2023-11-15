@@ -42,9 +42,8 @@
 
 // src/utils.c
 float	max(float arg1, float arg2);
-uint32_t	ConvertToRGBA(const t_vec3 color);
-float	set_fov(float degrees);
-t_vec3	mult_mtrx_vector(t_mat4 *matrix, t_vec3 vector);
+uint32_t	ConvertToRGBA(const t_color color);
+void	MultiplyMatrixVector(t_vec3 *i, t_vec3 *o, t_mat4 *m);
 
 // src/init.c
 void	init_rt(t_rt *rt);
@@ -64,7 +63,7 @@ int		parse(t_map **map, char	*fname);
 
 // src/shapes.c
 int		ft_cone(t_rt *rt, t_vec3 coord, t_vec2 notnorm);
-int		ft_sphere(t_rt *rt, t_ray ray, t_vec2 notnorm);
+int		ft_sphere(t_rt *rt, t_vec2 coord, t_vec2 notnorm);
 
 // src/line.c
 void 	draw_line(t_rt *rt, t_vec2 p1, t_vec2 p2, int color);

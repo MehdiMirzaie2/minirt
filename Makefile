@@ -15,7 +15,6 @@ SRC_DIR		:=	src
 SRCS		:=	init/init.c	\
 				init/viewport.c \
 				init/camera.c \
-				init/cylinder.c \
 				renderer/line.c \
 				renderer/shapes.c \
 				parser/parse.c	\

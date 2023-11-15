@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/12 16:36:54 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/15 21:16:16 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_map(t_map *map, char *line)
 	if (!line)
 		return (-1);
 	map->type = *line;
-	printf("line - %s\n", line);
+	//printf("line - %s\n", line);
 	if (!ft_isspace(*(++line)))
 		map->type *= *line;
 	if (!ft_isspace(*line))
@@ -40,16 +40,8 @@ int	get_map(t_map *map, char *line)
 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d,%d,%d", &map->pos.x, &map->pos.y,
 			&map->pos.z, &map->dir.x, &map->dir.y, &map->dir.z, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	if (map->type == E_TTCY)
-	{
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", \
-			&map->pos.x, &map->pos.y, &map->pos.z, \
-			&map->dir.x, &map->dir.y, &map->dir.z, \
-			&map->diameter, &map->height, \
-			&map->rgb[0], &map->rgb[1], &map->rgb[2]);
-		printf("inside parsing map - %f\n", map->pos.x);
-		printf("inside parsing map - %f\n", map->pos.y);
-		printf("inside parsing map - %f\n", map->pos.z);
-	}
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %d,%d,%d", &map->pos.x, &map->pos.y, &map->pos.z, &map->dir.x, &map->dir.y, &map->dir.z, \
+			&map->diameter, &map->height, &map->rgb[0], &map->rgb[1], &map->rgb[2]);
 	return (0);
 }
 
@@ -83,4 +75,3 @@ int	parse(t_map **map, char	*fname)
 	}
 	return (0);
 }
-

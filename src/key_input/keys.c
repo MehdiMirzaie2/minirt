@@ -3,13 +3,13 @@
 int	key_hook(int keycode, t_rt *rt)
 {
 	if (keycode == UP)
-	{
-		//rt->fTheta += 0.001f;
-	}
+		camera()->pos.y -= 0.1f;
+	else if (keycode == DOWN)
+		camera()->pos.y += 0.1f;
 	else if (keycode == LEFT)
-	{
-
-	}
+		camera()->pos.x -= 0.1f;
+	else if (keycode == RIGHT)
+		camera()->pos.x += 0.1f;
 	else if (keycode == ESC)
 		exit_mlx(rt);
 	render(rt);
