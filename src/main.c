@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/15 12:35:49 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:26:27 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,21 +107,21 @@ void test_parser(t_map *map)
 	while (map)
 	{
 		if (map->type == 'A')
-			printf("A: %f\t %d,%d,%d\n", map->light, map->rgb.r, map->rgb.g, map->rgb.b);
+			printf("A:  light: %f\t rgb: %f,%f,%f\n", map->light, map->rgb.r, map->rgb.g, map->rgb.b);
 		if (map->type == 'C')
-			printf("C: %f,%f,%f\t %f,%f,%f\t %d\n", map->point.x, map->point.y,
-				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->fov);
+			printf("C:  point: %f,%f,%f\t normalized: %f,%f,%f\t fov: %d\n", map->point.x, map->point.y,
+				map->point.z, map->normalized.x, map->normalized.y, map->normalized.z, map->fov);
 		if (map->type == 'L')
-			printf("L: %f,%f,%f\t %f\t %d,%d,%d\n", map->point.x, map->point.y,
+			printf("L:  point: %f,%f,%f\t brightness: %f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
 				map->point.z, map->brightness, map->rgb.r, map->rgb.g, map->rgb.b);
 		if (map->type == E_TTSP)
-			printf("sp: %f,%f,%f\t %f\t %d,%d,%d\n", map->point.x, map->point.y,
+			printf("sp: point: %f,%f,%f\t diameter: %f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
 				map->point.z, map->diameter, map->rgb.r, map->rgb.g, map->rgb.b);
 		if (map->type == E_TTPL)
-			printf("pl: %f,%f,%f\t %f,%f,%f\t %d,%d,%d\n", map->point.x, map->point.y,
+			printf("pl: point: %f,%f,%f\t normalized: %f,%f,%f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
 				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->rgb.r, map->rgb.g, map->rgb.b);
 		if (map->type == E_TTCY)
-			printf("cy: %f,%f,%f\t %f,%f,%f\t %f\t %f\t %d,%d,%d\n", map->point.x, map->point.y,
+			printf("cy: point: %f,%f,%f\t normalized: %f,%f,%f\t diameter: %f\t height: %f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
 				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->diameter, map->height, map->rgb.r, map->rgb.g, map->rgb.b);
 		map = map->next;
 	}
