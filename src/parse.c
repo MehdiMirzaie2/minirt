@@ -6,11 +6,12 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/15 14:30:54 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/16 12:32:27 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+// #include "map.h"
+#include "minirt.h"
 #include "get_next_line.h"
 #include "libft.h"
 #include <fcntl.h>

@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/15 14:26:27 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:44:04 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "get_next_line.h"
 #include <mlx.h>
-#include "map.h"
+// #include "map.h"
 #include "minirt.h"
 #include <stdbool.h>
 
@@ -26,20 +26,20 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
     buffer[(y * rt->size_line / 4) + x] = color;
 }
 
-void MultiplyMatrixVector(t_vec3d *i, t_vec3d *o, t_mat4x4 *m)
-{
-    o->x = i->x * m->m[0][0] + i->y * m->m[1][0] + i->z * m->m[2][0] + m->m[3][0];
-    o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
-    o->z = i->x * m->m[0][2] + i->y * m->m[1][2] + i->z * m->m[2][2] + m->m[3][2];
-    float w = i->x * m->m[0][3] + i->y * m->m[1][3] + i->z * m->m[2][3] + m->m[3][3];
+// void MultiplyMatrixVector(t_vec3d *i, t_vec3d *o, t_mat4x4 *m)
+// {
+//     o->x = i->x * m->m[0][0] + i->y * m->m[1][0] + i->z * m->m[2][0] + m->m[3][0];
+//     o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
+//     o->z = i->x * m->m[0][2] + i->y * m->m[1][2] + i->z * m->m[2][2] + m->m[3][2];
+//     float w = i->x * m->m[0][3] + i->y * m->m[1][3] + i->z * m->m[2][3] + m->m[3][3];
 
-    if (w != 0.0f)
-    {
-        o->x /= w;
-        o->y /= w;
-        o->z /= w;
-    }
-}
+//     if (w != 0.0f)
+//     {
+//         o->x /= w;
+//         o->y /= w;
+//         o->z /= w;
+//     }
+// }
 
 void clearScreen(t_rt *rt)
 {
@@ -81,25 +81,17 @@ void loop(t_rt *rt)
     {
         for (int x = 0; x < SIZE; x++)
         {
-            // t_vec3d   point1;
             t_vec2d point = (t_vec2d){x, y};
             point.x /= (float)SIZE;
             point.y /= (float)SIZE;
             point.x = point.x * 2.0f - 1.0f;
             point.y = point.y * 2.0f - 1.0f;
-            // MultiplyMatrixVector(&(t_vec3d){point.x , point.y, -1.0}, &point1, rt->matProj);
-            // ft_cone(rt, (t_vec3d){coord.x, coord.y, -1.0}, notnorm) == 0)
-            // ft_cylinder(rt, (t_vec3d){point.x, point.y, -1.0}, (t_vec2d){x, y});
             plane(rt, point, (t_vec2d){x, y});
-            // plane2(rt, point, (t_vec2d){x, y});
-            // plane3(rt, point, (t_vec2d){x, y});
-            // plane4(rt, point, (t_vec2d){x, y});
-            ft_sphere(rt, point, (t_vec2d){x, y});
+            // ft_sphere(rt, point, (t_vec2d){x, y});
         }
     }
     rt->fTheta += 0.01;
-    mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0,
-                            0);
+    mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
 
 void test_parser(t_map *map)
@@ -127,7 +119,7 @@ void test_parser(t_map *map)
 	}
 }
 
-int main(void)
+int main(int ac, char **av)
 {
     t_rt *rt;
 
@@ -135,7 +127,9 @@ int main(void)
     init_rt(rt);
     init_mlx(rt);
     // rt->matProj = init_matProj();
-    parse(&rt->map, "test.rt");
+    if (ac != 2)
+        return (1);
+    parse(&rt->map, av[1]);
     test_parser(rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);

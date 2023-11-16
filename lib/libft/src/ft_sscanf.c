@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:47:03 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/15 14:21:50 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:45:10 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_id(int *num, char *string)
 {
 	int	number = ft_atoi(string);
 	*num = number;
-	printf("\n%s\t%d\n", string, *num);
+	// printf("\n%s\t%d\n", string, *num);
 	return (1);
 }
 
@@ -24,7 +24,7 @@ static int	ft_f(float *num, char *string)
 {
 	double	number = ft_atof(string);
 	*num = number;
-	printf("\n%s\t%f\n", string, *num);
+	// printf("\n%s\t%f\n", string, *num);
 	return (1);
 }
 
@@ -88,8 +88,6 @@ int	ft_sscanf(const char *tosplit, const char *str, ...)
 			substring = ft_substr(tosplit, start, j);
 			// printf("hi %s\n", substring);
 		}
-		// while ((tosplit[j] >= 48 && tosplit[j] <= 57) || tosplit[j] == '.' || tosplit[j] == '-')
-		// 	j++;
 		while (str[i] != '%')
 			i++;
 		if (str[i] == '%')
