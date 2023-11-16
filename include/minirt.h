@@ -11,8 +11,6 @@
 # include <math.h>
 
 // ours
-// #include "map.h"
-// #include "vec.h"
 #include "rt.h"
 
 // Srceen dimensions
@@ -32,8 +30,6 @@
 // MOUSECODES
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
-
-
 
 int				parse(t_map **map, char	*fname);
 void			test_parser(t_map *map);
@@ -59,13 +55,10 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-int				ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
-int				ft_sphere(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
-int				ft_cylinder(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
-void 			plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
-void 			plane2(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
-void 			plane3(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
-void 			plane4(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
+float			ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
+float			ft_sphere(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
+float			ft_cylinder(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
+float 			plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
 
 // src/line.c
 void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);
@@ -75,7 +68,7 @@ void			draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 void			draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 
 // src/main.c
-void			loop(t_rt *rt);
+void			rander(t_rt *rt);
 void			clearScreen(t_rt *rt);
 void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
 

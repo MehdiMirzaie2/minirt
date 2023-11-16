@@ -13,7 +13,7 @@ int	key_hook(int keycode, t_rt *rt)
 	// 	rt->camera.x += 0.5;
 	// 	rt->camera.y += 0.5;
 	// }
-	loop(rt);
+	rander(rt);
 	return 0;
 }
 
@@ -28,7 +28,7 @@ void	update_light_dir(t_vec3d	*light_dir, int x, int y)
 
 void	mouse_hook(int mousecode, int x, int y, t_rt *rt)
 {
-	printf("%d\n", mousecode);
+	// printf("%d\n", mousecode);
 	if (mousecode == 1)
 	{
 		update_light_dir(&rt->light_dir, x, y);
@@ -42,5 +42,5 @@ void	mouse_hook(int mousecode, int x, int y, t_rt *rt)
 	{
 		rt->zoom -= 0.1f;
 	}
-	loop(rt);
+	rander(rt);
 }

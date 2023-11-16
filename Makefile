@@ -20,6 +20,7 @@ SRCS        :=	main.c	\
 				shapes/cone.c	\
 				shapes/cylinder.c	\
 				shapes/plane.c	\
+				shapes/sphere.c	\
 				mat_cal/matrix.c	\
 				mat_cal/rotation.c	\
 # shapes/sphere.c	\

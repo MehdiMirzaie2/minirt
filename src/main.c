@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 13:44:04 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:02:36 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void clearScreen(t_rt *rt)
     t = hitpoint
 */
 
-void loop(t_rt *rt)
+void rander(t_rt *rt)
 {
     mlx_mouse_get_pos(rt->window, &rt->x, &rt->y);
     {
@@ -76,22 +76,64 @@ void loop(t_rt *rt)
             rt->y_ref = rt->y;
         }
     }
+
+    t_map   *closest_obj = NULL;
+    float   closest_t_val;
+    float   old_closest = __FLT_MAX__;
+    t_vec2d point;
+
     clearScreen(rt);
-    for (int y = 0; y < SIZE; y++)
+    if (rt->map)
     {
-        for (int x = 0; x < SIZE; x++)
+        for (int y = 0; y < SIZE; y++)
         {
-            t_vec2d point = (t_vec2d){x, y};
-            point.x /= (float)SIZE;
-            point.y /= (float)SIZE;
-            point.x = point.x * 2.0f - 1.0f;
-            point.y = point.y * 2.0f - 1.0f;
-            plane(rt, point, (t_vec2d){x, y});
-            // ft_sphere(rt, point, (t_vec2d){x, y});
+            for (int x = 0; x < SIZE; x++)
+            {
+                t_map   *ref_map = rt->map;
+                closest_obj = NULL;
+                while (ref_map)
+                {
+                    point = (t_vec2d){x, y};
+                    point.x /= (float)SIZE;
+                    point.y /= (float)SIZE;
+                    point.x = point.x * 2.0f - 1.0f;
+                    point.y = point.y * 2.0f - 1.0f;
+                    if (ref_map->type == E_TTSP)
+                        closest_t_val = ft_sphere(rt, point, (t_vec2d){x, y});
+                    else if (ref_map->type == E_TTPL)
+                        closest_t_val = plane(rt, point, (t_vec2d){x, y});
+                    if (closest_t_val < old_closest)
+                    {
+                        old_closest = closest_t_val;
+                        closest_obj = ref_map;
+                        // printf("%d\n", closest_obj->type);
+                    }
+                    ref_map = ref_map->next;
+                }
+                if (closest_obj != NULL)
+                {
+                    // printf("hi\n");
+                    // continue ;
+                if (closest_obj->type == E_TTSP)
+                {
+                    t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
+                    t_vec3d rayOrigin = closest_obj->point;
+                    t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
+                    t_vec3d normal = hit_point;
+                    normalize(&normal);
+                    normalize(&rt->light_dir);
+                    float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
+                    put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
+                }
+                }
+                printf("x+++\n");
+            }
+            printf("y+++\n");
         }
     }
     rt->fTheta += 0.01;
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
+    exit(0);
 }
 
 void test_parser(t_map *map)
@@ -134,7 +176,7 @@ int main(int ac, char **av)
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 
-    mlx_loop_hook(rt->mlx, (void *)loop, rt);
+    mlx_loop_hook(rt->mlx, (void *)rander, rt);
     // loop(rt);
     mlx_loop(rt->mlx);
     return 0;
