@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/17 13:00:17 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/17 13:24:39 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,10 @@ void rander(t_rt *rt)
                     else if (closest_obj->type == E_TTPL)
                     {
                         uint32_t color = (0x00 << 24) | ((int)closest_obj->rgb.r << 16) | ((int)closest_obj->rgb.g << 8) | (int)closest_obj->rgb.b;
-                        // put_color_to_pixel(rt, x, y, ConvertToRGBA(closest_obj->rgb));
                         put_color_to_pixel(rt, x, y, color);
-                        
                     }
                 }
-                // printf("x+++\n");
             }
-            // printf("y+++\n");
         }
     }
     rt->fTheta += 0.01;
@@ -185,8 +181,6 @@ int main(int ac, char **av)
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
-    printf("%d\n", E_TTSP);
-    // rt->matProj = init_matProj();
     if (ac != 2)
         return (1);
     parse(&rt->map, av[1]);
@@ -195,7 +189,6 @@ int main(int ac, char **av)
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 
     mlx_loop_hook(rt->mlx, (void *)rander, rt);
-    // loop(rt);
     mlx_loop(rt->mlx);
     return 0;
 }
