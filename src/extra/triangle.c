@@ -155,3 +155,4 @@ void draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3)
 // 		fill_topflat_tri(rt, v2.x, v2.y, v4.x, v4.y, v3.x, v3.y);
 // 	}
 // }
+

@@ -12,19 +12,18 @@ INCS		= 	include    \
 
 SRC_DIR		:=	src
 
-SRCS		:=	init/init.c	\
-				init/viewport.c \
-				init/camera.c \
-				init/cylinder.c \
-				renderer/line.c \
-				renderer/shapes.c \
-				parser/parse.c	\
-				math/utils.c \
-				math/vec3_math.c \
-				math/vec3_math2.c \
-				math/vec3_math3.c \
-				key_input/keys.c \
-				main.c
+SRCS        :=	main.c	\
+				parse.c	\
+                utils/init.c	\
+				utils/keys.c	\
+				utils/utils.c	\
+				shapes/cone.c	\
+				shapes/cylinder.c	\
+				shapes/plane.c	\
+				shapes/sphere.c	\
+				mat_cal/matrix.c	\
+				mat_cal/rotation.c	\
+# shapes/sphere.c	\
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 
@@ -32,14 +31,24 @@ BUILD_DIR   := .build
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)
 
-CC          := gcc
+# CC          := gcc
+
 # remove -w at the end of project;
-# CFLAGS      := -Wall -Wextra -Werror -w -g -fsanitize=address $(DFLAGS)
-CFLAGS      := -Wall -Wextra -Werror -w -O3 $(DFLAGS)
+# CFLAGS      := -Wall -Wextra -Werror -g -fsanitize=address $(DFLAGS)
+# CFLAGS      := -Wall -Wextra -Werror -w -O3 $(DFLAGS)
+# CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
+# LDFLAGS     := -fsanitize=address $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
+# LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library
+# MLXFLAGS    := -L$(MLX_LIB_DIR) -lmlx -framework OpenGL -framework AppKit  # MLX-specific flags
+# RLFLAGS     := -lreadline
+
+CC          := gcc
+CFLAGS      := -Wall -Wextra -Werror -w -g $(DFLAGS)
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
-LDFLAGS     := -fsanitize=address $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
+LDFLAGS     := $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
 LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library
 MLXFLAGS    := -L$(MLX_LIB_DIR) -lmlx -framework OpenGL -framework AppKit  # MLX-specific flags
+RLFLAGS     := -lreadline
 
 RM          := rm -f
 MAKEFLAGS   += --silent --no-print-directory
@@ -95,7 +104,7 @@ endef
 define print_obj
 	echo "${BLUE}created: ${YELLOW} $(or $1, $$1)${NC}"
 endef
-.PHONY: re fclean clean lclean all
+.PHONY: re fclean clean lclean all $(LIBFT_TARGET)
 .SILENT:
 
 export DFLAGS

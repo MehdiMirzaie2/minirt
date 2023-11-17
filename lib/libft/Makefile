@@ -17,7 +17,8 @@ OBJS        	:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS        	:= $(OBJS:.o=.d)
 
 CC          	:= clang
-CFLAGS      	:= -Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS      	:= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS      	:= -Wall -Wextra -Werror
 # CFLAGS      	:= -Wall -Wextra -Werror -g
 CPPFLAGS    	:= -MMD -MP -I include
 AR          	:= ar

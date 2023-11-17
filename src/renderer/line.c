@@ -30,3 +30,4 @@ void draw_line(t_rt *rt, t_vec2 p1, t_vec2 p2, int color)
         }
     }
 }
+

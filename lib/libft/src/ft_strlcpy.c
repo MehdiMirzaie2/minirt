@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:00:34 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/03/14 11:26:20 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:41:14 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t l)
 	if (l)
 		dest[i] = '\0';
 	return (ft_strlen(src));
+
 }
