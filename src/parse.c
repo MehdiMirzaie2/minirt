@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:05:26 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 12:32:27 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/16 21:54:19 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,39 @@
 #include "libft.h"
 #include <fcntl.h>
 #include <stdio.h>
+
+// int	get_map(t_map *map, char *line)
+// {
+// 	if (ft_isspace(*line) || *line == '\n')
+// 		return (-1);
+// 	if (!line)
+// 		return (-1);
+// 	map->type = *line;
+// 	if (!ft_isspace(*(++line)))
+// 		map->type *= *line;
+// 	if (!ft_isspace(*line))
+// 		++line;
+// 	++line;
+// 	if (map->type == 'A')
+// 		ft_sscanf(line, "%f %f,%f,%f", &map->light, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+// 	if (map->type == 'C')
+// 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point.x, &map->point.y,
+// 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->fov);
+// 	if (map->type == 'L')
+// 		ft_sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
+// 			&map->point.z, &map->brightness, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+// 	if (map->type == E_TTSP)
+// 		ft_sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
+// 			&map->point.z, &map->diameter, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+// 	if (map->type == E_TTPL)
+// 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f,%f,%f", &map->point.x, &map->point.y,
+// 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+// 	if (map->type == E_TTCY)
+// 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f", &map->point.x, &map->point.y,
+// 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->diameter, &map->height, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+// 	return (0);
+// }
+
 
 int	get_map(t_map *map, char *line)
 {
@@ -30,24 +63,25 @@ int	get_map(t_map *map, char *line)
 		++line;
 	++line;
 	if (map->type == 'A')
-		ft_sscanf(line, "%f %f,%f,%f", &map->light, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+		sscanf(line, "%f %f,%f,%f", &map->light, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == 'C')
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point.x, &map->point.y,
+		sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->fov);
 	if (map->type == 'L')
-		ft_sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
+		sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->brightness, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == E_TTSP)
-		ft_sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
+		sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->diameter, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == E_TTPL)
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f,%f,%f", &map->point.x, &map->point.y,
+		sscanf(line, "%f,%f,%f %f,%f,%f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == E_TTCY)
-		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f", &map->point.x, &map->point.y,
+		sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->diameter, &map->height, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	return (0);
 }
+
 
 int	parse(t_map **map, char	*fname)
 {

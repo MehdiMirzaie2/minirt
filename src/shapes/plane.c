@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:22 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 14:50:44 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:07:59 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 float plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm)
 {
-    t_vec3d point_on_plane = (t_vec3d){0.0, 3.5, 0.0}; // n
-    t_vec3d normal = (t_vec3d){1, 0, 0}; // p0
-    t_vec3d rayOrigin = (t_vec3d){0.0f, 0.0f, rt->zoom}; // l0
-    t_vec3d l = (t_vec3d){coord.x, coord.y, -1.0f};
-
-
-    // t_vec3d point_on_plane = (t_vec3d){0.0, 3.5, 0.0}; // n
-    // t_vec3d normal = rt->map->normalized; // p0
+    // t_vec3d point_on_plane = (t_vec3d){0.0, 3.5, 10.0}; // n
+    // t_vec3d normal = (t_vec3d){1, 0, 0}; // p0
     // t_vec3d rayOrigin = (t_vec3d){0.0f, 0.0f, rt->zoom}; // l0
     // t_vec3d l = (t_vec3d){coord.x, coord.y, -1.0f};
+
+
+    t_vec3d point_on_plane = (t_vec3d){0.0, 3.5, 0.0}; // n
+    t_vec3d normal = rt->map->normalized; // p0
+    t_vec3d rayOrigin = (t_vec3d){0.0f, 0.0f, rt->zoom}; // l0
+    t_vec3d l = (t_vec3d){coord.x, coord.y, -1.0f};
 
     float denom = dot(normal, l);
     if (denom > 1e-6)

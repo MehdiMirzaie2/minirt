@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 15:02:36 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:06:27 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ void rander(t_rt *rt)
     }
 
     t_map   *closest_obj = NULL;
-    float   closest_t_val;
-    float   old_closest = __FLT_MAX__;
+
     t_vec2d point;
 
     clearScreen(rt);
@@ -91,6 +90,8 @@ void rander(t_rt *rt)
             {
                 t_map   *ref_map = rt->map;
                 closest_obj = NULL;
+                float   closest_t_val ;
+                float   old_closest = __FLT_MAX__;
                 while (ref_map)
                 {
                     point = (t_vec2d){x, y};
@@ -98,8 +99,15 @@ void rander(t_rt *rt)
                     point.y /= (float)SIZE;
                     point.x = point.x * 2.0f - 1.0f;
                     point.y = point.y * 2.0f - 1.0f;
+                    
                     if (ref_map->type == E_TTSP)
+                    {
+                    // printf("%d\n", ref_map->type);    
                         closest_t_val = ft_sphere(rt, point, (t_vec2d){x, y});
+                        // if (closest_t_val < __FLT_MAX__)
+                            // printf("closest %f\n", closest_t_val);
+                        
+                    }
                     else if (ref_map->type == E_TTPL)
                         closest_t_val = plane(rt, point, (t_vec2d){x, y});
                     if (closest_t_val < old_closest)
@@ -112,28 +120,31 @@ void rander(t_rt *rt)
                 }
                 if (closest_obj != NULL)
                 {
-                    // printf("hi\n");
-                    // continue ;
-                if (closest_obj->type == E_TTSP)
-                {
-                    t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
-                    t_vec3d rayOrigin = closest_obj->point;
-                    t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
-                    t_vec3d normal = hit_point;
-                    normalize(&normal);
-                    normalize(&rt->light_dir);
-                    float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
-                    put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
+                    if (closest_obj->type == E_TTSP)
+                    {
+                        t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
+                        t_vec3d rayOrigin = closest_obj->point;
+                        t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
+                        t_vec3d normal = hit_point;
+                        normalize(&normal);
+                        normalize(&rt->light_dir);
+                        float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
+                        put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
+                    }
+                    else if (closest_obj->type == E_TTPL)
+                    {
+                        put_color_to_pixel(rt, x, y, 0xff00ff);
+                    }
                 }
-                }
-                printf("x+++\n");
+                // printf("x+++\n");
             }
-            printf("y+++\n");
+            // printf("y+++\n");
         }
     }
     rt->fTheta += 0.01;
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
-    exit(0);
+    // printf("looping\n");
+    // exit(0);
 }
 
 void test_parser(t_map *map)
@@ -168,6 +179,7 @@ int main(int ac, char **av)
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
+    printf("%d\n", E_TTSP);
     // rt->matProj = init_matProj();
     if (ac != 2)
         return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sscanf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:47:03 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 13:45:10 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/16 20:53:24 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	ft_sscanf(const char *tosplit, const char *str, ...)
 	char	*substring;
 	int		j = 0;
 	int		start;
-	char const *tmp;
+	// char const *tmp;
 
-	tmp = tosplit;
+	// tmp = tosplit;
 	i = 0;
 	length = 0;
 	va_start(args, str);

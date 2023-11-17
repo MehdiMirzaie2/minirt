@@ -1,5 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
 int main(int ac, char **av)
 {
-	return (printf("%d\n", av[1][0] * av[2][0]));
+	return (printf("%d\n", atoi(av[1]) * atoi(av[2])));
 }
