@@ -7,7 +7,7 @@
       "name": "Debug",
       "program": "${workspaceFolder}/minirt",
       "args": [
-        "test.rt"
+        "scenes/test04-spheres.rt"
       ],
       "cwd": "${workspaceFolder}"
     },

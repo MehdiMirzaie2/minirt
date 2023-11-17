@@ -56,9 +56,9 @@ void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
 float			ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
-float			ft_sphere(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
 float			ft_cylinder(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
-float 			plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm);
+float 			plane(t_map *map, t_vec2d coord, t_vec2d notnorm);
+float			ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm);
 
 // src/line.c
 void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);

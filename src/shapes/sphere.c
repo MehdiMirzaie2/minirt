@@ -6,18 +6,19 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:00:36 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 21:54:32 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/17 11:57:19 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float ft_sphere(t_rt *rt, t_vec2d coord, t_vec2d notnorm)
+// float ft_sphere(t_rt *rt, t_vec2d coord, t_vec2d notnorm)
+float ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm)
 {
     t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
     // t_vec3d rayOrigin = (t_vec3d){0.0f, 0.0f, rt->zoom};
-    t_vec3d rayOrigin = rt->map->point;
-    float radius = rt->map->diameter / 2.0f;
+    t_vec3d rayOrigin = map->point;
+    float radius = map->diameter / 2.0f;
     // float radius = 0.5f;
     // printf("%f\n", rt->map->diameter);
 

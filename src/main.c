@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/17 11:06:27 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/17 11:52:43 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ void rander(t_rt *rt)
                     if (ref_map->type == E_TTSP)
                     {
                     // printf("%d\n", ref_map->type);    
-                        closest_t_val = ft_sphere(rt, point, (t_vec2d){x, y});
+                        closest_t_val = ft_sphere(ref_map, point, (t_vec2d){x, y});
                         // if (closest_t_val < __FLT_MAX__)
                             // printf("closest %f\n", closest_t_val);
                         
                     }
                     else if (ref_map->type == E_TTPL)
-                        closest_t_val = plane(rt, point, (t_vec2d){x, y});
+                        closest_t_val = plane(ref_map, point, (t_vec2d){x, y});
                     if (closest_t_val < old_closest)
                     {
                         old_closest = closest_t_val;
@@ -164,7 +164,7 @@ void test_parser(t_map *map)
 				map->point.z, map->diameter, map->rgb.r, map->rgb.g, map->rgb.b);
 		if (map->type == E_TTPL)
 			printf("pl: point: %f,%f,%f\t normalized: %f,%f,%f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
-				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->rgb.r, map->rgb.g, map->rgb.b);
+				map->point.z, map->normalized.x, map->normalized.y, map->normalized.z, map->rgb.r, map->rgb.g, map->rgb.b);
 		if (map->type == E_TTCY)
 			printf("cy: point: %f,%f,%f\t normalized: %f,%f,%f\t diameter: %f\t height: %f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
 				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->diameter, map->height, map->rgb.r, map->rgb.g, map->rgb.b);
