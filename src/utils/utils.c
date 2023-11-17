@@ -50,9 +50,9 @@ float dot(t_vec3d v1, t_vec3d v2)
 
 uint32_t ConvertToRGBA(const t_vec3d color)
 {
-    uint8_t r = (uint8_t)(color.x * 255.0f);
-    uint8_t g = (uint8_t)(color.y * 255.0f);
-    uint8_t b = (uint8_t)(color.z * 255.0f);
+    uint8_t r = (uint8_t)(color.r * 255.0f);
+    uint8_t g = (uint8_t)(color.g * 255.0f);
+    uint8_t b = (uint8_t)(color.b * 255.0f);
 
     uint32_t result = (0x00 << 24) | (r << 16) | (g << 8) | b;
     return result;

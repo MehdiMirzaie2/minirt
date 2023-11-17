@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/17 11:52:43 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/17 12:13:05 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,10 @@ void rander(t_rt *rt)
                     }
                     else if (closest_obj->type == E_TTPL)
                     {
-                        put_color_to_pixel(rt, x, y, 0xff00ff);
+                        uint32_t color = (0x00 << 24) | ((int)closest_obj->rgb.r << 16) | ((int)closest_obj->rgb.g << 8) | (int)closest_obj->rgb.b;
+                        // put_color_to_pixel(rt, x, y, ConvertToRGBA(closest_obj->rgb));
+                        put_color_to_pixel(rt, x, y, color);
+                        
                     }
                 }
                 // printf("x+++\n");
