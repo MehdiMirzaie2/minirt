@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/17 12:43:45 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/17 13:00:17 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ int main(int ac, char **av)
 {
     t_rt *rt;
 
-	if (argc != 2)
+	if (ac != 2)
 	{
 		printf("Wrong arguments.\n");
 		exit(1);
