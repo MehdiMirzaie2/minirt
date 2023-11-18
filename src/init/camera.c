@@ -20,7 +20,7 @@ void	set_camera(t_map map)
 	camera()->initial_dir.z = 1.0f;
 }
 
-// to get the angle of two vectors using dot prodcut of them.
+// to get the angle of two vectors using dot prodcut of them.   
 float	angle_of_two_vec(t_vec3d v1, t_vec3d v2)
 {
 	float	norm1;
