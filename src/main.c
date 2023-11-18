@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/17 12:43:45 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/18 19:31:54 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
 //     o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
 //     o->z = i->x * m->m[0][2] + i->y * m->m[1][2] + i->z * m->m[2][2] + m->m[3][2];
 //     float w = i->x * m->m[0][3] + i->y * m->m[1][3] + i->z * m->m[2][3] + m->m[3][3];
-
 //     if (w != 0.0f)
 //     {
 //         o->x /= w;
@@ -62,8 +61,7 @@ void clearScreen(t_rt *rt)
     r = radius
     t = hitpoint
 */
-
-void rander(t_rt *rt)
+void render(t_rt *rt)
 {
     mlx_mouse_get_pos(rt->window, &rt->x, &rt->y);
     {
@@ -97,14 +95,14 @@ void rander(t_rt *rt)
                     point.y /= (float)SIZE;
                     point.x = point.x * 2.0f - 1.0f;
                     point.y = point.y * 2.0f - 1.0f;
-                    
+
                     if (ref_map->type == E_TTSP)
                     {
-                    // printf("%d\n", ref_map->type);    
+                    // printf("%d\n", ref_map->type);
                         closest_t_val = ft_sphere(ref_map, point, (t_vec2d){x, y});
                         // if (closest_t_val < __FLT_MAX__)
                             // printf("closest %f\n", closest_t_val);
-                        
+
                     }
                     else if (ref_map->type == E_TTPL)
                         closest_t_val = plane(ref_map, point, (t_vec2d){x, y});
@@ -134,7 +132,7 @@ void rander(t_rt *rt)
                         uint32_t color = (0x00 << 24) | ((int)closest_obj->rgb.r << 16) | ((int)closest_obj->rgb.g << 8) | (int)closest_obj->rgb.b;
                         // put_color_to_pixel(rt, x, y, ConvertToRGBA(closest_obj->rgb));
                         put_color_to_pixel(rt, x, y, color);
-                        
+
                     }
                 }
                 // printf("x+++\n");
@@ -177,7 +175,7 @@ int main(int ac, char **av)
 {
     t_rt *rt;
 
-	if (argc != 2)
+	if (ac != 2)
 	{
 		printf("Wrong arguments.\n");
 		exit(1);
@@ -186,16 +184,14 @@ int main(int ac, char **av)
     init_rt(rt);
     init_mlx(rt);
     printf("%d\n", E_TTSP);
-    // rt->matProj = init_matProj();
-    if (ac != 2)
-        return (1);
+     rt->matProj = init_matProj();
     parse(&rt->map, av[1]);
     test_parser(rt->map);
+	set_camera(rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 
-    mlx_loop_hook(rt->mlx, (void *)rander, rt);
-    // loop(rt);
+    mlx_loop_hook(rt->mlx, (void *)render, rt);
     mlx_loop(rt->mlx);
     return 0;
 }

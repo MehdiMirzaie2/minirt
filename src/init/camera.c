@@ -9,24 +9,63 @@ t_camera	*camera(void)
 
 void	set_camera(t_map map)
 {
-	camera()->pos.x = map.pos.x;
-	camera()->pos.y = map.pos.y;
-	camera()->pos.z = map.pos.z;
-	camera()->dir.x = map.dir.x;
-	camera()->dir.y = map.dir.y;
-	camera()->dir.z = map.dir.z;
-	camera()->initial_dir.x = 0.0;
-	camera()->initial_dir.y = 0.0;
-	camera()->initial_dir.z = viewport()->dist;
-	set_fov(map.fov);
+	camera()->pos.x = map.point.x;
+	camera()->pos.y = map.point.y;
+	camera()->pos.z = map.point.z;
+	camera()->dir.x = map.normalized.x;
+	camera()->dir.y = map.normalized.y;
+	camera()->dir.z = map.normalized.z;
+	camera()->initial_dir.x = 0.0f;
+	camera()->initial_dir.y = 0.0f;
+	camera()->initial_dir.z = 1.0f;
 }
 
-t_mat4	create_matrix(t_vec3 axis, float angle)
+// to get the angle of two vectors using dot prodcut of them.
+float	angle_of_two_vec(t_vec3d v1, t_vec3d v2)
 {
-	t_mat4	matrix;
-	float	cos_theta;
-	float	sin_theta;
-	float	one_minus_cos_theta;
+	float	norm1;
+	float	norm2;
+	float	dot_product;
+	float	radians;
+
+	norm1 = normalize(v1);
+	norm2 = normalize(v2);
+	dot_product = dot(v1, v2);
+	radians = acos(dot_product / (norm1 * norm2));
+	return (radians);
+}
+
+// to get another vector 90 degreed from the two.
+t_vec3d	cross(t_vec3d v1, t_vec2d v2)
+{
+	t_vec3d	res;
+
+	res.x = v1.y * v2.z - v1.z * v2.y;
+	res.y = v1.z * v2.x - v1.x * v2.z;
+	res.z = v1.x * v2.y - v1.y * v2.x;
+	return (res);
+}
+
+t_mat4x4	rotate_camera(void)
+{
+	t_vec3d		axis;
+	t_vec3d		cross_product;
+	float		angle;
+	t_mat4x4	matrix;
+
+	angle = angle_of_two_vec(camera()->initial_dir, camera()->dir);
+	cross_product = cross(camera()->initial_dir, camera()->dir);
+	axis = cross_product;
+	matrix = create_matrix(axis, angle);
+	return (matrix);
+}
+
+t_mat4x4	create_matrix(t_vec3d axis, float angle)
+{
+	t_mat4x4	matrix;
+	float		cos_theta;
+	float		sin_theta;
+	float		one_minus_cos_theta;
 
 	cos_theta = cos(angle);
 	sin_theta = sin(angle);
@@ -40,19 +79,5 @@ t_mat4	create_matrix(t_vec3 axis, float angle)
 	matrix.m[2][0] = axis.z * axis.x * one_minus_cos_theta - axis.y * sin_theta;
 	matrix.m[2][1] = axis.z * axis.y * one_minus_cos_theta + axis.x * sin_theta;
 	matrix.m[2][2] = cos_theta + axis.z * axis.z * one_minus_cos_theta;
-	return (matrix);
-}
-
-t_mat4	rotate_camera(void)
-{
-	t_vec3	axis;
-	t_vec3	cross;
-	float	angle;
-	t_mat4	matrix;
-
-	angle = vec3_angle(camera()->initial_dir, camera()->dir);
-	cross = vec3_cross(camera()->initial_dir, camera()->dir);
-	axis = cross;
-	matrix = create_matrix(axis, angle);
 	return (matrix);
 }

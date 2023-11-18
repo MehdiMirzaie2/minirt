@@ -9,6 +9,7 @@ typedef struct s_map t_map;
 typedef struct s_vec2d	t_vec2d;
 typedef struct s_vec3d	t_vec3d;
 typedef struct s_mat4x4	t_mat4x4;
+typedef struct s_camera t_camera;
 
 struct s_vec2d
 {
@@ -44,6 +45,14 @@ enum	e_identifier
 	E_TTSP = 's' * 'p',
 	E_TTPL = 'p' * 'l',
 	E_TTCY = 'c' * 'y',
+}
+
+typedef struct s_camera
+{
+	t_vec3d	pos;
+	t_vec3d	dir;
+	t_vec3d	initial_dir;
+	float	fov;
 };
 
 struct s_map
