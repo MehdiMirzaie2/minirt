@@ -58,8 +58,8 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-float			ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
-float			ft_cylinder(t_rt *rt, t_vec3d coord, t_vec2d notnorm);
+float			ft_cone(t_map *map, t_vec2d coord, t_vec2d notnorm);
+float			ft_cylinder(t_map *map, t_vec2d coord, t_vec2d notnorm);
 float 			plane(t_map *map, t_vec2d coord, t_vec2d notnorm);
 float			ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm);
 
@@ -74,5 +74,8 @@ void			draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 void			rander(t_rt *rt);
 void			clearScreen(t_rt *rt);
 void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
+
+t_vec3d init_vec3d(float x, float y, float z);
+t_vec2d init_vec2d(float x, float y);
 
 #endif

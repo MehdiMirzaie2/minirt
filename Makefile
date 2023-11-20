@@ -15,6 +15,7 @@ SRC_DIR		:=	src
 SRCS        :=	main.c	\
 				parser/parse.c	\
                 utils/init.c	\
+				utils/init_vec.c	\
 				utils/keys.c	\
 				utils/utils.c	\
 				init/camera.c \
@@ -44,7 +45,7 @@ DEPS        := $(OBJS:.o=.d)
 # RLFLAGS     := -lreadline
 
 CC          := gcc
-CFLAGS      := -Wall -Wextra -Werror -w -g $(DFLAGS)
+CFLAGS      := -Wall -Wextra -Werror -g $(DFLAGS)
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
 LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library

@@ -15,6 +15,8 @@
 // float ft_sphere(t_rt *rt, t_vec2d coord, t_vec2d notnorm)
 float ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm)
 {
+    (void)notnorm;
+    // t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
     t_vec3d rayDirections = dir_from_mat(camera()->mat, (t_vec3d){coord.x, coord.y, -1.0f});
     // t_vec3d rayOrigin = (t_vec3d){0.0f, 0.0f, rt->zoom};
     t_vec3d rayOrigin = camera()->pos;
@@ -31,6 +33,7 @@ float ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm)
     if (discriminant >= 0.0f)
     {
         float t = (-b + sqrt(discriminant)) / (2.0f * a);
+        (void)t;
         float nt = (-b - sqrt(discriminant)) / (2.0f * a);
         // printf("\n%f\n", nt);
         // t_vec3d fulldir = t_vec3d_scale(rayDirections, nt);

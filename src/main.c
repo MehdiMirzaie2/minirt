@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/20 13:08:34 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/17 15:55:05 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "get_next_line.h"
 #include <mlx.h>
+#include "rt.h"
 // #include "map.h"
 #include "minirt.h"
 
@@ -91,22 +92,20 @@ void render(t_rt *rt)
                 float   old_closest = __FLT_MAX__;
                 while (ref_map)
                 {
-                    point = (t_vec2d){x, y};
+                    // point = (t_vec2d){x, y};
+                    t_vec2d notnormed = init_vec2d(x, y);
+                    point = init_vec2d(x, y);
                     point.x /= (float)SIZE;
                     point.y /= (float)SIZE;
                     point.x = point.x * 2.0f - 1.0f;
                     point.y = point.y * 2.0f - 1.0f;
 
                     if (ref_map->type == E_TTSP)
-                    {
-                    // printf("%d\n", ref_map->type);
-                        closest_t_val = ft_sphere(ref_map, point, (t_vec2d){x, y});
-                        // if (closest_t_val < __FLT_MAX__)
-                            // printf("closest %f\n", closest_t_val);
-
-                    }
+                        closest_t_val = ft_sphere(ref_map, point, notnormed);
+                    else if (ref_map->type == E_TTCY)
+                        closest_t_val = ft_cone(ref_map, point, notnormed);
                     else if (ref_map->type == E_TTPL)
-                        closest_t_val = plane(ref_map, point, (t_vec2d){x, y});
+                        closest_t_val = plane(ref_map, point, notnormed);
                     if (closest_t_val < old_closest)
                     {
                         old_closest = closest_t_val;
@@ -119,26 +118,56 @@ void render(t_rt *rt)
                 {
                     if (closest_obj->type == E_TTSP)
                     {
-                        t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
+                        // t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
+                        t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
                         t_vec3d rayOrigin = closest_obj->point;
                         t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
                         t_vec3d normal = hit_point;
                         normalize(&normal);
                         normalize(&rt->light_dir);
                         float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
-                        put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
+                        // put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
+                        put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(intensity, intensity, intensity)));
                     }
+                    else if (closest_obj->type == E_TTCY)
+                    {
+                        //  t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
+                        t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
+                        // t_vec3d rayOrigin = (t_vec3d){-5.0f, 0.0f, 20.0};
+                        t_vec3d rayOrigin = init_vec3d(-5.0f, 0.0f, 20.0f);
+                        // t_vec3d fulldir = t_vec3d_scale(rayDirections, nt);
+                        t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
+                        t_vec3d normal = hit_point;
+                        normalize(&normal);
+                        t_vec3d ref_light_dir = rt->light_dir;
+                        normalize(&ref_light_dir);
+                        rotate_z(&ref_light_dir, rt);
+                        float intensity = max(dot(normal, t_vec3d_scale(ref_light_dir, -1)), 0.0);
+                        // put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, 0xFF0000}));
+                        put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(intensity, intensity, 0xFF0000)));
+                    }
+                    // else if (closest_obj->type == E_TTCY)
+                    // {
+                    //     t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
+                    //     t_vec3d rayOrigin = closest_obj->point;
+                    //     // t_vec3d fulldir = t_vec3d_scale(rayDirections, nt);
+                    //         // (void)fulldir;
+                    //     t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
+                    //     t_vec3d normal = hit_point;
+                    //     normalize(&normal);
+                    //     // update_light_dir(&rt->light_dir, rt->light_dir.x, rt->light_dir.y);
+                    //     t_vec3d ref_light_dir = rt->light_dir;
+                    //     normalize(&ref_light_dir);
+                    //     float intensity = max(dot(normal, t_vec3d_scale(ref_light_dir, -1)), 0.0);
+                    // }
+
                     else if (closest_obj->type == E_TTPL)
                     {
                         uint32_t color = (0x00 << 24) | ((int)closest_obj->rgb.r << 16) | ((int)closest_obj->rgb.g << 8) | (int)closest_obj->rgb.b;
-                        // put_color_to_pixel(rt, x, y, ConvertToRGBA(closest_obj->rgb));
                         put_color_to_pixel(rt, x, y, color);
-
                     }
                 }
-                // printf("x+++\n");
             }
-            // printf("y+++\n");
         }
     }
     rt->fTheta += 0.01;
@@ -184,8 +213,8 @@ int main(int ac, char **av)
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
-    printf("%d\n", E_TTSP);
-    rt->matProj = init_matProj();
+    if (ac != 2)
+        return (1);
     parse(&rt->map, av[1]);
     test_parser(rt->map);
 	set_camera(rt->map);
