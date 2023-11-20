@@ -13,11 +13,12 @@ INCS		= 	include    \
 SRC_DIR		:=	src
 
 SRCS        :=	main.c	\
-				parse.c	\
+				parser/parse.c	\
                 utils/init.c	\
 				utils/init_vec.c	\
 				utils/keys.c	\
 				utils/utils.c	\
+				init/camera.c \
 				shapes/cone.c	\
 				shapes/cylinder.c	\
 				shapes/plane.c	\

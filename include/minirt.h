@@ -11,7 +11,9 @@
 # include <math.h>
 
 // ours
+#include "libft.h"
 #include "rt.h"
+#include "camera.h"
 
 // Srceen dimensions
 # define SIZE 700
@@ -47,6 +49,7 @@ void			normalize(t_vec3d *vec);
 void			init_rt(t_rt *rt);
 void			init_mlx(t_rt *rt);
 t_mat4x4		*init_matProj(void);
+int				exit_mlx(t_rt *rt);
 
 // src/keys.c
 int				key_hook(int keycode, t_rt *rt);

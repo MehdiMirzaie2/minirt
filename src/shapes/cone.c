@@ -20,13 +20,13 @@ float ft_cone(t_map *map, t_vec2d coord, t_vec2d notnorm)
     (void)map;
     (void)notnorm;
     // t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
-    t_vec3d rayDirections = init_vec3d(coord.x, coord.y, 1.0f);
+    t_vec3d rayDirections = dir_from_mat(camera()->mat, (t_vec3d){coord.x, coord.y, -1.0f});
     // rayDirections.x = coord.x;
     // rayDirections.y = coord.y;
     // rayDirections.z = -1.0f;
 
     // t_vec3d rayOrigin = (t_vec3d){-5.0f, 0.0f, 20.0};
-    t_vec3d rayOrigin = init_vec3d(-5.0, 0.0f, 20.0f);
+    t_vec3d rayOrigin = camera()->pos;
     // rayOrigin.x = -5.0f;
     // rayOrigin.y = 0.0f;
     // rayOrigin.z = 20.0f;

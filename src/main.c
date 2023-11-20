@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
 /*   Updated: 2023/11/17 15:55:05 by mehdimirzai      ###   ########.fr       */
@@ -32,7 +32,6 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
 //     o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
 //     o->z = i->x * m->m[0][2] + i->y * m->m[1][2] + i->z * m->m[2][2] + m->m[3][2];
 //     float w = i->x * m->m[0][3] + i->y * m->m[1][3] + i->z * m->m[2][3] + m->m[3][3];
-
 //     if (w != 0.0f)
 //     {
 //         o->x /= w;
@@ -63,8 +62,7 @@ void clearScreen(t_rt *rt)
     r = radius
     t = hitpoint
 */
-
-void rander(t_rt *rt)
+void render(t_rt *rt)
 {
     mlx_mouse_get_pos(rt->window, &rt->x, &rt->y);
     {
@@ -81,6 +79,7 @@ void rander(t_rt *rt)
     t_vec2d point;
 
     clearScreen(rt);
+	camera()->mat = rotate_camera();
     if (rt->map)
     {
         for (int y = 0; y < SIZE; y++)
@@ -100,7 +99,7 @@ void rander(t_rt *rt)
                     point.y /= (float)SIZE;
                     point.x = point.x * 2.0f - 1.0f;
                     point.y = point.y * 2.0f - 1.0f;
-                    
+
                     if (ref_map->type == E_TTSP)
                         closest_t_val = ft_sphere(ref_map, point, notnormed);
                     else if (ref_map->type == E_TTCY)
@@ -218,10 +217,11 @@ int main(int ac, char **av)
         return (1);
     parse(&rt->map, av[1]);
     test_parser(rt->map);
+	set_camera(rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 
-    mlx_loop_hook(rt->mlx, (void *)rander, rt);
+    mlx_loop_hook(rt->mlx, (void *)render, rt);
     mlx_loop(rt->mlx);
     return 0;
 }

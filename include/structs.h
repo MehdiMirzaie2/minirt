@@ -34,14 +34,6 @@ typedef struct s_mat4
 	float	m[4][4];
 }	t_mat4;
 
-typedef struct s_camera
-{
-	t_vec3	pos;
-	t_vec3	dir;
-	t_vec3	initial_dir;
-	float	fov;
-}	t_camera;
-
 typedef	struct s_viewport
 {
 	float	width;

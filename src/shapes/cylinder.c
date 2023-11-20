@@ -16,9 +16,9 @@ float ft_cylinder(t_map *map, t_vec2d coord, t_vec2d notnorm)
 {
     // t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
     (void)notnorm;
-    t_vec3d rayDirections = init_vec3d(coord.x, coord.y, -1.0f);
+    t_vec3d rayDirections = dir_from_mat(camera()->mat, (t_vec3d){coord.x, coord.y, -1.0f});
     // t_vec3d rayOrigin = (t_vec3d){0.4f, 0.0f, 1.0};
-    t_vec3d rayOrigin = map->point;
+    t_vec3d rayOrigin = camera()->pos;
     // rotate_z(&rayDirections, rt);
 
     float a = ((rayDirections.x * rayDirections.x) + (rayDirections.z * rayDirections.z));
