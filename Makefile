@@ -13,7 +13,7 @@ INCS		= 	include    \
 SRC_DIR		:=	src
 
 SRCS        :=	main.c	\
-				parser/parse.c	\
+				parse.c	\
                 utils/init.c	\
 				utils/init_vec.c	\
 				utils/keys.c	\

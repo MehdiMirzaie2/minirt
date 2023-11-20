@@ -2,7 +2,7 @@
 
 t_camera	*camera(void)
 {
-	static t_camera	*camera;
+	static t_camera	camera;
 
 	return (&camera);
 }
@@ -28,15 +28,15 @@ float	angle_of_two_vec(t_vec3d v1, t_vec3d v2)
 	float	dot_product;
 	float	radians;
 
-	norm1 = normalize(v1);
-	norm2 = normalize(v2);
+	norm1 = normalized(v1);
+	norm2 = normalized(v2);
 	dot_product = dot(v1, v2);
 	radians = acos(dot_product / (norm1 * norm2));
 	return (radians);
 }
 
 // to get another vector 90 degreed from the two.
-t_vec3d	cross(t_vec3d v1, t_vec2d v2)
+t_vec3d	cross(t_vec3d v1, t_vec3d v2)
 {
 	t_vec3d	res;
 

@@ -47,7 +47,7 @@ enum	e_identifier
 	E_TTCY = 'c' * 'y',
 };
 
-typedef struct s_camera
+struct s_camera
 {
 	t_vec3d		pos;
 	t_vec3d		dir;

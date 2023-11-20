@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/17 15:55:05 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/20 13:59:47 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int main(int ac, char **av)
         return (1);
     parse(&rt->map, av[1]);
     test_parser(rt->map);
-	set_camera(rt->map);
+	set_camera(*rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 

@@ -44,6 +44,7 @@ t_vec3d			t_vec3d_add(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_sub(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_scale(t_vec3d v1, float scalar);
 void			normalize(t_vec3d *vec);
+float 			normalized(t_vec3d vec);
 
 // src/init.c
 void			init_rt(t_rt *rt);
@@ -71,7 +72,7 @@ void			draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 void			draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 
 // src/main.c
-void			rander(t_rt *rt);
+void			render(t_rt *rt);
 void			clearScreen(t_rt *rt);
 void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
 

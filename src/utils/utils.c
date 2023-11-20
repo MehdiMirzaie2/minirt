@@ -13,6 +13,19 @@ void normalize(t_vec3d *vec)
     }
 }
 
+float normalized(t_vec3d vec)
+{
+    float length = sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+
+    if (length != 0.0f)
+    {
+        vec.x /= length;
+        vec.y /= length;
+        vec.z /= length;
+    }
+	return (length);
+}
+
 t_vec3d t_vec3d_scale(t_vec3d v1, float scalar)
 {
     t_vec3d result;
