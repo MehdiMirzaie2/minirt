@@ -72,4 +72,7 @@ void			rander(t_rt *rt);
 void			clearScreen(t_rt *rt);
 void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
 
+t_vec3d init_vec3d(float x, float y, float z);
+t_vec2d init_vec2d(float x, float y);
+
 #endif

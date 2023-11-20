@@ -6,17 +6,31 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:57:40 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/17 14:34:14 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/17 15:50:49 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+
+// x - y = z * r
 // float ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm)
 float ft_cone(t_map *map, t_vec2d coord, t_vec2d notnorm)
 {
-    t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
-    t_vec3d rayOrigin = (t_vec3d){-0.8f, 0.0f, 20.0};
+    (void)map;
+    (void)notnorm;
+    // t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
+    t_vec3d rayDirections = init_vec3d(coord.x, coord.y, 1.0f);
+    // rayDirections.x = coord.x;
+    // rayDirections.y = coord.y;
+    // rayDirections.z = -1.0f;
+
+    // t_vec3d rayOrigin = (t_vec3d){-5.0f, 0.0f, 20.0};
+    t_vec3d rayOrigin = init_vec3d(-5.0, 0.0f, 20.0f);
+    // rayOrigin.x = -5.0f;
+    // rayOrigin.y = 0.0f;
+    // rayOrigin.z = 20.0f;
+
     // rotate_z(&rayDirections, rt);
 
     float a = ((rayDirections.x * rayDirections.x) - (rayDirections.y * rayDirections.y) + (rayDirections.z * rayDirections.z));
