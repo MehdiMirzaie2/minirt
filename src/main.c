@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/18 19:31:54 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/20 13:08:34 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void render(t_rt *rt)
     t_vec2d point;
 
     clearScreen(rt);
+	camera()->mat = rotate_camera();
     if (rt->map)
     {
         for (int y = 0; y < SIZE; y++)
@@ -184,7 +185,7 @@ int main(int ac, char **av)
     init_rt(rt);
     init_mlx(rt);
     printf("%d\n", E_TTSP);
-     rt->matProj = init_matProj();
+    rt->matProj = init_matProj();
     parse(&rt->map, av[1]);
     test_parser(rt->map);
 	set_camera(rt->map);

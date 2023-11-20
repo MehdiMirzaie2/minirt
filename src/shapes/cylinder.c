@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:13 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 14:50:48 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:15:07 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 float ft_cylinder(t_rt *rt, t_vec3d coord, t_vec2d notnorm)
 {
-    t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -5.0f};
-    t_vec3d rayOrigin = (t_vec3d){0.4f, 0.0f, rt->zoom};
+    t_vec3d rayDirections = dir_from_mat(camera()->mat, (t_vec3d){coord.x, coord.y, -1.0f});;
+    t_vec3d rayOrigin = camera()->pos;
     // rotate_z(&rayDirections, rt);
 
     float a = ((rayDirections.x * rayDirections.x) + (rayDirections.z * rayDirections.z));

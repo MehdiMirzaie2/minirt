@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:57:40 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 14:50:52 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:15:35 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 float ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm)
 {
-    t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
-    t_vec3d rayOrigin = (t_vec3d){-0.8f, 0.0f, rt->zoom};
+    t_vec3d rayDirections = dir_from_mat(camera()->mat, (t_vec3d){coord.x, coord.y, -1.0f});;
+    t_vec3d rayOrigin = camera()->pos;
     rotate_z(&rayDirections, rt);
 
     float a = ((rayDirections.x * rayDirections.x) - (rayDirections.y * rayDirections.y) + (rayDirections.z * rayDirections.z));

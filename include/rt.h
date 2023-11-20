@@ -45,13 +45,14 @@ enum	e_identifier
 	E_TTSP = 's' * 'p',
 	E_TTPL = 'p' * 'l',
 	E_TTCY = 'c' * 'y',
-}
+};
 
 typedef struct s_camera
 {
-	t_vec3d	pos;
-	t_vec3d	dir;
-	t_vec3d	initial_dir;
+	t_vec3d		pos;
+	t_vec3d		dir;
+	t_vec3d		initial_dir;
+	t_mat4x4	mat;
 	float	fov;
 };
 
