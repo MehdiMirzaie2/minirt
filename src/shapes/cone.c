@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:57:40 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/21 15:06:24 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/21 21:58:33 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 // x - y = z * r
 // float ft_cone(t_rt *rt, t_vec3d coord, t_vec2d notnorm)
-float ft_cone(t_map *map, t_vec2d coord, t_vec2d notnorm)
+float ft_cone(t_map *map, t_vec3d dir, t_vec2d notnorm)
 {
     (void)map;
     (void)notnorm;
     // t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
 	//t_vec3d vec = init_vec3d(coord.x, coord.y, -1.0f);
-    //t_vec3d rayDirections = dir_from_mat(&camera()->mat, vec);
-	t_vec3d rayDirections = init_vec3d(coord.x, coord.y, -1.0f);
+    t_vec3d rayDirections = dir;
+	//t_vec3d rayDirections = init_vec3d(coord.x, coord.y, -1.0f);
     // rayDirections.x = coord.x;
     // rayDirections.y = coord.y;
     // rayDirections.z = -1.0f;

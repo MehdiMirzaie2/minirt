@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/21 14:34:02 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/21 22:30:08 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,25 @@ void render(t_rt *rt)
                 closest_obj = NULL;
                 float   closest_t_val ;
                 float   old_closest = __FLT_MAX__;
+
+				t_vec2d notnormed = init_vec2d(x, y);
+				point = init_vec2d(x, y);
+				point.x /= (float)SIZE;
+				point.y /= (float)SIZE;
+				point.x = point.x * 2.0f - 1.0f;
+				point.y = point.y * 2.0f - 1.0f;
+
+				t_vec3d vec = init_vec3d(point.x, point.y, -1.0f);
+				t_vec3d ray = dir_from_mat(&camera()->mat, vec);
                 while (ref_map)
                 {
                     // point = (t_vec2d){x, y};
-                    t_vec2d notnormed = init_vec2d(x, y);
-                    point = init_vec2d(x, y);
-                    point.x /= (float)SIZE;
-                    point.y /= (float)SIZE;
-                    point.x = point.x * 2.0f - 1.0f;
-                    point.y = point.y * 2.0f - 1.0f;
-
                     if (ref_map->type == E_TTSP)
-                        closest_t_val = ft_sphere(ref_map, point, notnormed);
+                        closest_t_val = ft_sphere(ref_map, ray, notnormed);
                     else if (ref_map->type == E_TTCY)
-                        closest_t_val = ft_cone(ref_map, point, notnormed);
+                        closest_t_val = ft_cone(ref_map, ray, notnormed);
                     else if (ref_map->type == E_TTPL)
-                        closest_t_val = plane(ref_map, point, notnormed);
+                        closest_t_val = plane(ref_map, ray, notnormed);
                     if (closest_t_val < old_closest)
                     {
                         old_closest = closest_t_val;
@@ -120,16 +123,18 @@ void render(t_rt *rt)
                     {
                         // t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
                         //t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
-						t_vec3d rayDirections = t_vec3d_scale(camera()->dir, old_closest);
+						t_vec3d rayDirections = t_vec3d_scale(ray, old_closest);
                         //t_vec3d rayOrigin = closest_obj->point;
 						t_vec3d rayOrigin = camera()->pos;
                         t_vec3d hit_point = t_vec3d_add(rayOrigin, rayDirections);
-                        t_vec3d normal = hit_point;
-                        normalize(&normal);
+                        //t_vec3d normal = hit_point;
+						t_vec3d normal = t_vec3d_sub(hit_point, closest_obj->point);
+                        //normalize(&normal);
                         normalize(&rt->light_dir);
                         float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
                         // put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
-                        put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(intensity, intensity, intensity)));
+						t_vec3d color = init_vec3d(closest_obj->rgb.r * intensity, closest_obj->rgb.g * intensity, closest_obj->rgb.b * intensity);
+                        put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
                     }
                     else if (closest_obj->type == E_TTCY)
                     {
@@ -215,8 +220,6 @@ int main(int ac, char **av)
     rt = malloc(sizeof(t_rt));
     init_rt(rt);
     init_mlx(rt);
-    if (ac != 2)
-        return (1);
     parse(&rt->map, av[1]);
     test_parser(rt->map);
     mlx_key_hook(rt->window, key_hook, rt);

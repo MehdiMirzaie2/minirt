@@ -6,14 +6,14 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:22 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/21 15:01:21 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/21 21:58:42 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 // float plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm)
-float plane(t_map *map, t_vec2d coord, t_vec2d notnorm)
+float plane(t_map *map, t_vec3d dir, t_vec2d notnorm)
 {
     (void)notnorm;
     // printf("rt->map->type= %d\n", map->type);
@@ -27,8 +27,8 @@ float plane(t_map *map, t_vec2d coord, t_vec2d notnorm)
     // t_vec3d rayOrigin = (t_vec3d){0.0f, 0.0f, 1.0f}; // l0
     t_vec3d rayOrigin = camera()->pos;
 	//t_vec3d rayOrigin = init_vec3d(0.0f, 0.0f, 1.0f);
-    t_vec3d l = init_vec3d(coord.x, coord.y, -1.0f);
-    t_vec3d rayDirections = dir_from_mat(&camera()->mat, l);
+    //t_vec3d l = ray;
+    t_vec3d rayDirections = dir;
 	//t_vec3d l = init_vec3d(coord.x, coord.y, -1.0f);
     // t_vec3d l = (t_vec3d){coord.x, coord.y, -1.0f};
 
