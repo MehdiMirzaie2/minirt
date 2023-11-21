@@ -24,15 +24,15 @@ void	set_camera(t_map map)
 // to get the angle of two vectors using dot prodcut of them.
 float	angle_of_two_vec(t_vec3d v1, t_vec3d v2)
 {
-	float	norm1;
-	float	norm2;
+	float	len1;
+	float	len2;
 	float	dot_product;
 	float	radians;
 
-	norm1 = normalized(v1);
-	norm2 = normalized(v2);
+	len1 = length(v1);
+	len2 = length(v2);
 	dot_product = dot(v1, v2);
-	radians = acos(dot_product / (norm1 * norm2));
+	radians = acos(dot_product / (len1 * len2));
 	return (radians);
 }
 

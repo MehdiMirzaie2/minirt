@@ -48,7 +48,7 @@ t_vec3d			t_vec3d_add(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_sub(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_scale(t_vec3d v1, float scalar);
 void			normalize(t_vec3d *vec);
-float 			normalized(t_vec3d vec);
+float 			length(t_vec3d vec);
 
 // src/init.c
 void			init_rt(t_rt *rt);
@@ -63,10 +63,10 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-float			ft_cone(t_map *map, t_vec2d coord, t_vec2d notnorm);
+float			ft_cone(t_map *map, t_vec3d dir, t_vec2d notnorm);
 float			ft_cylinder(t_map *map, t_vec2d coord, t_vec2d notnorm);
-float 			plane(t_map *map, t_vec2d coord, t_vec2d notnorm);
-float			ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm);
+float 			plane(t_map *map, t_vec3d dir, t_vec2d notnorm);
+float			ft_sphere(t_map *map, t_vec3d dir, t_vec2d notnorm);
 
 // src/line.c
 void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);
