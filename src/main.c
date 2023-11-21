@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/20 13:59:47 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:34:02 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,11 @@ void render(t_rt *rt)
                     if (closest_obj->type == E_TTSP)
                     {
                         // t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
-                        t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
-                        t_vec3d rayOrigin = closest_obj->point;
-                        t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
+                        //t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
+						t_vec3d rayDirections = t_vec3d_scale(camera()->dir, old_closest);
+                        //t_vec3d rayOrigin = closest_obj->point;
+						t_vec3d rayOrigin = camera()->pos;
+                        t_vec3d hit_point = t_vec3d_add(rayOrigin, rayDirections);
                         t_vec3d normal = hit_point;
                         normalize(&normal);
                         normalize(&rt->light_dir);
@@ -217,7 +219,6 @@ int main(int ac, char **av)
         return (1);
     parse(&rt->map, av[1]);
     test_parser(rt->map);
-	set_camera(*rt->map);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 

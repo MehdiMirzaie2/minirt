@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:00:36 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/20 14:14:41 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/21 13:12:58 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ float ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm)
     // t_vec3d rayDirections = (t_vec3d){coord.x, coord.y, -1.0f};
     t_vec3d vec = init_vec3d(coord.x, coord.y, -1.0f);
     t_vec3d rayDirections = dir_from_mat(&camera()->mat, vec);
+	//t_vec3d rayDirections = init_vec3d(coord.x, coord.y, -1.0f);
     // t_vec3d rayOrigin = (t_vec3d){0.0f, 0.0f, rt->zoom};
     t_vec3d rayOrigin = camera()->pos;
     float radius = map->diameter / 2.0f;
@@ -26,8 +27,8 @@ float ft_sphere(t_map *map, t_vec2d coord, t_vec2d notnorm)
     // printf("%f\n", rt->map->diameter);
 
     float a = dot(rayDirections, rayDirections);
-    float b = 2.0f * dot(rayOrigin, rayDirections);
-    float c = dot(rayOrigin, rayOrigin) - radius * radius;
+    float b = 2.0f * dot(t_vec3d_sub(rayOrigin, map->point), rayDirections);
+    float c = dot(t_vec3d_sub(rayOrigin, map->point), t_vec3d_sub(rayOrigin, map->point)) - radius * radius;
 
     float discriminant = b * b - 4.0f * a * c;
     // printf("%f\n", discriminant);

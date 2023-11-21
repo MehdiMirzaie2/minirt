@@ -21,8 +21,11 @@ int	get_map(t_map *map, char *line)
 	if (map->type == 'A')
 		sscanf(line, "%f %f,%f,%f", &map->light, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == 'C')
+	{
 		sscanf(line, "%f,%f,%f %f,%f,%f %d", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->fov);
+		set_camera(*map);
+	}
 	if (map->type == 'L')
 		sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->brightness, &map->rgb.r, &map->rgb.g, &map->rgb.b);
@@ -33,7 +36,7 @@ int	get_map(t_map *map, char *line)
 		sscanf(line, "%f,%f,%f %f,%f,%f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 
-			
+
 	if (map->type == E_TTCY)
 		sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->diameter, &map->height, &map->rgb.r, &map->rgb.g, &map->rgb.b);
