@@ -2,6 +2,7 @@
 
 int	key_hook(int keycode, t_rt *rt)
 {
+	printf("keycode - %i\n", keycode);
 	if (keycode == UP)
 	{
 		// clearScreen(rt);
@@ -15,6 +16,14 @@ int	key_hook(int keycode, t_rt *rt)
 		camera()->pos.x += 0.5f;
 	else if (keycode == RIGHT)
 		camera()->pos.x -= 0.5f;
+	else if (keycode == W)
+		camera()->dir.y += 0.1f;
+	else if (keycode == S)
+		camera()->dir.y -= 0.1f;
+	else if (keycode == D)
+		camera()->dir.x -= 0.1f;
+	else if (keycode == A)
+		camera()->dir.x += 0.1f;
 	else if (keycode == ESC)
 		exit_mlx(rt);
 	render(rt);
