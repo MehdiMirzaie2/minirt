@@ -35,6 +35,12 @@ struct s_vec3d
 	};
 };
 
+// struct	s_ray
+// {
+// 	t_vec3d origin;
+// 	t_vec3d direction;
+// }
+
 struct s_mat4x4
 {
     float m[4][4];

@@ -3,12 +3,12 @@
 
 # define t_vec3 t_color
 
-enum	e_identifier
-{
-	E_TTSP = 's' * 'p',
-	E_TTPL = 'p' * 'l',
-	E_TTCY = 'c' * 'y',
-};
+// enum	e_identifier
+// {
+// 	E_TTSP = 's' * 'p',
+// 	E_TTPL = 'p' * 'l',
+// 	E_TTCY = 'c' * 'y',
+// };
 
 typedef struct s_vec2
 {
@@ -25,8 +25,8 @@ typedef struct s_vec3
 
 typedef struct s_ray
 {
-	t_vec3	orig;
-	t_vec3	dir;
+	t_vec3d	orig;
+	t_vec3d	dir;
 }	t_ray;
 
 typedef struct s_mat4
@@ -42,39 +42,47 @@ typedef	struct s_viewport
 	float	aspect_ratio;
 }	t_viewport;
 
-typedef struct s_map
+typedef struct s_hitpayload
 {
-	int				type;
-	float			light;
-	int				rgb[3];
-	t_vec3			pos;
-	t_vec3			dir;
-	float			fov;
-	float			brightness;
-	float			diameter;
-	float			height;
-	struct s_map	*next;
-}	t_map;
+	float	hit_distance;
+	t_vec3d	world_normal;
+	t_vec3d world_positoin;
+	t_map	*obj;
+} t_hitpayload;
 
-typedef struct s_rt
-{
-	t_map	*map;
-	void	*mlx;
-	void	*window;
-	void	*image;
-	void	*pointer_to_image;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
+// typedef struct s_map
+// {
+// 	int				type;
+// 	float			light;
+// 	int				rgb[3];
+// 	t_vec3			pos;
+// 	t_vec3			dir;
+// 	float			fov;
+// 	float			brightness;
+// 	float			diameter;
+// 	float			height;
+// 	struct s_map	*next;
+// }	t_map;
 
-	int		x;
-	int		y;
-	int		x_ref;
-	int		y_ref;
-	float	zoom;
-	t_vec3	light_dir;
-	t_mat4	*matProj;
-}	t_rt;
+// typedef struct s_rt
+// {
+// 	t_map	*map;
+// 	void	*mlx;
+// 	void	*window;
+// 	void	*image;
+// 	void	*pointer_to_image;
+// 	int		bits_per_pixel;
+// 	int		size_line;
+// 	int		endian;
+
+// 	int		x;
+// 	int		y;
+// 	int		x_ref;
+// 	int		y_ref;
+// 	float	zoom;
+// 	t_vec3	light_dir;
+// 	t_mat4	*matProj;
+// }	t_rt;
 
 typedef struct s_cylinder
 {
