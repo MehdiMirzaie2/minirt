@@ -7,8 +7,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <stdio.h>
 # include <math.h>
+# include <limits.h>
 
 // ours
 #include "libft.h"
@@ -29,6 +29,7 @@
 # define D 2
 # define A 0
 # define C 8
+# define V 9
 # define J 38
 # define I 34
 # define D 2
@@ -63,8 +64,8 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-float			ft_cone(t_map *map, t_vec3d dir, t_vec2d notnorm);
-float			ft_cylinder(t_map *map, t_vec2d coord, t_vec2d notnorm);
+float			ft_cone(t_map *map, t_vec2d coord, t_vec2d notnorm);
+float			ft_cylinder(t_map *map, t_vec3d dir, t_vec2d notnorm);
 float 			plane(t_map *map, t_vec3d dir, t_vec2d notnorm);
 float			ft_sphere(t_map *map, t_vec3d dir, t_vec2d notnorm);
 

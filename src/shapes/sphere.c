@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:00:36 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/21 21:49:25 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/23 11:59:31 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ float ft_sphere(t_map *map, t_vec3d dir, t_vec2d notnorm)
     {
         float t = (-b + sqrt(discriminant)) / (2.0f * a);
         (void)t;
+
         float nt = (-b - sqrt(discriminant)) / (2.0f * a);
+		if (nt >= 0)
+			return (nt);
 		//(void)nt;
         // printf("\n%f\n", nt);
         // t_vec3d fulldir = t_vec3d_scale(rayDirections, nt);
@@ -46,8 +49,6 @@ float ft_sphere(t_map *map, t_vec3d dir, t_vec2d notnorm)
         // normalize(&rt->light_dir);
         // float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
         // put_color_to_pixel(rt, notnorm.x, notnorm.y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
-        return (nt);
     }
-    else
         return (__FLT_MAX__);
 }
