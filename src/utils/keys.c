@@ -2,19 +2,24 @@
 
 int	key_hook(int keycode, t_rt *rt)
 {
+	printf("keycode = %d\n", keycode);
 	if (keycode == UP)
 	{
 		// clearScreen(rt);
 		//rt->fTheta += 0.001f;
 		// draw(rt);
-		camera()->pos.z += 0.5f;
+		camera()->pos.z -= 0.5f;
 	}
 	else if (keycode == DOWN)
-		camera()->pos.z -= 0.5f;
+		camera()->pos.z += 0.5f;
 	else if (keycode == LEFT)
 		camera()->pos.x -= 0.5f;
 	else if (keycode == RIGHT)
 		camera()->pos.x += 0.5f;
+	else if (keycode == 13)
+		camera()->pos.y += 0.5f;
+	else if (keycode == 1)
+		camera()->pos.y -= 0.5f;
 	else if (keycode == ESC)
 		exit_mlx(rt);
 	render(rt);

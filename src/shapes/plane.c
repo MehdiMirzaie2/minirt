@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:22 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/23 15:47:18 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/24 11:15:03 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ float plane(t_map *map, t_ray ray)
     {
         t_vec3d p0l0 = t_vec3d_sub(normal, rayOrigin);
         float t = dot(p0l0, point_on_plane) / denom;
-        if (t >= 0)
+        if (t > 0)
             return (t);
     }
     return (__FLT_MAX__);

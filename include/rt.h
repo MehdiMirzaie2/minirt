@@ -4,12 +4,13 @@
 // #include "map.h"
 // #include "vec.h"
 
-typedef struct s_rt	t_rt;
-typedef struct s_map t_map;
-typedef struct s_vec2d	t_vec2d;
-typedef struct s_vec3d	t_vec3d;
-typedef struct s_mat4x4	t_mat4x4;
-typedef struct s_camera t_camera;
+typedef struct s_rt			t_rt;
+typedef struct s_map		t_map;
+typedef struct s_vec2d		t_vec2d;
+typedef struct s_vec3d		t_vec3d;
+typedef struct s_mat4x4		t_mat4x4;
+typedef struct s_camera 	t_camera;
+typedef	struct s_material 	t_material;
 
 struct s_vec2d
 {
@@ -62,12 +63,19 @@ struct s_camera
 	float	fov;
 };
 
+struct s_material
+{
+	t_vec3d			rgb;
+	float			roughness;
+	float			metallic;
+};
 struct s_map
 {
 	int				type;
 	t_vec3d			point;
 	float			light;
 	t_vec3d			rgb;
+	// t_material		material;
 	t_vec3d			normalized;
 	int				fov;
 	float			brightness;

@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/24 09:55:00 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/27 11:22:00 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,26 @@ void clearScreen(t_rt *rt)
     }
 }
 
+
+t_vec3d clamp(t_vec3d value, t_vec3d min, t_vec3d max)
+{
+    t_vec3d result = value;
+    
+    if (value.r < min.r)
+        result.r = min.r;
+    else if (value.r > max.r)
+        result.r = max.r;
+    if (value.g < min.g)
+        result.g = min.g;
+    else if (value.g > max.g)
+        result.g = max.g;
+    if (value.b < min.b)
+        result.b = min.b;
+    else if (value.b > max.b)
+        result.b = max.b;
+    return (result);
+}
+
 /*
     a = ray origin -> forward negative z.
     b = ray direction
@@ -80,6 +100,7 @@ void render(t_rt *rt)
 
     clearScreen(rt);
 	camera()->mat = rotate_camera();
+    // printf("c%f\n", camera()->pos.z);
     if (rt->map)
     {
         for (uint32_t y = 0; y < SIZE; y++)
@@ -87,7 +108,7 @@ void render(t_rt *rt)
             for (uint32_t x = 0; x < SIZE; x++)
             {
                 t_vec3d colour = per_pixal(rt, x, y);
-                // put_color_to_pixel(rt, x, y, colour.r, colour.g, colour.b);
+                colour = clamp(colour, (t_vec3d){0.0f, 0.0f, 0.0f}, (t_vec3d){255.0f, 255.0f, 255.0f});
                 put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(colour.r, colour.g, colour.b)));
                 // t_map   *ref_map = rt->map;
                 // closest_obj = NULL;
@@ -217,8 +238,9 @@ int main(int ac, char **av)
     if (ac != 2)
         return (1);
     parse(&rt->map, av[1]);
-    test_parser(rt->map);
-	set_camera(*rt->map);
+    // test_parser(rt->map);
+    // get_camera()
+	set_camera(rt);
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 

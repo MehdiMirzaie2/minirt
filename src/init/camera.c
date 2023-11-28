@@ -7,17 +7,38 @@ t_camera	*camera(void)
 	return (&camera);
 }
 
-void	set_camera(t_map map)
+void	set_camera(t_rt *rt)
 {
-	camera()->pos.x = map.point.x;
-	camera()->pos.y = map.point.y;
-	camera()->pos.z = map.point.z;
-	camera()->dir.x = map.normalized.x;
-	camera()->dir.y = map.normalized.y;
-	camera()->dir.z = map.normalized.z;
+	t_map *map = rt->map;
+
+	while (map && map->type != 'C')
+		map = map->next;
+	if (!map)
+	{
+		camera()->pos.x = 0;
+	camera()->pos.y = 0;
+	camera()->pos.z = -1;
+	camera()->dir.x = 0;
+	camera()->dir.y = 0;
+	camera()->dir.z = 1;
 	camera()->initial_dir.x = 0.0f;
 	camera()->initial_dir.y = 0.0f;
 	camera()->initial_dir.z = 1.0f;
+	}
+		// mycamera = init_map
+	else
+	{
+		// map = *rt->map;
+	camera()->pos.x = map->point.x;
+	camera()->pos.y = map->point.y;
+	camera()->pos.z = map->point.z;
+	camera()->dir.x = map->normalized.x;
+	camera()->dir.y = map->normalized.y;
+	camera()->dir.z = map->normalized.z;
+	camera()->initial_dir.x = 0.0f;
+	camera()->initial_dir.y = 0.0f;
+	camera()->initial_dir.z = 1.0f;
+	}
 }
 
 // to get the angle of two vectors using dot prodcut of them.

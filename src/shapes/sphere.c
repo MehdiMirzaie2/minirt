@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:00:36 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/23 15:50:39 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/24 14:17:28 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 float ft_sphere(t_map *map, t_ray ray)
 {
-    t_vec3d rayOrigin = map->point;
+    t_vec3d rayOrigin = t_vec3d_sub(ray.orig, map->point);
+    // printf("%f\n", rayOrigin.z);
+    // if ()
     const float radius = map->diameter / 2.0f;
 
     float a = dot(ray.dir, ray.dir);
@@ -27,8 +29,9 @@ float ft_sphere(t_map *map, t_ray ray)
         float t = (-b + sqrt(discriminant)) / (2.0f * a);
         (void)t;
         float nt = (-b - sqrt(discriminant)) / (2.0f * a);
-        return (nt);
+        if (nt > 0)
+            return (nt);
     }
-    else
-        return (__FLT_MAX__);
+    // else
+    return (__FLT_MAX__);
 }

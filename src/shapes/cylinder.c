@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:13 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/23 15:45:23 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/24 11:15:06 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ float ft_cylinder(t_map *map, t_ray ray)
     {
         float t = (-b + sqrt(discriminant)) / (2.0f * a);
         float nt = (-b - sqrt(discriminant)) / (2.0f * a);
-        if (nt >= 0)
+        if (nt > 0)
         {
             if (t < nt && t >= 0)
                 return (t);
