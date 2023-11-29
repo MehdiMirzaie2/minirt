@@ -2,28 +2,22 @@
 
 int	key_hook(int keycode, t_rt *rt)
 {
-	printf("keycode - %i\n", keycode);
 	if (keycode == UP)
-	{
-		// clearScreen(rt);
-		//rt->fTheta += 0.001f;
-		// draw(rt);
-		camera()->pos.z -= 0.5f;
-	}
+		camera()->pos.z -= 0.1f;
 	else if (keycode == DOWN)
-		camera()->pos.z += 0.5f;
+		camera()->pos.z += 0.1f;
 	else if (keycode == LEFT)
-		camera()->pos.x += 0.5f;
+		camera()->pos.x -= 0.1f;
 	else if (keycode == RIGHT)
-		camera()->pos.x -= 0.5f;
+		camera()->pos.x += 0.1f;
 	else if (keycode == W)
-		camera()->dir.y += 0.1f;
+		camera()->pos.y -= 0.1f;
 	else if (keycode == S)
-		camera()->dir.y -= 0.1f;
+		camera()->pos.y += 0.1f;
 	else if (keycode == D)
-		camera()->dir.x -= 0.1f;
-	else if (keycode == A)
 		camera()->dir.x += 0.1f;
+	else if (keycode == A)
+		camera()->dir.x -= 0.1f;
 	else if (keycode == C)
 		camera()->dir.z += 0.1f;
 	else if (keycode == V)

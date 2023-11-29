@@ -70,7 +70,7 @@ t_mat4x4	create_matrix(t_vec3d axis, float angle)
 
 	cos_theta = cos(angle);
 	sin_theta = sin(angle);
-	one_minus_cos_theta = 1.0 - cos_theta;
+	one_minus_cos_theta = 1.0f - cos_theta;
 	matrix.m[0][0] = cos_theta + axis.x * axis.x * one_minus_cos_theta;
 	matrix.m[0][1] = axis.x * axis.y * one_minus_cos_theta - axis.z * sin_theta;
 	matrix.m[0][2] = axis.x * axis.z * one_minus_cos_theta + axis.y * sin_theta;
