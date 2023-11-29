@@ -47,6 +47,7 @@ float			dot(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_add(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_sub(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_scale(t_vec3d v1, float scalar);
+t_vec3d t_vec3d_div(t_vec3d v1, float deno);
 void			normalize(t_vec3d *vec);
 float 			normalized(t_vec3d vec);
 

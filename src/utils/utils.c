@@ -36,6 +36,16 @@ t_vec3d t_vec3d_scale(t_vec3d v1, float scalar)
     return (result);
 }
 
+t_vec3d t_vec3d_div(t_vec3d v1, float deno)
+{
+    t_vec3d result;
+
+    result.x = v1.x / deno;
+    result.y = v1.y / deno;
+    result.z = v1.z / deno;
+    return (result);
+}
+
 t_vec3d t_vec3d_add(t_vec3d v1, t_vec3d v2)
 {
     t_vec3d result;

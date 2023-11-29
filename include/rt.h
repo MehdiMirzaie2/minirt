@@ -1,37 +1,41 @@
 #ifndef RT_H
-#define RT_H
-
-// #include "map.h"
-// #include "vec.h"
+# define RT_H
 
 typedef struct s_rt			t_rt;
 typedef struct s_map		t_map;
 typedef struct s_vec2d		t_vec2d;
 typedef struct s_vec3d		t_vec3d;
 typedef struct s_mat4x4		t_mat4x4;
-typedef struct s_camera 	t_camera;
-typedef	struct s_material 	t_material;
+typedef struct s_camera		t_camera;
+typedef	struct s_material	t_material;
 
 struct s_vec2d
 {
-	float x, y;
+	float	x;
+	float	y;
 };
 
 struct s_vec3d
 {
-    union
+	union
 	{
 		struct
 		{
-			float x;
-			float y;
-			float z;
+			float	x;
+			float	y;
+			float	z;
 		};
 		struct
 		{
-			float r;
-			float g;
-			float b;
+			float	r;
+			float	g;
+			float	b;
+		};
+		struct
+		{
+			float	aa;
+			float	bb;
+			float	cc;
 		};
 	};
 };
@@ -44,7 +48,7 @@ struct s_vec3d
 
 struct s_mat4x4
 {
-    float m[4][4];
+	float	m[4][4];
 };
 
 enum	e_identifier
@@ -54,13 +58,22 @@ enum	e_identifier
 	E_TTCY = 'c' * 'y',
 };
 
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
 struct s_camera
 {
 	t_vec3d		pos;
 	t_vec3d		dir;
 	t_vec3d		initial_dir;
 	t_mat4x4	mat;
-	float	fov;
+	float		fov;
 };
 
 struct s_material
@@ -75,15 +88,17 @@ struct s_map
 	t_vec3d			point;
 	float			light;
 	t_vec3d			rgb;
-	// t_material		material;
+	t_material		metal_mat;
+	t_material		dielectric_mat;
 	t_vec3d			normalized;
 	int				fov;
 	float			brightness;
 	float			diameter;
 	float			height;
+	float			roughness;
 	t_map			*next;
 };
-
+# define SIZE 700
 struct s_rt
 {
 	t_map			*map;
@@ -106,10 +121,12 @@ struct s_rt
 	int				color;
 	float			fTheta;
 	t_mat4x4		*matProj;
+	t_vec3d			accum[SIZE * SIZE];
+	int		frameindex;
 };
 
-void rotate_x(t_vec3d *coord, t_rt *rt);
-void rotate_y(t_vec3d *coord, t_rt *rt);
-void rotate_z(t_vec3d *coord, t_rt *rt);
+void	rotate_x(t_vec3d *coord, t_rt *rt);
+void	rotate_y(t_vec3d *coord, t_rt *rt);
+void	rotate_z(t_vec3d *coord, t_rt *rt);
 
 #endif

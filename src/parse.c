@@ -27,22 +27,28 @@ int	get_map(t_map *map, char *line)
 		sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->brightness, &map->rgb.r, &map->rgb.g, &map->rgb.b);
 	if (map->type == E_TTSP)
-		sscanf(line, "%f,%f,%f %f %f,%f,%f", &map->point.x, &map->point.y,
-			&map->point.z, &map->diameter, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+		sscanf(line, "%f,%f,%f %f %f,%f,%f %f", &map->point.x, &map->point.y,
+			&map->point.z, &map->diameter, &map->rgb.r, &map->rgb.g, &map->rgb.b, &map->roughness);
 	if (map->type == E_TTPL)
 		sscanf(line, "%f,%f,%f %f,%f,%f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->rgb.r, &map->rgb.g, &map->rgb.b);
-
-			
 	if (map->type == E_TTCY)
 		sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->diameter, &map->height, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+	if (map->rgb.r || map->rgb.g || map->rgb.b)
+	{
+		map->rgb.r /= 255;
+		map->rgb.g /= 255;
+		map->rgb.b /= 255;
+	}
 	return (0);
 }
 
 int	parse(t_map **map, char	*fname)
 {
 	const int	fd = open(fname, O_RDONLY, 0644);
+	if (fd < 0)
+		exit(1);
 	char	*line;
 	t_map	*map_ref;
 

@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/27 11:22:00 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/29 13:18:32 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void render(t_rt *rt)
 
     clearScreen(rt);
 	camera()->mat = rotate_camera();
+    // if (rt->frameindex == 1)
+    //     ft_memset()
     // printf("c%f\n", camera()->pos.z);
     if (rt->map)
     {
@@ -108,91 +110,32 @@ void render(t_rt *rt)
             for (uint32_t x = 0; x < SIZE; x++)
             {
                 t_vec3d colour = per_pixal(rt, x, y);
-                colour = clamp(colour, (t_vec3d){0.0f, 0.0f, 0.0f}, (t_vec3d){255.0f, 255.0f, 255.0f});
+                if (rt->frameindex == 1)
+                {
+                    rt->accum[x + y * SIZE].x = 0;
+                    rt->accum[x + y * SIZE].y = 0;
+                    rt->accum[x + y * SIZE].z = 0;
+                }
+                rt->accum[x + y * SIZE] = t_vec3d_add(rt->accum[x + y * SIZE], colour);
+                
+                t_vec3d accum_colour = rt->accum[x + y * SIZE];
+                accum_colour = t_vec3d_div(accum_colour, rt->frameindex);
+                colour = clamp(accum_colour, (t_vec3d){0.0f, 0.0f, 0.0f}, (t_vec3d){1.0f, 1.0f, 1.0f});
                 put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(colour.r, colour.g, colour.b)));
-                // t_map   *ref_map = rt->map;
-                // closest_obj = NULL;
-                // float   closest_t_val ;
-                // float   old_closest = __FLT_MAX__;
-                // while (ref_map)
-                // {
-                //     // point = (t_vec2d){x, y};
-                //     t_vec2d notnormed = init_vec2d(x, y);
-                //     point = init_vec2d(x, y);
-                //     point.x /= (float)SIZE;
-                //     point.y /= (float)SIZE;
-                //     point.x = point.x * 2.0f - 1.0f;
-                //     point.y = point.y * 2.0f - 1.0f;
+            
+            
+            // m_AccumulationData[x + y * m_FinalImage->GetWidth()] += color;
 
-                //     if (ref_map->type == E_TTSP)
-                //         closest_t_val = ft_sphere(ref_map, point, notnormed);
-                //     else if (ref_map->type == E_TTCY)
-                //         closest_t_val = ft_cylinder(rt, ref_map, point, notnormed);
-                //         // closest_t_val = ft_cone(ref_map, point, notnormed);
-                //     else if (ref_map->type == E_TTPL)
-                //         closest_t_val = plane(ref_map, point, notnormed);
-                //     if (closest_t_val < old_closest)
-                //     {
-                //         old_closest = closest_t_val;
-                //         closest_obj = ref_map;
-                //         // printf("%d\n", closest_obj->type);
-                //     }
-                //     ref_map = ref_map->next;
-                // }
-                // if (closest_obj != NULL)
-                // {
-                //     if (closest_obj->type == E_TTSP)
-                //     {
-                //         t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
-                //         t_vec3d rayOrigin = closest_obj->point;
-                //         t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
-                //         t_vec3d normal = hit_point;
-                //         normalize(&normal);
-                //         normalize(&rt->light_dir);
-                //         float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
-                //         put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(intensity, intensity, intensity)));
-                //     }
-                    
-                //     else if (closest_obj->type == E_TTCY)
-                //     {
-                //        t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
-                //         t_vec3d rayOrigin = closest_obj->point;
-                //         t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
-                //         t_vec3d normal = hit_point;
-                //         normalize(&normal);
-                //         normalize(&rt->light_dir);
-                //         float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0);
-                //         put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(intensity, intensity, 0xff00ff)));
-                //     }
+			// glm::vec4 accumulatedColor = m_AccumulationData[x + y * m_FinalImage->GetWidth()];
+			// accumulatedColor /= (float)m_FrameIndex;
 
-                    
-                //     // else if (closest_obj->type == E_TTCN)
-                //     // {
-                //     //     //  t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
-                //     //     t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
-                //     //     // t_vec3d rayOrigin = (t_vec3d){-5.0f, 0.0f, 20.0};
-                //     //     t_vec3d rayOrigin = init_vec3d(-5.0f, 0.0f, 20.0f);
-                //     //     // t_vec3d fulldir = t_vec3d_scale(rayDirections, nt);
-                //     //     t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
-                //     //     t_vec3d normal = hit_point;
-                //     //     normalize(&normal);
-                //     //     t_vec3d ref_light_dir = rt->light_dir;
-                //     //     normalize(&ref_light_dir);
-                //     //     rotate_z(&ref_light_dir, rt);
-                //     //     float intensity = max(dot(normal, t_vec3d_scale(ref_light_dir, -1)), 0.0);
-                //     //     // put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, 0xFF0000}));
-                //     //     put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(intensity, intensity, 0xFF0000)));
-                //     // }
-                //     else if (closest_obj->type == E_TTPL)
-                //     {
-                //         uint32_t color = (0x00 << 24) | ((int)closest_obj->rgb.r << 16) | ((int)closest_obj->rgb.g << 8) | (int)closest_obj->rgb.b;
-                //         put_color_to_pixel(rt, x, y, color);
-                //     }
-                // }
+			// accumulatedColor = glm::clamp(accumulatedColor, glm::vec4(0.0f), glm::vec4(1.0f));
+			// m_ImageData[x + y * m_FinalImage->GetWidth()] = Utils::ConvertToRGBA(accumulatedColor);
             }
         }
     }
     rt->fTheta += 0.01;
+    rt->frameindex++;
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
     // printf("looping\n");
     // exit(0);
@@ -222,9 +165,10 @@ void test_parser(t_map *map)
 		map = map->next;
 	}
 }
-
+#include <time.h>
 int main(int ac, char **av)
-{
+{   
+    srand((unsigned int)time(NULL));
     t_rt *rt;
 
 	if (ac != 2)
@@ -240,10 +184,11 @@ int main(int ac, char **av)
     parse(&rt->map, av[1]);
     // test_parser(rt->map);
     // get_camera()
+    rt->frameindex = 1;
 	set_camera(rt);
-    mlx_key_hook(rt->window, key_hook, rt);
+    // mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
-
+    mlx_hook(rt->window, ON_KEYDOWN, 0, key_hook, rt);
     mlx_loop_hook(rt->mlx, (void *)render, rt);
     mlx_loop(rt->mlx);
     return 0;

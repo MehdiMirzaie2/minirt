@@ -61,6 +61,18 @@ t_vec3d reflect(t_vec3d incident, t_vec3d normal)
     return (t_vec3d_sub(incident, t_vec3d_scale(normal, 2.0f * dot(incident, normal))));
 }
 
+#include <stdlib.h>
+#include <time.h>
+
+t_vec3d getrendomvec3d(float roughness)
+{
+	t_vec3d ran_vec;
+// int random_number = 1 + rand() % 10
+	ran_vec.x = ((float)rand() / RAND_MAX - 0.5) * roughness;
+	ran_vec.y = ((float)rand() / RAND_MAX - 0.5) * roughness;
+	ran_vec.z = ((float)rand() / RAND_MAX - 0.5) * roughness;
+	return (ran_vec);
+}
 
 t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 {
@@ -76,14 +88,14 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 	t_vec3d colour = init_vec3d(0.0f, 0.0f, 0.0f);
 	float	multiplier = 1.0f;
 
-	int bounces = 2;
+	int bounces = 5;
 	for (int i = 0; i < bounces; i++)
 	{
 		t_hitpayload payload = TraceRay(rt->map, ray);
-		
 		if (payload.hit_distance < 0.0f || payload.obj->type == E_TTPL)
-		// if (payload.hit_distance < 0.0f)
 		{
+			if (i > 0)
+				return (colour);
 			t_vec3d skyColor;
 			if (payload.hit_distance > 0.0f)
 				skyColor = payload.obj->rgb;
@@ -92,8 +104,8 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 			colour = t_vec3d_add(colour, t_vec3d_scale(skyColor, multiplier));
 			break ;
 		}
-		// t_vec3d lightDir = init_vec3d(0, 10, -5);
-		t_vec3d lightDir = rt->light_dir;
+		t_vec3d lightDir = init_vec3d(0, 10, -5);
+		// t_vec3d lightDir = rt->light_dir;
 		normalize(&lightDir);
 		float lightIntensity = max(dot(payload.world_normal, t_vec3d_scale(lightDir, -1)), 0.0f);
 
@@ -101,11 +113,13 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 		sphereColor = t_vec3d_scale(sphereColor, lightIntensity);
 		colour = t_vec3d_add(colour, t_vec3d_scale(sphereColor, multiplier));
 
-		multiplier *= 0.7f;
-		colour = sphereColor;
+		multiplier *= 0.5f;
+		// colour = sphereColor;
 
 		ray.orig = t_vec3d_add(payload.world_positoin, t_vec3d_scale(payload.world_normal, 0.0001f));
-		ray.dir = reflect(ray.dir, payload.world_normal);
+		// ray.dir = reflect(ray.dir, payload.world_normal);
+		t_vec3d randomised = getrendomvec3d(payload.obj->roughness);
+		ray.dir = reflect(ray.dir, t_vec3d_add(payload.world_normal, randomised));
 	}
 	return (colour);
 }
