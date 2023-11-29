@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "rt.h"
 #include "camera.h"
+#include "light.h"
 
 // Srceen dimensions
 # define SIZE 700
@@ -34,6 +35,13 @@
 # define I 34
 # define D 2
 
+// Returns the maximum between a and b
+# define MAX(a, b)	((a) * (a > b) + (b) * (b > a))
+// Returns the minimum between a and b
+# define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
+// Returns the absolute value of x
+# define ABS(x) 	((x) * (x > 0) - (x) * (x < 0))
+
 // MOUSECODES
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -50,6 +58,7 @@ t_vec3d			t_vec3d_sub(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_scale(t_vec3d v1, float scalar);
 void			normalize(t_vec3d *vec);
 float 			length(t_vec3d vec);
+t_vec3d			color_multiply(t_vec3d color, float ratio);
 
 // src/init.c
 void			init_rt(t_rt *rt);
@@ -64,10 +73,10 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-float			ft_cone(t_map *map, t_vec2d coord, t_vec2d notnorm);
-float			ft_cylinder(t_map *map, t_vec3d dir, t_vec2d notnorm);
-float 			plane(t_map *map, t_vec3d dir, t_vec2d notnorm);
-float			ft_sphere(t_map *map, t_vec3d dir, t_vec2d notnorm);
+float			ft_cone(t_map *map, t_vec2d coord);
+float			ft_cylinder(t_map *map, t_vec3d dir);
+float 			plane(t_map *map, t_vec3d dir);
+float			ft_sphere(t_map *map, t_vec3d dir);
 
 // src/line.c
 void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);

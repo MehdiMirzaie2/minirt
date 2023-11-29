@@ -6,16 +6,12 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/23 10:42:52 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/29 13:45:36 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 #include "get_next_line.h"
-#include <mlx.h>
-#include "rt.h"
-// #include "map.h"
 #include "minirt.h"
 
 void put_color_to_pixel(t_rt *rt, int x, int y, int color)
@@ -25,20 +21,6 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
     buffer = rt->pointer_to_image;
     buffer[(y * rt->size_line / 4) + x] = color;
 }
-
-// void MultiplyMatrixVector(t_vec3d *i, t_vec3d *o, t_mat4x4 *m)
-// {
-//     o->x = i->x * m->m[0][0] + i->y * m->m[1][0] + i->z * m->m[2][0] + m->m[3][0];
-//     o->y = i->x * m->m[0][1] + i->y * m->m[1][1] + i->z * m->m[2][1] + m->m[3][1];
-//     o->z = i->x * m->m[0][2] + i->y * m->m[1][2] + i->z * m->m[2][2] + m->m[3][2];
-//     float w = i->x * m->m[0][3] + i->y * m->m[1][3] + i->z * m->m[2][3] + m->m[3][3];
-//     if (w != 0.0f)
-//     {
-//         o->x /= w;
-//         o->y /= w;
-//         o->z /= w;
-//     }
-// }
 
 void clearScreen(t_rt *rt)
 {
@@ -64,22 +46,19 @@ void clearScreen(t_rt *rt)
 */
 void render(t_rt *rt)
 {
-    mlx_mouse_get_pos(rt->window, &rt->x, &rt->y);
-    {
-        if (rt->x != rt->x_ref || rt->y != rt->y_ref)
-        {
-            update_light_dir(&rt->light_dir, rt->x, rt->y);
-            rt->x_ref = rt->x;
-            rt->y_ref = rt->y;
-        }
-    }
-
     t_map   *closest_obj = NULL;
-
     t_vec2d point;
 
     clearScreen(rt);
 	camera()->mat = rotate_camera();
+
+	t_vec3d	dir;
+	t_vec3d	hit_point;
+	t_vec3d	normal;
+	t_vec3d	lvec;
+	float	light_ratio = 0.0f;
+	t_vec3d color;
+
     if (rt->map)
     {
         for (int y = 0; y < SIZE; y++)
@@ -91,29 +70,26 @@ void render(t_rt *rt)
                 float   closest_t_val ;
                 float   old_closest = __FLT_MAX__;
 
-				t_vec2d notnormed = init_vec2d(x, y);
 				point = init_vec2d(x, y);
 				point.x /= (float)SIZE;
 				point.y /= (float)SIZE;
 				point.x = point.x * 2.0f - 1.0f;
 				point.y = point.y * 2.0f - 1.0f;
 
-				t_vec3d vec = init_vec3d(-point.x, -point.y, -1.0f);
+				t_vec3d vec = init_vec3d(point.x, point.y, -1.0f);
 				t_vec3d ray = dir_from_mat(&camera()->mat, vec);
                 while (ref_map)
                 {
-                    // point = (t_vec2d){x, y};
                     if (ref_map->type == E_TTSP)
-                        closest_t_val = ft_sphere(ref_map, ray, notnormed);
+                        closest_t_val = ft_sphere(ref_map, ray);
                     else if (ref_map->type == E_TTCY)
-                        closest_t_val = ft_cylinder(ref_map, ray, notnormed);
+                        closest_t_val = ft_cylinder(ref_map, ray);
                     else if (ref_map->type == E_TTPL)
-                        closest_t_val = plane(ref_map, ray, notnormed);
+                        closest_t_val = plane(ref_map, ray);
                     if (closest_t_val < old_closest)
                     {
                         old_closest = closest_t_val;
                         closest_obj = ref_map;
-                        // printf("%d\n", closest_obj->type);
                     }
                     ref_map = ref_map->next;
                 }
@@ -121,70 +97,42 @@ void render(t_rt *rt)
                 {
                     if (closest_obj->type == E_TTSP)
                     {
-                        // t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
-                        //t_vec3d rayDirections = init_vec3d(point.x, point.y, -1.0f);
-						t_vec3d rayDirections = t_vec3d_scale(ray, old_closest);
-                        //t_vec3d rayOrigin = closest_obj->point;
-						t_vec3d rayOrigin = camera()->pos;
-                        t_vec3d hit_point = t_vec3d_add(rayOrigin, rayDirections);
-                        //t_vec3d normal = hit_point;
-						//printf("hit_p - %f %f %f\n", hit_point.x, hit_point.y, hit_point.z);
-						//printf("centre - %f %f %f\n", closest_obj->point.x, closest_obj->point.y, closest_obj->point.z);
-						t_vec3d normal = t_vec3d_sub(hit_point, closest_obj->point);
-						//t_vec3d normal = hit_point;
-                        //normalize(&normal);
-                        normalize(&rt->light_dir);
-                        float intensity = max(dot(normal, t_vec3d_scale(rt->light_dir, -1)), 0.0f);
-                        // put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, intensity}));
-						t_vec3d color = init_vec3d(closest_obj->rgb.r * intensity, \
-							closest_obj->rgb.g * intensity, closest_obj->rgb.b * intensity);
-                        put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
+						dir = t_vec3d_scale(ray, old_closest);
+						hit_point = t_vec3d_add(camera()->pos, dir);
+						normal = t_vec3d_sub(hit_point, closest_obj->point);
+						lvec = t_vec3d_sub(light()->pos, hit_point);
+						light_ratio = diffuse_light(normal, lvec);
+						light_ratio = specular_light(normal, lvec, t_vec3d_scale(dir, -1), light_ratio);
+
+						color = color_multiply(closest_obj->rgb, light_ratio);
+						put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
                     }
                     else if (closest_obj->type == E_TTCY)
                     {
-                        //  t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
-                        t_vec3d rayDirections = t_vec3d_scale(ray, old_closest);
-                        // t_vec3d rayOrigin = (t_vec3d){-5.0f, 0.0f, 20.0};
-                        t_vec3d rayOrigin = camera()->pos;
-                        // t_vec3d fulldir = t_vec3d_scale(rayDirections, nt);
-                        t_vec3d hit_point = t_vec3d_add(rayOrigin, rayDirections);
-                        t_vec3d normal = t_vec3d_sub(hit_point, closest_obj->point);
-                        normalize(&normal);
-                        t_vec3d ref_light_dir = rt->light_dir;
-                        normalize(&ref_light_dir);
-                        //rotate_z(&ref_light_dir, rt);
-                        float intensity = max(dot(normal, t_vec3d_scale(ref_light_dir, -1)), 0.0);
-                        // put_color_to_pixel(rt, x, y, ConvertToRGBA((t_vec3d){intensity, intensity, 0xFF0000}));
-                        put_color_to_pixel(rt, x, y, ConvertToRGBA(init_vec3d(intensity, intensity, intensity)));
-                    }
-                    // else if (closest_obj->type == E_TTCY)
-                    // {
-                    //     t_vec3d rayDirections = (t_vec3d){point.x, point.y, -1.0f};
-                    //     t_vec3d rayOrigin = closest_obj->point;
-                    //     // t_vec3d fulldir = t_vec3d_scale(rayDirections, nt);
-                    //         // (void)fulldir;
-                    //     t_vec3d hit_point = t_vec3d_add(rayOrigin, t_vec3d_scale(rayDirections, old_closest));
-                    //     t_vec3d normal = hit_point;
-                    //     normalize(&normal);
-                    //     // update_light_dir(&rt->light_dir, rt->light_dir.x, rt->light_dir.y);
-                    //     t_vec3d ref_light_dir = rt->light_dir;
-                    //     normalize(&ref_light_dir);
-                    //     float intensity = max(dot(normal, t_vec3d_scale(ref_light_dir, -1)), 0.0);
-                    // }
+						dir = t_vec3d_scale(ray, old_closest);
+						hit_point = t_vec3d_add(camera()->pos, dir);
+						normal = t_vec3d_sub(hit_point, closest_obj->point);
+						lvec = t_vec3d_sub(light()->pos, hit_point);
+						light_ratio = diffuse_light(normal, lvec);
 
+						color = color_multiply(closest_obj->rgb, light_ratio);
+						put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
+                    }
                     else if (closest_obj->type == E_TTPL)
                     {
-                        uint32_t color = (0x00 << 24) | ((int)closest_obj->rgb.r << 16) | ((int)closest_obj->rgb.g << 8) | (int)closest_obj->rgb.b;
-                        put_color_to_pixel(rt, x, y, color);
+						//dir = t_vec3d_scale(ray, old_closest);
+						//hit_point = t_vec3d_add(camera()->pos, dir);
+						//normal = t_vec3d_sub(hit_point, closest_obj->point);
+						//lvec = t_vec3d_sub(light()->pos, hit_point);
+						//light_ratio = diffuse_light(normal, lvec);
+						color = color_multiply(closest_obj->rgb, 0.5f);
+						put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
                     }
                 }
             }
         }
     }
-    rt->fTheta += 0.01;
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
-    // printf("looping\n");
-    // exit(0);
 }
 
 void test_parser(t_map *map)
@@ -229,7 +177,7 @@ int main(int ac, char **av)
     mlx_key_hook(rt->window, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 
-    mlx_loop_hook(rt->mlx, (void *)render, rt);
+	render(rt);
     mlx_loop(rt->mlx);
     return 0;
 }
