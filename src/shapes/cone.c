@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:57:40 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/24 11:15:08 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/30 17:04:49 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float ft_cone(t_map *map, t_ray ray)
+float ft_cone(t_hitable *map, t_ray ray)
 {
 	t_vec3d vec = ray.dir;
     t_vec3d rayDirections = dir_from_mat(&camera()->mat, vec);

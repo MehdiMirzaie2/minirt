@@ -17,10 +17,10 @@ typedef struct s_light
 }	t_light;
 
 t_a_light	*a_light(void);
-void		set_a_light(t_map map);
+void		set_a_light(t_nothitable map);
 
 t_light		*light(void);
-void		set_light(t_map map);
+void		set_light(t_nothitable map);
 
 float		diffuse_light(t_vec3d norm, t_vec3d light);
 float		specular_light(t_vec3d norm, t_vec3d lvec, t_vec3d dir, float ratio);

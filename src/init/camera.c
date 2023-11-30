@@ -7,7 +7,7 @@ t_camera	*camera(void)
 	return (&camera);
 }
 
-void	set_camera(t_map map)
+void	set_camera(t_nothitable map)
 {
 	camera()->pos.x = map.point.x;
 	camera()->pos.y = map.point.y;

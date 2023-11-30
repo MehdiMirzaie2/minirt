@@ -46,8 +46,9 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-int				parse(t_map **map, char	*fname);
-void			test_parser(t_map *map);
+// int				parse(t_hitable **map, char	*fname);
+int	parse(t_hitable **hitable, char	*fname);
+// void			test_parser(t_hitable *map);
 
 // src/utils.c
 float			max(float arg1, float arg2);
@@ -74,10 +75,10 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-float			ft_cone(t_map *map, t_ray coord);
-float			ft_cylinder(t_map *map, t_ray dir);
-float 			plane(t_map *map, t_ray dir);
-float			ft_sphere(t_map *map, t_ray dir);
+float			ft_cone(t_hitable *map, t_ray coord);
+float			ft_cylinder(t_hitable *map, t_ray dir);
+float 			plane(t_hitable *map, t_ray dir);
+float			ft_sphere(t_hitable *map, t_ray dir);
 
 // src/line.c
 void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);

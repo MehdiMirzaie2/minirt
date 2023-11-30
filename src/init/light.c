@@ -7,7 +7,7 @@ t_light	*light(void)
 	return (&light);
 }
 
-void	set_light(t_map map)
+void	set_light(t_nothitable map)
 {
 	light()->pos.x = map.point.x;
 	light()->pos.y = map.point.y;

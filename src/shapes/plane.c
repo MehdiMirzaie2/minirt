@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:22 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/24 11:15:03 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/11/30 17:04:51 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 // float plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm)
-float plane(t_map *map, t_ray ray)
+float plane(t_hitable *map, t_ray ray)
 {
     t_vec3d point_on_plane = map->point; // n
     t_vec3d normal = map->normalized; // p0

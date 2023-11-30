@@ -7,7 +7,7 @@ t_a_light	*a_light(void)
 	return (&a_light);
 }
 
-void	set_a_light(t_map map)
+void	set_a_light(t_nothitable map)
 {
 	a_light()->intensity = map.light;
 	a_light()->color.r = map.rgb.r;

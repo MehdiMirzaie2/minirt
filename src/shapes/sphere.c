@@ -6,13 +6,13 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:00:36 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/29 14:50:00 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:04:52 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float ft_sphere(t_map *map, t_ray ray)
+float ft_sphere(t_hitable *map, t_ray ray)
 {
 	t_vec3d	quad;
 	t_vec3d rayOrigin = t_vec3d_sub(ray.orig, map->point);
