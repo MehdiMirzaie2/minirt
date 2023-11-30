@@ -1,6 +1,7 @@
 #ifndef RT_H
 #define RT_H
 
+# define SIZE 700
 // #include "map.h"
 // #include "vec.h"
 
@@ -32,6 +33,12 @@ struct s_vec3d
 			float g;
 			float b;
 		};
+		struct
+		{
+			float	aa;
+			float	bb;
+			float	cc;
+		};
 	};
 };
 
@@ -46,6 +53,12 @@ enum	e_identifier
 	E_TTPL = 'p' * 'l',
 	E_TTCY = 'c' * 'y',
 };
+
+typedef struct s_ray
+{
+	t_vec3d	orig;
+	t_vec3d	dir;
+}	t_ray;
 
 struct s_camera
 {
@@ -67,9 +80,18 @@ struct s_map
 	float			brightness;
 	float			diameter;
 	float			height;
+	float			roughness;
 	t_map			*next;
 };
 
+typedef struct s_hitpayload
+{
+	t_vec3d	raydir;
+	float	hit_distance;
+	t_vec3d	world_normal;
+	t_vec3d world_positoin;
+	t_map	*obj;
+} t_hitpayload;
 struct s_rt
 {
 	t_map			*map;
@@ -92,6 +114,8 @@ struct s_rt
 	int				color;
 	float			fTheta;
 	t_mat4x4		*matProj;
+	t_vec3d			accum[SIZE * SIZE];
+	int		frameindex;
 };
 
 void rotate_x(t_vec3d *coord, t_rt *rt);

@@ -24,6 +24,7 @@ int	key_hook(int keycode, t_rt *rt)
 		camera()->dir.z -= 0.1f;
 	else if (keycode == ESC)
 		exit_mlx(rt);
+	rt->frameindex = 1;
 	render(rt);
 	return 0;
 }
@@ -53,5 +54,6 @@ void	mouse_hook(int mousecode, int x, int y, t_rt *rt)
 	{
 		rt->zoom -= 0.1f;
 	}
+	rt->frameindex = 1;
 	render(rt);
 }

@@ -7,7 +7,7 @@
       "name": "Debug",
       "program": "${workspaceFolder}/minirt",
       "args": [
-        "scenes/test04-spheres.rt"
+        "scenes/test06-spheres.rt"
       ],
       "cwd": "${workspaceFolder}"
     },
@@ -18,8 +18,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/Users/mehdimirzaie/Desktop/m3",
-      "program": "/Users/mehdimirzaie/Desktop/m3/build/Debug/outDebug",
+      "cwd": "/Users/mmirzaie/Desktop/mmminirt",
+      "program": "/Users/mmirzaie/Desktop/mmminirt/minirt",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

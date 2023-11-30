@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/29 13:45:36 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:39:31 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,126 +38,76 @@ void clearScreen(t_rt *rt)
     }
 }
 
-/*
-    a = ray origin -> forward negative z.
-    b = ray direction
-    r = radius
-    t = hitpoint
-*/
+t_vec3d clamp(t_vec3d value, t_vec3d min, t_vec3d max)
+{
+    t_vec3d result = value;
+
+    if (value.r < min.r)
+        result.r = min.r;
+    else if (value.r > max.r)
+        result.r = max.r;
+    if (value.g < min.g)
+        result.g = min.g;
+    else if (value.g > max.g)
+        result.g = max.g;
+    if (value.b < min.b)
+        result.b = min.b;
+    else if (value.b > max.b)
+        result.b = max.b;
+    return (result);
+}
+
 void render(t_rt *rt)
 {
+    mlx_mouse_get_pos(rt->window, &rt->x, &rt->y);
+    {
+        if (rt->x != rt->x_ref || rt->y != rt->y_ref)
+        {
+            update_light_dir(&rt->light_dir, rt->x, rt->y);
+            rt->x_ref = rt->x;
+            rt->y_ref = rt->y;
+        }
+    }
+
     t_map   *closest_obj = NULL;
+
     t_vec2d point;
 
     clearScreen(rt);
 	camera()->mat = rotate_camera();
-
-	t_vec3d	dir;
-	t_vec3d	hit_point;
-	t_vec3d	normal;
-	t_vec3d	lvec;
-	float	light_ratio = 0.0f;
-	t_vec3d color;
-
+    // if (rt->frameindex == 1)
+    //     ft_memset()
+    // printf("c%f\n", camera()->pos.z);
     if (rt->map)
     {
-        for (int y = 0; y < SIZE; y++)
+        for (uint32_t y = 0; y < SIZE; y++)
         {
-            for (int x = 0; x < SIZE; x++)
+            for (uint32_t x = 0; x < SIZE; x++)
             {
-                t_map   *ref_map = rt->map;
-                closest_obj = NULL;
-                float   closest_t_val ;
-                float   old_closest = __FLT_MAX__;
+                t_vec3d colour = per_pixal(rt, x, y);
+                // printf("%f\t %f\t %f\n", colour.r, colour.g, colour.b);
 
-				point = init_vec2d(x, y);
-				point.x /= (float)SIZE;
-				point.y /= (float)SIZE;
-				point.x = point.x * 2.0f - 1.0f;
-				point.y = point.y * 2.0f - 1.0f;
-
-				t_vec3d vec = init_vec3d(point.x, point.y, -1.0f);
-				t_vec3d ray = dir_from_mat(&camera()->mat, vec);
-                while (ref_map)
+                if (rt->frameindex == 1)
                 {
-                    if (ref_map->type == E_TTSP)
-                        closest_t_val = ft_sphere(ref_map, ray);
-                    else if (ref_map->type == E_TTCY)
-                        closest_t_val = ft_cylinder(ref_map, ray);
-                    else if (ref_map->type == E_TTPL)
-                        closest_t_val = plane(ref_map, ray);
-                    if (closest_t_val < old_closest)
-                    {
-                        old_closest = closest_t_val;
-                        closest_obj = ref_map;
-                    }
-                    ref_map = ref_map->next;
+                    rt->accum[x + y * SIZE].x = 0;
+                    rt->accum[x + y * SIZE].y = 0;
+                    rt->accum[x + y * SIZE].z = 0;
                 }
-                if (closest_obj != NULL)
-                {
-                    if (closest_obj->type == E_TTSP)
-                    {
-						dir = t_vec3d_scale(ray, old_closest);
-						hit_point = t_vec3d_add(camera()->pos, dir);
-						normal = t_vec3d_sub(hit_point, closest_obj->point);
-						lvec = t_vec3d_sub(light()->pos, hit_point);
-						light_ratio = diffuse_light(normal, lvec);
-						light_ratio = specular_light(normal, lvec, t_vec3d_scale(dir, -1), light_ratio);
+                rt->accum[x + y * SIZE] = t_vec3d_add(rt->accum[x + y * SIZE], colour);
 
-						color = color_multiply(closest_obj->rgb, light_ratio);
-						put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
-                    }
-                    else if (closest_obj->type == E_TTCY)
-                    {
-						dir = t_vec3d_scale(ray, old_closest);
-						hit_point = t_vec3d_add(camera()->pos, dir);
-						normal = t_vec3d_sub(hit_point, closest_obj->point);
-						lvec = t_vec3d_sub(light()->pos, hit_point);
-						light_ratio = diffuse_light(normal, lvec);
-
-						color = color_multiply(closest_obj->rgb, light_ratio);
-						put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
-                    }
-                    else if (closest_obj->type == E_TTPL)
-                    {
-						//dir = t_vec3d_scale(ray, old_closest);
-						//hit_point = t_vec3d_add(camera()->pos, dir);
-						//normal = t_vec3d_sub(hit_point, closest_obj->point);
-						//lvec = t_vec3d_sub(light()->pos, hit_point);
-						//light_ratio = diffuse_light(normal, lvec);
-						color = color_multiply(closest_obj->rgb, 0.5f);
-						put_color_to_pixel(rt, x, y, ConvertToRGBA(color));
-                    }
-                }
+                t_vec3d accum_colour = rt->accum[x + y * SIZE];
+                accum_colour = t_vec3d_div(accum_colour, rt->frameindex);
+                colour = clamp(accum_colour, (t_vec3d){0.0f, 0.0f, 0.0f}, (t_vec3d){255.0f, 255.0f, 255.0f});
+                put_color_to_pixel(rt, x, y, ConvertToRGBA(colour));
             }
         }
     }
+    rt->fTheta += 0.01;
+    rt->frameindex++;
+    printf("%d\n", rt->frameindex);
     mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
-}
-
-void test_parser(t_map *map)
-{
-	while (map)
-	{
-		if (map->type == 'A')
-			printf("A:  light: %f\t rgb: %f,%f,%f\n", map->light, map->rgb.r, map->rgb.g, map->rgb.b);
-		if (map->type == 'C')
-			printf("C:  point: %f,%f,%f\t normalized: %f,%f,%f\t fov: %d\n", map->point.x, map->point.y,
-				map->point.z, map->normalized.x, map->normalized.y, map->normalized.z, map->fov);
-		if (map->type == 'L')
-			printf("L:  point: %f,%f,%f\t brightness: %f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
-				map->point.z, map->brightness, map->rgb.r, map->rgb.g, map->rgb.b);
-		if (map->type == E_TTSP)
-			printf("sp: point: %f,%f,%f\t diameter: %f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
-				map->point.z, map->diameter, map->rgb.r, map->rgb.g, map->rgb.b);
-		if (map->type == E_TTPL)
-			printf("pl: point: %f,%f,%f\t normalized: %f,%f,%f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
-				map->point.z, map->normalized.x, map->normalized.y, map->normalized.z, map->rgb.r, map->rgb.g, map->rgb.b);
-		if (map->type == E_TTCY)
-			printf("cy: point: %f,%f,%f\t normalized: %f,%f,%f\t diameter: %f\t height: %f\t rgb: %f,%f,%f\n", map->point.x, map->point.y,
-				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->diameter, map->height, map->rgb.r, map->rgb.g, map->rgb.b);
-		map = map->next;
-	}
+    // printf("looping\n");
+    // exit(0);
 }
 
 int main(int ac, char **av)
@@ -173,11 +123,15 @@ int main(int ac, char **av)
     init_rt(rt);
     init_mlx(rt);
     parse(&rt->map, av[1]);
-    test_parser(rt->map);
-    mlx_key_hook(rt->window, key_hook, rt);
+    rt->frameindex = 1;
+    // test_parser(rt->map);
+    // mlx_key_hook(rt->window, key_hook, rt);
+    mlx_hook(rt->window, 2, 0, key_hook, rt);
     mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 
-	render(rt);
+	// render(rt);
+    // mlx_loop(rt->mlx);
+    mlx_loop_hook(rt->mlx, (void *)render, rt);
     mlx_loop(rt->mlx);
     return 0;
 }

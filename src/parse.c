@@ -44,6 +44,12 @@ int	get_map(t_map *map, char *line)
 	if (map->type == E_TTCY)
 		sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f", &map->point.x, &map->point.y,
 			&map->point.z, &map->normalized.x, &map->normalized.y, &map->normalized.z, &map->diameter, &map->height, &map->rgb.r, &map->rgb.g, &map->rgb.b);
+	// if (map->rgb.r || map->rgb.g || map->rgb.b)
+	// {
+	// 	map->rgb.r /= 255;
+	// 	map->rgb.g /= 255;
+	// 	map->rgb.b /= 255;
+	// }
 	return (0);
 }
 

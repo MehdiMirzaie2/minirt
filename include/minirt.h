@@ -56,6 +56,7 @@ float			dot(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_add(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_sub(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_scale(t_vec3d v1, float scalar);
+t_vec3d t_vec3d_div(t_vec3d v1, float deno);
 void			normalize(t_vec3d *vec);
 float 			length(t_vec3d vec);
 t_vec3d			color_multiply(t_vec3d color, float ratio);
@@ -73,10 +74,10 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-float			ft_cone(t_map *map, t_vec2d coord);
-float			ft_cylinder(t_map *map, t_vec3d dir);
-float 			plane(t_map *map, t_vec3d dir);
-float			ft_sphere(t_map *map, t_vec3d dir);
+float			ft_cone(t_map *map, t_ray coord);
+float			ft_cylinder(t_map *map, t_ray dir);
+float 			plane(t_map *map, t_ray dir);
+float			ft_sphere(t_map *map, t_ray dir);
 
 // src/line.c
 void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);
@@ -92,5 +93,7 @@ void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
 
 t_vec3d init_vec3d(float x, float y, float z);
 t_vec2d init_vec2d(float x, float y);
+
+t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y);
 
 #endif
