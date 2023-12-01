@@ -40,20 +40,12 @@ void	update_light_dir(t_vec3d	*light_dir, int x, int y)
 
 void	mouse_hook(int mousecode, int x, int y, t_rt *rt)
 {
-	// printf("%d\n", mousecode);
 	if (mousecode == 1)
-	{
 		update_light_dir(&rt->light_dir, x, y);
-	}
 	else if (mousecode == 5)
-	{
-		// printf("zomming\n");
 		rt->zoom += 0.1f;
-	}
 	else if (mousecode == 4)
-	{
 		rt->zoom -= 0.1f;
-	}
 	rt->frameindex = 1;
 	render(rt);
 }

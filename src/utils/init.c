@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/30 17:05:11 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:32:10 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "libft.h"
 
 t_mat4x4	*init_matProj(void)
 {
@@ -23,7 +22,7 @@ t_mat4x4	*init_matProj(void)
 	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
 
 	// if (matProj->m != NULL)
-    	// ft_memset(matProj, 0.0f, sizeof(t_mat4x4));
+		// ft_memset(matProj, 0.0f, sizeof(t_mat4x4));
 	matProj->m[0][0] = fAspectRatio * fFovRad;
 	matProj->m[1][1] = fFovRad;
 	matProj->m[2][2] = fFar / (fFar - fNear);
@@ -35,7 +34,7 @@ t_mat4x4	*init_matProj(void)
 
 void	init_rt(t_rt *rt)
 {
-	// rt->map = malloc(sizeof(t_map));
+	//rt->map = malloc(sizeof(t_map));
 	rt->hitable = malloc(sizeof(t_hitable));
 	rt->fTheta = 2.0f;
 	rt->x = -1;

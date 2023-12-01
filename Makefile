@@ -13,39 +13,22 @@ INCS		= 	include    \
 SRC_DIR		:=	src
 
 SRCS        :=	main.c	\
-				parse.c	\
-				init/camera.c \
-				init/a_light.c \
-				init/light.c \
-				utils/utils.c	\
-				utils/init_vec.c	\
 				per_pixal.c 	\
+				parser/parse.c	\
                 utils/init.c	\
+				utils/init_vec.c	\
 				utils/keys.c	\
+				utils/utils.c	\
+				init/camera.c \
+				init/light_init.c \
+				init/light.c \
 				shapes/cone.c	\
 				shapes/cylinder.c	\
 				shapes/plane.c	\
 				shapes/sphere.c	\
 				mat_cal/matrix.c	\
-				mat_cal/rotation.c	\
+				mat_cal/rotation.c
 
-# SRCS        :=	main.c	\
-# 				parse.c	\
-# 				per_pixal.c 	\
-#                 utils/init.c	\
-# 				utils/init_vec.c	\
-# 				utils/keys.c	\
-# 				utils/utils.c	\
-# 				init/camera.c \
-# 				init/a_light.c \
-# 				init/light.c \
-# 				shapes/cone.c	\
-# 				shapes/cylinder.c	\
-# 				shapes/plane.c	\
-# 				shapes/sphere.c	\
-# 				mat_cal/matrix.c	\
-# 				mat_cal/rotation.c	\
-# shapes/sphere.c	\
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 
@@ -79,6 +62,7 @@ DIR_DUP     = mkdir -p $(@D)
 all: $(NAME)
 
 $(NAME): $(LIBFT_TARGET) $(OBJS)
+	make all -C lib/libmlx
 	$(CC) $(LDFLAGS) $(MLXFLAGS) $(OBJS) $(LDLIBS) -o $(NAME) $(DFLAGS)
 	$(call print_linking, $(NAME))
 
@@ -102,6 +86,7 @@ lclean:
 # full clean, clean all objects and libraries and binaries
 fclean: clean
 	for f in $(dir $(LIBFT_TARGET)); do $(MAKE) -C $$f fclean; done
+	make clean -C lib/libmlx
 	$(RM) $(NAME)
 	$(call print_fclean,$(NAME))
 

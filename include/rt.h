@@ -2,8 +2,6 @@
 #define RT_H
 
 # define SIZE 700
-// #include "map.h"
-// #include "vec.h"
 
 typedef struct s_rt	t_rt;
 typedef struct s_map t_map;
@@ -11,6 +9,8 @@ typedef struct s_hitable t_hitable;
 typedef struct s_nothitable t_nothitable;
 typedef struct s_vec2d	t_vec2d;
 typedef struct s_vec3d	t_vec3d;
+typedef struct s_hitable	t_hitable;
+typedef struct s_nothitable	t_nothitable;
 typedef struct s_mat4x4	t_mat4x4;
 typedef struct s_camera t_camera;
 
@@ -62,14 +62,6 @@ typedef struct s_ray
 	t_vec3d	dir;
 }	t_ray;
 
-struct s_camera
-{
-	t_vec3d		pos;
-	t_vec3d		dir;
-	t_vec3d		initial_dir;
-	t_mat4x4	mat;
-	float	fov;
-};
 
 struct s_map
 {
@@ -86,6 +78,19 @@ struct s_map
 	t_map			*next;
 };
 
+
+struct s_hitable
+{
+	int				type;
+	t_vec3d			point;
+	t_vec3d			rgb;
+	t_vec3d			normalized;
+	float			diameter;
+	float			height;
+	float			roughness;
+	t_hitable		*next;
+};
+
 struct s_nothitable
 {
 	int				type;
@@ -98,17 +103,28 @@ struct s_nothitable
 };
 
 
-struct s_hitable
+
+struct s_camera
 {
-	int				type;
-	t_vec3d			point;
-	t_vec3d			rgb;
-	t_vec3d			normalized;
-	float			diameter;
-	float			height;
-	float			roughness;
-	t_hitable			*next;
+	t_vec3d		pos;
+	t_vec3d		dir;
+	t_vec3d		initial_dir;
+	t_mat4x4	mat;
+	float	fov;
 };
+
+typedef struct	s_a_light
+{
+	float	intensity;
+	t_vec3d	color;
+}	t_a_light;
+
+typedef struct s_light
+{
+	t_vec3d	pos;
+	float	intensity;
+	t_vec3d	color;
+}	t_light;
 
 typedef struct s_hitpayload
 {
@@ -118,6 +134,7 @@ typedef struct s_hitpayload
 	t_vec3d world_positoin;
 	t_hitable	*obj;
 } t_hitpayload;
+
 struct s_rt
 {
 	t_map			*map;
