@@ -2,8 +2,6 @@
 #define RT_H
 
 # define SIZE 700
-// #include "map.h"
-// #include "vec.h"
 
 typedef struct s_rt	t_rt;
 typedef struct s_map t_map;
@@ -69,6 +67,19 @@ struct s_camera
 	float	fov;
 };
 
+typedef struct	s_a_light
+{
+	float	intensity;
+	t_vec3d	color;
+}	t_a_light;
+
+typedef struct s_light
+{
+	t_vec3d	pos;
+	float	intensity;
+	t_vec3d	color;
+}	t_light;
+
 struct s_map
 {
 	int				type;
@@ -92,6 +103,7 @@ typedef struct s_hitpayload
 	t_vec3d world_positoin;
 	t_map	*obj;
 } t_hitpayload;
+
 struct s_rt
 {
 	t_map			*map;

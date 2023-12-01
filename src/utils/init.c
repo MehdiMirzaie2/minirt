@@ -6,12 +6,11 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/18 18:25:21 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:36:39 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "libft.h"
 
 t_mat4x4	*init_matProj(void)
 {
@@ -23,7 +22,7 @@ t_mat4x4	*init_matProj(void)
 	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
 
 	// if (matProj->m != NULL)
-    	// ft_memset(matProj, 0.0f, sizeof(t_mat4x4));
+		// ft_memset(matProj, 0.0f, sizeof(t_mat4x4));
 	matProj->m[0][0] = fAspectRatio * fFovRad;
 	matProj->m[1][1] = fFovRad;
 	matProj->m[2][2] = fFar / (fFar - fNear);

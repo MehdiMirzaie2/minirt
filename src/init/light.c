@@ -1,22 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 13:38:18 by jaeshin           #+#    #+#             */
+/*   Updated: 2023/12/01 14:57:14 by jaeshin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
-
-t_light	*light(void)
-{
-	static t_light	light;
-
-	return (&light);
-}
-
-void	set_light(t_map map)
-{
-	light()->pos.x = map.point.x;
-	light()->pos.y = map.point.y;
-	light()->pos.z = map.point.z;
-	light()->intensity = map.brightness;
-	light()->color.r = map.rgb.r;
-	light()->color.g = map.rgb.g;
-	light()->color.b = map.rgb.b;
-}
 
 t_vec3d	color_multiply(t_vec3d color, float ratio)
 {
@@ -60,12 +54,40 @@ float	specular_light(t_vec3d norm, t_vec3d lvec, t_vec3d dir, float ratio)
 	int		spec;
 
 	result = ratio;
-	spec = 25;
+	spec = 10;
 	norm_double = t_vec3d_scale(norm, 2);
 	temp = t_vec3d_scale(norm_double, dot(norm, lvec));
 	r = t_vec3d_sub(temp, lvec);
 	l_d_dot = dot(r, dir);
 	if (l_d_dot > 0.0f)
-		result += light()->intensity * pow(l_d_dot / (length(r) * length(dir)), spec);
+		result += light()->intensity * \
+			pow(l_d_dot / (length(r) * length(dir)), spec);
 	return (result);
+}
+
+float	set_light_ratio(t_rt *rt, t_hitpayload *payload)
+{
+	float			light_ratio;
+	t_vec3d			hit_point;
+	t_vec3d			normal;
+	t_vec3d			lvec;
+	t_hitpayload	shadow_check;
+
+	light_ratio = 0.0f;
+	hit_point = t_vec3d_add(camera()->pos, payload->raydir);
+	normal = t_vec3d_sub(hit_point, payload->obj->point);
+	lvec = t_vec3d_sub(light()->pos, hit_point);
+	shadow_check = *trace_ray(rt->map, (t_ray){hit_point, lvec});
+	if (payload->obj->type == E_TTPL)
+	{
+		if (shadow_check.hit_distance == -1.0f)
+			light_ratio = a_light()->intensity;
+	}
+	else
+	{
+		light_ratio = diffuse_light(normal, lvec);
+		light_ratio = specular_light(normal, lvec, \
+			t_vec3d_scale(payload->raydir, -1), light_ratio);
+	}
+	return (light_ratio);
 }

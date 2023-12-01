@@ -3,68 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:13 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/28 19:04:13 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/12/01 13:47:36 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// float ft_cylinder(t_map *map, t_ray ray)
-// {
-//     const float radius = map->diameter / 2.0f;
-//     float a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
-//     float b = 2.0f * (ray.orig.x * ray.dir.x + ray.orig.z * ray.dir.z);
-//     float c = (ray.orig.x * ray.orig.x) + (ray.orig.z * ray.orig.z) - (radius * radius);
-
-//     float discriminant = b * b - 4.0f * a * c;
-//     if (discriminant >= 0.0f)
-//     {
-//         float t = (-b + sqrt(discriminant)) / (2.0f * a);
-//         float nt = (-b - sqrt(discriminant)) / (2.0f * a);
-//         if (nt > 0)
-//         {
-//             if (t < nt && t >= 0)
-//                 return (t);
-//             return (nt);
-//         }
-//     }
-//     return (__FLT_MAX__);
-// }
-
-
 float ft_cylinder(t_map *map, t_ray ray)
 {
-    const float radius = map->diameter / 2.0f;
-    float a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
-    float b = 2.0f * (ray.orig.x * ray.dir.x + ray.orig.z * ray.dir.z);
-    float c = (ray.orig.x * ray.orig.x) + (ray.orig.z * ray.orig.z) - (radius * radius);
+	float	rad;
+	float	a;
+	float	b;
+	float	c;
+	float	discriminant;
+	float	t;
+	float	nt;
+	float	nt_height;
+	float	intersection_height;
 
-    float discriminant = b * b - 4.0f * a * c;
-    if (discriminant >= 0.0f)
-    {
-        float t = (-b + sqrt(discriminant)) / (2.0f * a);
-        float nt = (-b - sqrt(discriminant)) / (2.0f * a);
-        
-        if (nt > 0.001f)
-        {
-            if (t < nt && t > 0.001f)
-            {
-                float intersection_height = ray.orig.y + t * ray.dir.y;
+	rad = map->diameter / 2.0f;
+	a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
+	b = 2.0f * (ray.orig.x * ray.dir.x + ray.orig.z * ray.dir.z);
+	c = (ray.orig.x * ray.orig.x) + (ray.orig.z * ray.orig.z) - (rad * rad);
+	discriminant = b * b - 4.0f * a * c;
+	if (discriminant >= 0.0f)
+	{
+		t = (-b + sqrt(discriminant)) / (2.0f * a);
+		nt = (-b - sqrt(discriminant)) / (2.0f * a);
 
-                // Check if the intersection height is within the limits
-                if (intersection_height >= 0.0f && intersection_height <= map->height)
-                    return t;
-            }
-            
-            float nt_height = ray.orig.y + nt * ray.dir.y;
+		if (nt > 0.001f)
+		{
+			if (t < nt && t > 0.001f)
 
-            // Check if the intersection height is within the limits
-            if (nt_height >= 0.0f && nt_height <= map->height)
-                return nt;
-        }
-    }
-    return __FLT_MAX__;
+				intersection_height = ray.orig.y + t * ray.dir.y;
+
+				// Check if the intersection height is within the
+				if (intersection_height >= 0.0f && intersection_height <= map->height)
+					return t;
+
+			nt_height = ray.orig.y + nt * ray.dir.y;
+			// Check if the intersection height is within the limits
+			if (nt_height >= 0.0f && nt_height <= map->height)
+				return nt;
+		}
+	}
+	return __FLT_MAX__;
 }
