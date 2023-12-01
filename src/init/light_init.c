@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a_light.c                                          :+:      :+:    :+:   */
+/*   light_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:38:12 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/01 14:57:17 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:16:58 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_a_light	*a_light(void)
 	return (&a_light);
 }
 
-void	set_a_light(t_map map)
+void	set_a_light(t_nothitable map)
 {
 	a_light()->intensity = map.light;
 	a_light()->color.r = map.rgb.r;
@@ -34,7 +34,7 @@ t_light	*light(void)
 	return (&light);
 }
 
-void	set_light(t_map map)
+void	set_light(t_nothitable map)
 {
 	light()->pos.x = map.point.x;
 	light()->pos.y = map.point.y;

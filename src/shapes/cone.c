@@ -6,13 +6,13 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:57:40 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 13:26:12 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:11:34 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float ft_cone(t_map *map, t_ray ray)
+float ft_cone(t_hitable *map, t_ray ray)
 {
 	t_vec3d vec = ray.dir;
 	t_vec3d rayDirections = dir_from_mat(&camera()->mat, vec);

@@ -13,8 +13,8 @@ INCS		= 	include    \
 SRC_DIR		:=	src
 
 SRCS        :=	main.c	\
-				parser/parse.c	\
 				per_pixal.c 	\
+				parser/parse.c	\
                 utils/init.c	\
 				utils/init_vec.c	\
 				utils/keys.c	\
@@ -27,8 +27,8 @@ SRCS        :=	main.c	\
 				shapes/plane.c	\
 				shapes/sphere.c	\
 				mat_cal/matrix.c	\
-				mat_cal/rotation.c	\
-# shapes/sphere.c	\
+				mat_cal/rotation.c
+
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 
@@ -48,7 +48,7 @@ DEPS        := $(OBJS:.o=.d)
 # RLFLAGS     := -lreadline
 
 CC          := gcc
-CFLAGS      := -Wall -Wextra -Werror -g -w -O3 $(DFLAGS)
+CFLAGS      := -Wall -Wextra -Werror -w -O3 $(DFLAGS)
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
 LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library

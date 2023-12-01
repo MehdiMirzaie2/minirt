@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:37:55 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/01 13:37:56 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:16:52 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_camera	*camera(void)
 	return (&camera);
 }
 
-void	set_camera(t_map map)
+void	set_camera(t_nothitable map)
 {
 	camera()->pos.x = map.point.x;
 	camera()->pos.y = map.point.y;

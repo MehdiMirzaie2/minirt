@@ -6,13 +6,13 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:13 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 13:47:36 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:11:37 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float ft_cylinder(t_map *map, t_ray ray)
+float ft_cylinder(t_hitable *map, t_ray ray)
 {
 	float	rad;
 	float	a;

@@ -9,7 +9,7 @@ t_hitpayload	*miss(const t_ray ray)
 	return (payload);
 }
 
-t_hitpayload	*closest_hit(const t_ray ray, float hit_distance, t_map *obj)
+t_hitpayload	*closest_hit(const t_ray ray, float hit_distance, t_hitable *obj)
 {
 	t_hitpayload	*payload;
 	t_vec3d			origin;
@@ -27,10 +27,10 @@ t_hitpayload	*closest_hit(const t_ray ray, float hit_distance, t_map *obj)
 	return (payload);
 }
 
-t_hitpayload	*trace_ray(t_map *map, t_ray ray)
+t_hitpayload	*trace_ray(t_hitable *map, t_ray ray)
 {
-	t_map	*ref_map;
-	t_map	*closest_obj;
+	t_hitable	*ref_map;
+	t_hitable	*closest_obj;
 	float	closest_t_val;
 	float	old_closest;
 	t_vec2d	point;
@@ -40,11 +40,11 @@ t_hitpayload	*trace_ray(t_map *map, t_ray ray)
 	old_closest = __FLT_MAX__;
 	while (ref_map)
 	{
-		if (ref_map->type == E_TTSP)
+		if (ref_map->type == SP)
 			closest_t_val = ft_sphere(ref_map, ray);
-		else if (ref_map->type == E_TTCY)
+		else if (ref_map->type == CY)
 			closest_t_val = ft_cylinder(ref_map, ray);
-		else if (ref_map->type == E_TTPL)
+		else if (ref_map->type == PL)
 			closest_t_val = plane(ref_map, ray);
 		if (closest_t_val < old_closest)
 		{
@@ -108,7 +108,7 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 	i = -1;
 	while (++i < bounces)
 	{
-		payload = trace_ray(rt->map, ray);
+		payload = trace_ray(rt->hitable, ray);
 		if (payload->hit_distance < 0.0f)
 		{
 			//t_vec3d skyColor = (t_vec3d){0.0f, 0.0f, 0.0f};

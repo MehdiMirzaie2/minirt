@@ -6,13 +6,13 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:00:36 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 13:52:24 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:11:48 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float ft_sphere(t_map *map, t_ray ray)
+float ft_sphere(t_hitable *map, t_ray ray)
 {
 	t_vec3d	rayOrigin;
 	float	radius;

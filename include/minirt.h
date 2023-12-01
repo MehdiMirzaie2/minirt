@@ -46,8 +46,7 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-int				parse(t_map **map, char	*fname);
-void			test_parser(t_map *map);
+int				parse(t_hitable **hitable, char	*fname);
 
 // src/utils.c
 float			max(float arg1, float arg2);
@@ -74,12 +73,12 @@ void			mouse_move(int mousecode, int x, int y, t_rt *rt);
 void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
-float			ft_cone(t_map *map, t_ray coord);
-float			ft_cylinder(t_map *map, t_ray dir);
-float			plane(t_map *map, t_ray dir);
-float			ft_sphere(t_map *map, t_ray dir);
+float			ft_cone(t_hitable *map, t_ray coord);
+float			ft_cylinder(t_hitable *map, t_ray dir);
+float			plane(t_hitable *map, t_ray dir);
+float			ft_sphere(t_hitable *map, t_ray dir);
 
-float			shadow_plane(t_map *map, t_ray ray);
+float			shadow_plane(t_hitable *map, t_ray ray);
 
 // src/line.c
 void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);
@@ -95,16 +94,16 @@ void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
 
 // init/camera.c
 t_camera		*camera(void);
-void			set_camera(t_map map);
+void			set_camera(t_nothitable map);
 t_mat4x4		create_matrix(t_vec3d axis, float angle);
 t_mat4x4		rotate_camera(void);
 t_vec3d			dir_from_mat(t_mat4x4 *mat, t_vec3d v);
 
 // init/light.c
 t_a_light		*a_light(void);
-void			set_a_light(t_map map);
+void			set_a_light(t_nothitable map);
 t_light			*light(void);
-void			set_light(t_map map);
+void			set_light(t_nothitable map);
 float			diffuse_light(t_vec3d norm, t_vec3d light);
 float			specular_light(t_vec3d norm, t_vec3d lvec, t_vec3d dir, float ratio);
 float			set_light_ratio(t_rt *rt, t_hitpayload *payload);
@@ -113,6 +112,6 @@ t_vec3d			init_vec3d(float x, float y, float z);
 t_vec2d			init_vec2d(float x, float y);
 
 t_vec3d			per_pixal(t_rt *rt, uint32_t x, uint32_t y);
-t_hitpayload	*trace_ray(t_map *map, t_ray ray);
+t_hitpayload	*trace_ray(t_hitable *map, t_ray ray);
 
 #endif

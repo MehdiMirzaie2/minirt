@@ -6,14 +6,14 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:22 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 13:50:14 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:11:43 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 // float plane(t_rt *rt, t_vec2d coord, t_vec2d notnorm)
-float plane(t_map *map, t_ray ray)
+float plane(t_hitable *map, t_ray ray)
 {
 	float	denom;
 
@@ -28,7 +28,7 @@ float plane(t_map *map, t_ray ray)
 	return (__FLT_MAX__);
 }
 
-float shadow_plane(t_map *map, t_ray ray)
+float shadow_plane(t_hitable *map, t_ray ray)
 {
 	float	denom;
 
