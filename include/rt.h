@@ -5,6 +5,8 @@
 
 typedef struct s_rt	t_rt;
 typedef struct s_map t_map;
+typedef struct s_hitable t_hitable;
+typedef struct s_nothitable t_nothitable;
 typedef struct s_vec2d	t_vec2d;
 typedef struct s_vec3d	t_vec3d;
 typedef struct s_hitable	t_hitable;

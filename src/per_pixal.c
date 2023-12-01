@@ -118,11 +118,7 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 		}
 		colour = color_multiply(payload->obj->rgb, set_light_ratio(rt, payload));
 		final_colour = t_vec3d_add(final_colour, t_vec3d_scale(colour, multiplier));
-		// printf("%f\t %f\t %f\n", payload->obj->rgb.r, payload->obj->rgb.g, payload->obj->rgb.b);
-
 		multiplier *= 0.5f;
-		// colour = sphereColor;
-
 		ray.orig = t_vec3d_add(payload->world_positoin, t_vec3d_scale(payload->world_normal, 0.0001f));
 		//t_vec3d randomised = getrendomvec3d(0.1);
 		ray.dir = reflect(ray.dir, t_vec3d_add(payload->world_normal, getrendomvec3d(0.1)));

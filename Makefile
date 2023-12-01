@@ -22,6 +22,11 @@ SRCS        :=	main.c	\
 				init/camera.c \
 				init/light_init.c \
 				init/light.c \
+				utils/utils.c	\
+				utils/init_vec.c	\
+				per_pixal.c 	\
+                utils/init.c	\
+				utils/keys.c	\
 				shapes/cone.c	\
 				shapes/cylinder.c	\
 				shapes/plane.c	\
