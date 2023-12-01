@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 15:17:15 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:54:03 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void put_color_to_pixel(t_rt *rt, int x, int y, int color)
 {
-	int	*buffer;
+	int *buffer;
 
 	buffer = rt->pointer_to_image;
 	buffer[(y * rt->size_line / 4) + x] = color;
 }
 
-void clearScreen(t_rt *rt)
+void clear_screen(t_rt *rt)
 {
 	rt->x = 0;
 	rt->y = 0;
@@ -59,14 +59,14 @@ t_vec3d clamp(t_vec3d value, t_vec3d min, t_vec3d max)
 
 void render(t_rt *rt)
 {
-	t_map		*closest_obj;
-	int			y;
-	int			x;
-	t_vec3d		colour;
-	t_vec3d		accum_colour;
+	t_map *closest_obj;
+	int y;
+	int x;
+	t_vec3d colour;
+	t_vec3d accum_colour;
 
 	closest_obj = NULL;
-	clearScreen(rt);
+	clear_screen(rt);
 	camera()->mat = rotate_camera();
 	// if (rt->frameindex == 1)
 	//     ft_memset()
@@ -98,7 +98,7 @@ void render(t_rt *rt)
 	}
 	rt->fTheta += 0.01;
 	rt->frameindex++;
-	//printf("%d\n", rt->frameindex);
+	// printf("%d\n", rt->frameindex);
 	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
 
