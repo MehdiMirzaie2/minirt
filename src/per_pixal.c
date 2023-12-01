@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_hitpayload *miss(const t_ray ray)
+t_hitpayload	*miss(const t_ray ray)
 {
 	t_hitpayload	*payload;
 
@@ -9,7 +9,7 @@ t_hitpayload *miss(const t_ray ray)
 	return (payload);
 }
 
-t_hitpayload *closest_hit(const t_ray ray, float hit_distance, t_map *obj)
+t_hitpayload	*closest_hit(const t_ray ray, float hit_distance, t_map *obj)
 {
 	t_hitpayload	*payload;
 	t_vec3d			origin;
@@ -27,7 +27,7 @@ t_hitpayload *closest_hit(const t_ray ray, float hit_distance, t_map *obj)
 	return (payload);
 }
 
-t_hitpayload *trace_ray(t_map *map, t_ray ray)
+t_hitpayload	*trace_ray(t_map *map, t_ray ray)
 {
 	t_map	*ref_map;
 	t_map	*closest_obj;
@@ -59,13 +59,13 @@ t_hitpayload *trace_ray(t_map *map, t_ray ray)
 }
 
 // Reflection=Incident−2×(Normal⋅Incident)×Normal
-t_vec3d reflect(t_vec3d incident, t_vec3d normal)
+t_vec3d	reflect(t_vec3d incident, t_vec3d normal)
 {
     return (t_vec3d_sub(incident, \
 		t_vec3d_scale(normal, 2.0f * dot(incident, normal))));
 }
 
-t_vec3d getrendomvec3d(float roughness)
+t_vec3d	getrendomvec3d(float roughness)
 {
 	t_vec3d ran_vec;
 // int random_number = 1 + rand() % 10
