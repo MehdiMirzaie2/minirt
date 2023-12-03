@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 19:31:54 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/04 10:11:50 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,26 @@ t_vec3d clamp(t_vec3d value, t_vec3d min, t_vec3d max)
 	return (result);
 }
 
+void	t_vec3dmemset(t_vec3d *accum, int c)
+{
+	size_t			x;
+	size_t			y;
+	unsigned char	chr;
+
+	chr = c;
+	y = -1;
+	while (++y < SIZE)
+	{
+		x = -1;
+		while (++x < SIZE)
+		{
+			accum[x + y * SIZE].y = chr;
+			accum[x + y * SIZE].z = chr;
+			accum[x + y * SIZE].x = chr;
+		}
+	}
+}
+
 void render(t_rt *rt)
 {
 	int			y;
@@ -66,9 +86,8 @@ void render(t_rt *rt)
 
 	clearScreen(rt);
 	camera()->mat = rotate_camera();
-	// if (rt->frameindex == 1)
-	//     ft_memset()
-	// printf("c%f\n", camera()->pos.z);
+	if (rt->frameindex == 1)
+	    t_vec3dmemset(&rt->accum, 0);
 	y = -1;
 	if (rt->hitable)
 	{
@@ -78,15 +97,7 @@ void render(t_rt *rt)
 			while (++x < SIZE)
 			{
 				colour = per_pixal(rt, x, y);
-
-				if (rt->frameindex == 1)
-				{
-					rt->accum[x + y * SIZE].x = 0;
-					rt->accum[x + y * SIZE].y = 0;
-					rt->accum[x + y * SIZE].z = 0;
-				}
 				rt->accum[x + y * SIZE] = t_vec3d_add(rt->accum[x + y * SIZE], colour);
-
 				t_vec3d accum_colour = rt->accum[x + y * SIZE];
 				accum_colour = t_vec3d_div(accum_colour, rt->frameindex);
 				colour = clamp(accum_colour, (t_vec3d){0.0f, 0.0f, 0.0f}, (t_vec3d){255.0f, 255.0f, 255.0f});
@@ -96,7 +107,6 @@ void render(t_rt *rt)
 	}
 	rt->fTheta += 0.01;
 	rt->frameindex++;
-	//printf("%d\n", rt->frameindex);
 	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
 void test_parser(t_hitable *map)
@@ -131,7 +141,7 @@ int main(int ac, char **av)
 	parse(&rt->hitable, av[1]);
 	rt->frameindex = 1;
 	mlx_hook(rt->window, 2, 0, key_hook, rt);
-	mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
+	// mlx_mouse_hook(rt->window, (void *)mouse_hook, rt);
 	mlx_loop_hook(rt->mlx, (void *)render, rt);
 	mlx_hook(rt->window, 17, 0L, exit_mlx, rt);
 	mlx_loop(rt->mlx);

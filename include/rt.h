@@ -13,6 +13,7 @@ typedef struct s_hitable	t_hitable;
 typedef struct s_nothitable	t_nothitable;
 typedef struct s_mat4x4	t_mat4x4;
 typedef struct s_camera t_camera;
+typedef struct s_onupdate t_onupdate;
 
 struct s_vec2d
 {
@@ -126,6 +127,17 @@ typedef struct s_light
 	t_vec3d	color;
 }	t_light;
 
+struct s_onupdate
+{
+	t_vec2d			oldmousepos;
+	t_vec2d			mousepos;
+	t_vec2d			delta;
+	t_vec3d			m_position;
+	t_vec3d			m_forward_dir;
+	t_vec3d			m_up_dir;
+	t_vec3d			m_right_dir;
+};
+
 typedef struct s_hitpayload
 {
 	t_vec3d	raydir;
@@ -160,6 +172,7 @@ struct s_rt
 	t_mat4x4		*matProj;
 	t_vec3d			accum[SIZE * SIZE];
 	int		frameindex;
+	t_onupdate		on_update
 };
 
 void rotate_x(t_vec3d *coord, t_rt *rt);

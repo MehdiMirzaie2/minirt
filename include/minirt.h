@@ -46,6 +46,8 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
+t_vec3d	cross(t_vec3d v1, t_vec3d v2);
+
 int				parse(t_hitable **hitable, char	*fname);
 
 // src/utils.c
