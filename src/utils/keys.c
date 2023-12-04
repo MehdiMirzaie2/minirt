@@ -10,25 +10,25 @@ int	key_hook(int keycode, t_rt *rt)
 {
 	// mlx_hook(rt->window, 4, 0, ismousedown, rt);
 	if (keycode == UP)
-		camera()->pos.z -= 0.1f;
+		camera()->pos.z -= 0.3f;
 	else if (keycode == DOWN)
-		camera()->pos.z += 0.1f;
+		camera()->pos.z += 0.3f;
 	else if (keycode == LEFT)
-		camera()->pos.x -= 0.1f;
+		camera()->pos.x -= 0.3f;
 	else if (keycode == RIGHT)
-		camera()->pos.x += 0.1f;
+		camera()->pos.x += 0.3f;
 	else if (keycode == W)
-		camera()->pos.y -= 0.1f;
+		camera()->pos.y -= 0.3f;
 	else if (keycode == S)
-		camera()->pos.y += 0.1f;
+		camera()->pos.y += 0.3f;
 	else if (keycode == D)
-		camera()->dir.x += 0.1f;
+		camera()->dir.x += 0.3f;
 	else if (keycode == A)
-		camera()->dir.x -= 0.1f;
+		camera()->dir.x -= 0.3f;
 	else if (keycode == C)
-		camera()->dir.z += 0.1f;
+		camera()->dir.z += 0.3f;
 	else if (keycode == V)
-		camera()->dir.z -= 0.1f;
+		camera()->dir.z -= 0.3f;
 	else if (keycode == ESC)
 		exit_mlx(rt);
 	rt->frameindex = 1;
@@ -50,9 +50,9 @@ int	key_hook(int keycode, t_rt *rt)
 // 	if (mousecode == 1)
 // 		update_light_dir(&rt->light_dir, x, y);
 // 	else if (mousecode == 5)
-// 		rt->zoom += 0.1f;
+// 		rt->zoom += 0.3f;
 // 	else if (mousecode == 4)
-// 		rt->zoom -= 0.1f;
+// 		rt->zoom -= 0.3f;
 // 	rt->frameindex = 1;
 // 	render(rt);
 // }

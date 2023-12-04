@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:40:01 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/01 19:10:39 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/04 10:24:14 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,64 +32,56 @@ int32_t get_type(char *line, uint32_t *type)
 
 int	init_nothitable(uint32_t type, char *line)
 {
-	t_nothitable nothitable;
+	t_nothitable obj;
 
-	nothitable.type = type;
-	if (nothitable.type == 'L')
+	obj.type = type;
+	if (obj.type == 'L')
 	{
-		sscanf(line, "%f,%f,%f %f %f,%f,%f", &nothitable.point.x, &nothitable.point.y,
-			&nothitable.point.z, &nothitable.brightness, &nothitable.rgb.r, &nothitable.rgb.g, &nothitable.rgb.b);
-		set_light(nothitable);
+		ft_sscanf(line, "%f,%f,%f %f %f,%f,%f", &obj.point.x, &obj.point.y,
+			&obj.point.z, &obj.brightness, &obj.rgb.r, &obj.rgb.g, &obj.rgb.b);
+		set_light(obj);
 	}
-	if (nothitable.type == 'A')
+	if (obj.type == 'A')
 	{
-		sscanf(line, "%f %f,%f,%f", &nothitable.light, &nothitable.rgb.r, &nothitable.rgb.g, &nothitable.rgb.b);
-		set_a_light(nothitable);
+		ft_sscanf(line, "%f %f,%f,%f", &obj.light, &obj.rgb.r, &obj.rgb.g, &obj.rgb.b);
+		set_a_light(obj);
 	}
-	if (nothitable.type == 'C')
+	if (obj.type == 'C')
 	{
-		sscanf(line, "%f,%f,%f %f,%f,%f %d", &nothitable.point.x, &nothitable.point.y,
-			&nothitable.point.z, &nothitable.normalized.x, &nothitable.normalized.y, &nothitable.normalized.z, &nothitable.fov);
-		set_camera(nothitable);
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %d", &obj.point.x, &obj.point.y,
+			&obj.point.z, &obj.normalized.x, &obj.normalized.y, &obj.normalized.z, &obj.fov);
+		set_camera(obj);
 	}
 	return (0);
 }
 
 int get_hitable(t_hitable **hitable, char *line, uint32_t type)
 {
-    t_hitable *new_hitable = malloc(sizeof(t_hitable));
+    t_hitable *new = malloc(sizeof(t_hitable));
 
-    if (!new_hitable)
-    {
-        // Handle memory allocation failure
+    if (!new)
         return -1;
-    }
-
-    new_hitable->type = type;
-    new_hitable->next = NULL;
+    new->type = type;
+    new->next = NULL;
 
     if (*hitable == NULL)
-    {
-        *hitable = new_hitable;
-    }
+        *hitable = new;
     else
     {
         t_hitable *current = *hitable;
         while (current->next != NULL)
-        {
             current = current->next;
-        }
-        current->next = new_hitable;
+        current->next = new;
     }
-	if (new_hitable->type == SP)
-		sscanf(line, "%f,%f,%f %f %f,%f,%f %f", &new_hitable->point.x, &new_hitable->point.y,
-			&new_hitable->point.z, &new_hitable->diameter, &new_hitable->rgb.r, &new_hitable->rgb.g, &new_hitable->rgb.b, &new_hitable->roughness);
-	else if (new_hitable->type == PL)
-		sscanf(line, "%f,%f,%f %f,%f,%f %f,%f,%f %f", &new_hitable->point.x, &new_hitable->point.y,
-			&new_hitable->point.z, &new_hitable->normalized.x, &new_hitable->normalized.y, &new_hitable->normalized.z, &new_hitable->rgb.r, &new_hitable->rgb.g, &new_hitable->rgb.b, &new_hitable->roughness);
-	else if (new_hitable->type == CY)
-		sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f %f", &new_hitable->point.x, &new_hitable->point.y,
-			&new_hitable->point.z, &new_hitable->normalized.x, &new_hitable->normalized.y, &new_hitable->normalized.z, &new_hitable->diameter, &new_hitable->height, &new_hitable->rgb.r, &new_hitable->rgb.g, &new_hitable->rgb.b, &new_hitable->roughness);
+	if (new->type == SP)
+		ft_sscanf(line, "%f,%f,%f %f %f,%f,%f %f", &new->point.x, &new->point.y,
+			&new->point.z, &new->diameter, &new->rgb.r, &new->rgb.g, &new->rgb.b, &new->roughness);
+	else if (new->type == PL)
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f,%f,%f %f", &new->point.x, &new->point.y,
+			&new->point.z, &new->normalized.x, &new->normalized.y, &new->normalized.z, &new->rgb.r, &new->rgb.g, &new->rgb.b, &new->roughness);
+	else if (new->type == CY)
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f %f", &new->point.x, &new->point.y,
+			&new->point.z, &new->normalized.x, &new->normalized.y, &new->normalized.z, &new->diameter, &new->height, &new->rgb.r, &new->rgb.g, &new->rgb.b, &new->roughness);
     return 0;
 }
 

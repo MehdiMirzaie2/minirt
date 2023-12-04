@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:58:13 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 19:32:49 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:40:16 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ float ft_cylinder(t_hitable *map, t_ray ray)
 	float	nt;
 	float	nt_height;
 	float	intersection_height;
+	t_vec3d rayOrigin;
 
+	rayOrigin = t_vec3d_sub(ray.orig, map->point);
 	rad = map->diameter / 2.0f;
 	a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
-	b = 2.0f * (ray.orig.x * ray.dir.x + ray.orig.z * ray.dir.z);
-	c = (ray.orig.x * ray.orig.x) + (ray.orig.z * ray.orig.z) - (rad * rad);
+	b = 2.0f * (rayOrigin.x * ray.dir.x + rayOrigin.z * ray.dir.z);
+	c = (rayOrigin.x * rayOrigin.x) + (rayOrigin.z * rayOrigin.z) - (rad * rad);
 	discriminant = b * b - 4.0f * a * c;
 	if (discriminant >= 0.0f)
 	{
@@ -38,13 +40,13 @@ float ft_cylinder(t_hitable *map, t_ray ray)
 		{
 			if (t < nt && t > 0.001f)
 
-				intersection_height = ray.orig.y + t * ray.dir.y;
+				intersection_height = rayOrigin.y + t * ray.dir.y;
 
 				// Check if the intersection height is within the
-				if (intersection_height >= 0.0f && intersection_height <= map->height)
+				if (intersection_height >= 0.001f && intersection_height <= map->height)
 					return t;
 
-			nt_height = ray.orig.y + nt * ray.dir.y;
+			nt_height = rayOrigin.y + nt * ray.dir.y;
 			// Check if the intersection height is within the limits
 			if (nt_height >= 0.0f && nt_height <= map->height)
 				return nt;

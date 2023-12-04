@@ -114,6 +114,6 @@ t_vec3d			init_vec3d(float x, float y, float z);
 t_vec2d			init_vec2d(float x, float y);
 
 t_vec3d			per_pixal(t_rt *rt, uint32_t x, uint32_t y);
-t_hitpayload	*trace_ray(t_hitable *map, t_ray ray);
+t_hitpayload	trace_ray(t_hitable *map, t_ray ray);
 
 #endif
