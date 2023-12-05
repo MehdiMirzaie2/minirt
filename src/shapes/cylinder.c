@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:40:34 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 18:04:10 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:32:02 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,19 @@ float	get_closert(t_vec2d hits, t_hitable *map, t_vec3d rayorigin, t_ray ray)
 	if (hits.t > hits.nt && hits.t > 0.001f)
 	{
 		intersection_height = rayorigin.y + hits.t * ray.dir.y;
-		// if (intersection_height >= 0.001f && intersection_height <= map->height)
-			// return (hits.t);
-		if (intersection_height >= map->height - 0.001f && intersection_height <= map->height)
-    		return (hits.t);
-
+		if (intersection_height >= 0.001f && intersection_height <= map->height)
+			return (hits.t);
 	}
 	return (__FLT_MAX__);
 }
 
 float	ft_cylinder(t_hitable *map, t_ray ray)
 {
-	// float		rad;
 	t_vec3d		quad;
 	float		discriminant;
 	t_vec2d		hits;
 	t_vec3d		rayorigin;
 
-	// rayorigin = transform_to_local(t_vec3d_sub(ray.orig, map->point),
-	// 		map->normalized);
 	rayorigin = t_vec3d_sub(ray.orig, map->point);
 	quad.aa = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
 	quad.bb = 2.0f * (rayorigin.x * ray.dir.x + rayorigin.z * ray.dir.z);
