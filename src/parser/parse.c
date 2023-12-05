@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:40:01 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/01 19:10:39 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:27:01 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	parse(t_hitable **hitable, char	*fname)
 	int				index;
 
 	if (fd < 0)
-		return (0);
+		exit(1);
 	hitable_ref = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)

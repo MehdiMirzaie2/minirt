@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:38:18 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/01 19:33:15 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:06:07 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,9 @@ float	set_light_ratio(t_rt *rt, t_hitpayload *payload)
 	normal = t_vec3d_sub(hit_point, payload->obj->point);
 	lvec = t_vec3d_sub(light()->pos, hit_point);
 	shadow_check = *trace_ray(rt->hitable, (t_ray){hit_point, lvec});
-	if (payload->obj->type == PL)
-	{
-		if (shadow_check.hit_distance == -1.0f)
-			light_ratio = a_light()->intensity;
-	}
-	else
+	if (payload->obj->type == PL && shadow_check.hit_distance == -1.0f)
+		light_ratio = a_light()->intensity;
+	else if (shadow_check.hit_distance == -1.0f)
 	{
 		light_ratio = diffuse_light(normal, lvec);
 		light_ratio = specular_light(normal, lvec, \

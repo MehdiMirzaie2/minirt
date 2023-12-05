@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/01 19:31:54 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:31:01 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void render(t_rt *rt)
 	//printf("%d\n", rt->frameindex);
 	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
+
 void test_parser(t_hitable *map)
 {
 	while (map)

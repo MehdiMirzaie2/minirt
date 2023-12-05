@@ -31,9 +31,9 @@ t_hitpayload	*trace_ray(t_hitable *map, t_ray ray)
 {
 	t_hitable	*ref_map;
 	t_hitable	*closest_obj;
-	float	closest_t_val;
-	float	old_closest;
-	t_vec2d	point;
+	float		closest_t_val;
+	float		old_closest;
+	t_vec2d		point;
 
 	ref_map = map;
 	closest_obj = NULL;
