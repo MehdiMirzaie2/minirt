@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/04 10:11:50 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:31:43 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void render(t_rt *rt)
 	rt->frameindex++;
 	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
+
 void test_parser(t_hitable *map)
 {
 	while (map)

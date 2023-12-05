@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:40:01 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/04 12:45:11 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:32:09 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	parse(t_hitable **hitable, char	*fname)
 	int				index;
 
 	if (fd < 0)
-		return (0);
+		exit(1);
 	hitable_ref = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)

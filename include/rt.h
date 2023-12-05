@@ -79,17 +79,17 @@ typedef struct s_ray
 
 struct s_map
 {
-	int				type;
-	t_vec3d			point;
-	float			light;
-	t_vec3d			rgb;
-	t_vec3d			normalized;
-	int				fov;
-	float			brightness;
-	float			diameter;
-	float			height;
-	float			roughness;
-	t_map			*next;
+	int			type;
+	t_vec3d		point;
+	float		light;
+	t_vec3d		rgb;
+	t_vec3d		normalized;
+	int			fov;
+	float		brightness;
+	float		diameter;
+	float		height;
+	float		roughness;
+	t_map		*next;
 };
 
 
