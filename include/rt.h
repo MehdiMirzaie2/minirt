@@ -162,7 +162,6 @@ typedef struct s_hitpayload
 
 struct s_rt
 {
-	t_map			*map;
 	t_hitable		*hitable;
 	void			*mlx;
 	void			*window;
@@ -171,21 +170,10 @@ struct s_rt
 	int				bits_per_pixel;
 	int				size_line;
 	int				endian;
-	int				x;
-	int				y;
-	int				x_ref;
-	int				y_ref;
-	float			offset_x;
-	float			offset_y;
-	float			zoom;
-	t_vec3d			light_dir;
-	t_vec3d			camera;
-	int				color;
 	float			fTheta;
 	t_mat4x4		*matProj;
 	t_vec3d			accum[SIZE * SIZE];
-	int		frameindex;
-	t_onupdate		on_update
+	int				frameindex;
 };
 
 void rotate_x(t_vec3d *coord, t_rt *rt);

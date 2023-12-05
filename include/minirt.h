@@ -35,6 +35,17 @@
 # define I 34
 # define D 2
 
+// Initailizes min rgb t_vec3d and max rgb t_vec3d
+#define mincolour ((t_vec3d){.r = 0, .g = 0, .b = 0})
+#define maxcolour ((t_vec3d){.r = 255, .g = 255, .b = 255})
+
+// Returns the maximum between a and b
+# define MAX(a, b)	((a) * (a > b) + (b) * (b > a))
+// Returns the minimum between a and b
+# define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
+// Returns the absolute value of x
+# define ABS(x)		((x) * (x > 0) - (x) * (x < 0))
+
 // MOUSECODES
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -58,7 +69,7 @@ t_vec3d			color_multiply(t_vec3d color, float ratio);
 // src/init.c
 void			init_rt(t_rt *rt);
 void			init_mlx(t_rt *rt);
-t_mat4x4		*init_matProj(void);
+// t_mat4x4		*init_matProj(void);
 int				exit_mlx(t_rt *rt);
 
 // src/keys.c

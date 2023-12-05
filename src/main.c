@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 12:31:43 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:35:16 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,20 @@ void put_color_to_pixel(t_rt *rt, int x, int y, int color)
 
 void clearScreen(t_rt *rt)
 {
-	rt->x = 0;
-	rt->y = 0;
+	int x;
+	int y;
+	x = 0;
+	y = 0;
 
-	while (rt->x < SIZE)
+	while (x < SIZE)
 	{
-		while (rt->y < SIZE)
+		while (y < SIZE)
 		{
-			put_color_to_pixel(rt, rt->x, rt->y, 0x000000);
-			rt->y++;
+			put_color_to_pixel(rt, x, y, 0x000000);
+			y++;
 		}
-		rt->x++;
-		rt->y = 0;
+		x++;
+		y = 0;
 	}
 }
 
@@ -57,7 +59,7 @@ t_vec3d clamp(t_vec3d value, t_vec3d min, t_vec3d max)
 	return (result);
 }
 
-void	t_vec3dmemset(t_vec3d *accum, int c)
+void	t_vec3dmemset(t_vec3d accum[][SIZE * SIZE], int c)
 {
 	size_t			x;
 	size_t			y;
@@ -70,9 +72,9 @@ void	t_vec3dmemset(t_vec3d *accum, int c)
 		x = -1;
 		while (++x < SIZE)
 		{
-			accum[x + y * SIZE].y = chr;
-			accum[x + y * SIZE].z = chr;
-			accum[x + y * SIZE].x = chr;
+			accum[0][x + y * SIZE].y = chr;
+			accum[0][x + y * SIZE].z = chr;
+			accum[0][x + y * SIZE].x = chr;
 		}
 	}
 }
@@ -98,34 +100,33 @@ void render(t_rt *rt)
 			{
 				colour = per_pixal(rt, x, y);
 				rt->accum[x + y * SIZE] = t_vec3d_add(rt->accum[x + y * SIZE], colour);
-				t_vec3d accum_colour = rt->accum[x + y * SIZE];
+				accum_colour = rt->accum[x + y * SIZE];
 				accum_colour = t_vec3d_div(accum_colour, rt->frameindex);
-				colour = clamp(accum_colour, (t_vec3d){0.0f, 0.0f, 0.0f}, (t_vec3d){255.0f, 255.0f, 255.0f});
+				colour = clamp(accum_colour, mincolour, maxcolour);
 				put_color_to_pixel(rt, x, y, convert_to_rgba(colour));
 			}
 		}
 	}
-	rt->fTheta += 0.01;
+	// rt->fTheta += 0.01;
 	rt->frameindex++;
 	mlx_put_image_to_window(rt->mlx, rt->window, rt->image, 0, 0);
 }
-
-void test_parser(t_hitable *map)
-{
-	while (map)
-	{
-		if (map->type == SP)
-			printf("sp: point: %f,%f,%f\t diameter: %f\t rgb: %f,%f,%f\t roughness: %f\n", map->point.x, map->point.y,
-				map->point.z, map->diameter, map->rgb.r, map->rgb.g, map->rgb.b, map->roughness);
-		if (map->type == PL)
-			printf("pl: point: %f,%f,%f\t normalized: %f,%f,%f\t rgb: %f,%f,%f\t roughness: %f\n", map->point.x, map->point.y,
-				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->rgb.r, map->rgb.g, map->rgb.b);
-		if (map->type == CY)
-			printf("cy: point: %f,%f,%f\t normalized: %f,%f,%f\t diameter: %f\t height: %f\t rgb: %f,%f,%f\t roughness: %f\n", map->point.x, map->point.y,
-				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->diameter, map->height, map->rgb.r, map->rgb.g, map->rgb.b);
-		map = map->next;
-	}
-}
+// void test_parser(t_hitable *map)
+// {
+// 	while (map)
+// 	{
+// 		if (map->type == SP)
+// 			printf("sp: point: %f,%f,%f\t diameter: %f\t rgb: %f,%f,%f\t roughness: %f\n", map->point.x, map->point.y,
+// 				map->point.z, map->diameter, map->rgb.r, map->rgb.g, map->rgb.b, map->roughness);
+// 		if (map->type == PL)
+// 			printf("pl: point: %f,%f,%f\t normalized: %f,%f,%f\t rgb: %f,%f,%f\t roughness: %f\n", map->point.x, map->point.y,
+// 				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->rgb.r, map->rgb.g, map->rgb.b);
+// 		if (map->type == CY)
+// 			printf("cy: point: %f,%f,%f\t normalized: %f,%f,%f\t diameter: %f\t height: %f\t rgb: %f,%f,%f\t roughness: %f\n", map->point.x, map->point.y,
+// 				map->point.z, map->normalized.x, map->normalized.y, map->normalized.x, map->diameter, map->height, map->rgb.r, map->rgb.g, map->rgb.b);
+// 		map = map->next;
+// 	}
+// }
 
 int main(int ac, char **av)
 {

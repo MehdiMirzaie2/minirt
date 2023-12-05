@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-
 t_hitpayload	miss(const t_ray ray)
 {
+	(void)ray;
 	t_hitpayload	payload;
 
 	// payload = malloc(sizeof(t_hitpayload));
@@ -32,9 +32,8 @@ t_hitpayload	trace_ray(t_hitable *map, t_ray ray)
 {
 	t_hitable	*ref_map;
 	t_hitable	*closest_obj;
-	float		closest_t_val;
-	float		old_closest;
-	t_vec2d		point;
+	float	closest_t_val;
+	float	old_closest;
 
 	ref_map = map;
 	closest_obj = NULL;
@@ -78,27 +77,6 @@ t_vec3d	getrendomvec3d(float roughness)
 	return (ran_vec);
 }
 
-// mat4x4	*init_matProj(void)
-// {
-// 	mat4x4 *matProj = malloc(sizeof(mat4x4));
-// 	float fNear = 0.1f;
-// 	float fFar = 1000.0f;
-// 	float fFov = 90.0f;
-// 	float fAspectRatio = (float)SIZE / (float)SIZE;
-// 	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
-
-// 	if (matProj->m != NULL)
-//     	ft_memset(matProj, 0.0f, sizeof(mat4x4));
-// 	matProj->m[0][0] = fAspectRatio * fFovRad;
-// 	matProj->m[1][1] = fFovRad;
-// 	matProj->m[2][2] = fFar / (fFar - fNear);
-// 	matProj->m[3][2] = (-fFar * fNear) / (fFar - fNear);
-// 	matProj->m[2][3] = 1.0f;
-// 	matProj->m[3][3] = 0.0f;
-// 	return (matProj);
-// }
-
-
 t_ray	set_ray(uint32_t x, uint32_t y)
 {
 	t_ray	ray;
@@ -111,6 +89,7 @@ t_ray	set_ray(uint32_t x, uint32_t y)
 	ray.dir.y = ray.dir.y * 2.0f - 1.0f;
 	ray.dir.z = -1.0f;
 	ray.dir = dir_from_mat(&camera()->mat, ray.dir);
+	normalize(&ray.dir);
 	return (ray);
 }
 
@@ -125,8 +104,8 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 	t_hitpayload	payload;
 
 	ray = set_ray(x, y);
-	colour = (t_vec3d){0,0,0};
-	final_colour = (t_vec3d){0,0,0};
+	colour = mincolour;
+	final_colour = mincolour;
 	multiplier = 1.0f;
 	bounces = 5;
 	i = -1;
@@ -135,8 +114,9 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 		payload = trace_ray(rt->hitable, ray);
 		if (payload.hit_distance < 0.0f)
 		{
-			//t_vec3d skyColor = (t_vec3d){0.0f, 0.0f, 0.0f};
-			final_colour = t_vec3d_add(final_colour, t_vec3d_scale((t_vec3d){0.0f, 0.0f, 0.0f}, multiplier));
+			// t_vec3d skyColor = (t_vec3d){0.0f, 0.0f, 0.0f};
+			if (i != 0)
+				final_colour = t_vec3d_add(final_colour, t_vec3d_scale(mincolour, multiplier));
 			break ;
 		}
 		colour = color_multiply(payload.obj->rgb, set_light_ratio(rt, &payload));
