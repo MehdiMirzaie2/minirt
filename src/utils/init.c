@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 14:42:03 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:28:23 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	init_rt(t_rt *rt)
 	rt->theta = 2.0f;
 	rt->mincolour = init_vec3d(0, 0, 0);
 	rt->maxcolour = init_vec3d(255, 255, 255);
+	rt->i = -1;
+	rt->mul = 1.0f;
 }
 
 void	init_mlx(t_rt *rt)

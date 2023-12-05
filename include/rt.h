@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:07:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 14:16:15 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:28:15 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,8 @@ struct s_rt
 	t_vec3d			maxcolour;
 	t_vec3d			accum[SIZE * SIZE];
 	int				frameindex;
+	int				i;
+	float			mul;
 };
 
 #endif

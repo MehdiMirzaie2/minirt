@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:00:07 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 14:45:40 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:35:05 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@
 t_vec3d			cross(t_vec3d v1, t_vec3d v2);
 
 int				parse(t_hitable **hitable, char	*fname);
+int				open_helper(char *fname);
+int32_t			get_type(char *line, uint32_t *type);
+t_hitable		*get_hitable_helper(t_hitable **hitable, uint32_t type);
 
 // src/utils.c
 void			t_vec3dmemset(t_vec3d accum[][SIZE*SIZE], int c);
@@ -115,5 +118,10 @@ t_vec2d			init_vec2d(float x, float y);
 // src/per_pixel.c
 t_vec3d			per_pixal(t_rt *rt, uint32_t x, uint32_t y);
 t_hitpayload	trace_ray(t_hitable *map, t_ray ray);
+
+t_vec3d			reflect(t_vec3d incident, t_vec3d normal);
+t_vec3d			getrendomvec3d(float roughness);
+void			set_raydir(t_vec3d *raydir);
+t_ray			set_ray(uint32_t x, uint32_t y);
 
 #endif
