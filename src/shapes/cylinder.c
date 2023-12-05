@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:40:34 by mmirzaie          #+#    #+#             */
 /*   Updated: 2023/12/05 18:04:10 by mmirzaie         ###   ########.fr       */
@@ -27,7 +27,10 @@ float	get_closert(t_vec2d hits, t_hitable *map, t_vec3d rayorigin, t_ray ray)
 	float	nt_height;
 	float	intersection_height;
 
-	if (hits.t < hits.nt && hits.t > 0.001f)
+	nt_height = rayorigin.y + hits.nt * ray.dir.y;
+	if (nt_height >= 0.0f && nt_height <= map->height)
+		return (hits.nt);
+	if (hits.t > hits.nt && hits.t > 0.001f)
 	{
 		intersection_height = rayorigin.y + hits.t * ray.dir.y;
 		// if (intersection_height >= 0.001f && intersection_height <= map->height)
@@ -36,9 +39,6 @@ float	get_closert(t_vec2d hits, t_hitable *map, t_vec3d rayorigin, t_ray ray)
     		return (hits.t);
 
 	}
-	nt_height = rayorigin.y + hits.nt * ray.dir.y;
-	if (nt_height >= 0.0f && nt_height <= map->height)
-		return (hits.nt);
 	return (__FLT_MAX__);
 }
 

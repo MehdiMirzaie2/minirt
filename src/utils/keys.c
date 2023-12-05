@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:49:30 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 14:34:23 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:16:08 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	key_hook(int keycode, t_rt *rt)
 	else if (keycode == A)
 		camera()->dir.x -= 0.3f;
 	else if (keycode == C)
-		camera()->dir.z += 0.3f;
+		camera()->dir.z += 1.0f;
 	else if (keycode == V)
-		camera()->dir.z -= 0.3f;
+		camera()->dir.z -= 1.0f;
 	else if (keycode == ESC)
 		exit_mlx(rt);
 	rt->frameindex = 1;
