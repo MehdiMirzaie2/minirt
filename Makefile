@@ -14,6 +14,7 @@ SRC_DIR		:=	src
 
 SRCS        :=	main.c	\
 				per_pixal.c 	\
+				per_pixal_helper.c \
 				parser/parse.c	\
 				parser/parse_helper.c \
                 utils/init.c	\
@@ -21,6 +22,8 @@ SRCS        :=	main.c	\
 				utils/keys.c	\
 				utils/utils.c	\
 				init/camera_init.c \
+				utils/dmas.c	\
+				utils/t_vec3d_memset.c	\
 				init/camera.c \
 				init/light_init.c \
 				init/light.c \
@@ -28,8 +31,6 @@ SRCS        :=	main.c	\
 				shapes/cylinder.c	\
 				shapes/plane.c	\
 				shapes/sphere.c	\
-				mat_cal/matrix.c	\
-				mat_cal/rotation.c
 
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
@@ -50,9 +51,9 @@ DEPS        := $(OBJS:.o=.d)
 # RLFLAGS     := -lreadline
 
 CC          := gcc
-CFLAGS      := -Wall -Wextra -Werror -g -fsanitize=address $(DFLAGS)
+CFLAGS      := -Wall -Wextra -Werror -O3 $(DFLAGS)
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
-LDFLAGS     := -fsanitize=address $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
+LDFLAGS     := $(addprefix -L,$(dir $(LIBFT_TARGET))) -L$(MLX_LIB_DIR)  # Add MLX library directory
 LDLIBS      := $(addprefix -l,$(LIBS)) -lmlx  # Link against MLX library
 MLXFLAGS    := -L$(MLX_LIB_DIR) -lmlx -framework OpenGL -framework AppKit  # MLX-specific flags
 RLFLAGS     := -lreadline

@@ -3,51 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 11:59:06 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:28:23 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// t_mat4x4	*init_matProj(void)
-// {
-// 	t_mat4x4 *matProj = malloc(sizeof(t_mat4x4));
-// 	float fNear = 0.1f;
-// 	float fFar = 1000.0f;
-// 	float fFov = 50.0f;
-// 	float fAspectRatio = (float)SIZE / (float)SIZE;
-// 	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
-
-// 	// if (matProj->m != NULL)
-// 		// ft_memset(matProj, 0.0f, sizeof(t_mat4x4));
-// 	matProj->m[0][0] = fAspectRatio * fFovRad;
-// 	matProj->m[1][1] = fFovRad;
-// 	matProj->m[2][2] = fFar / (fFar - fNear);
-// 	matProj->m[3][2] = (-fFar * fNear) / (fFar - fNear);
-// 	matProj->m[2][3] = 1.0f;
-// 	matProj->m[3][3] = 0.0f;
-// 	return (matProj);
-// }
-
 void	init_rt(t_rt *rt)
 {
-	//rt->map = malloc(sizeof(t_map));
 	rt->hitable = malloc(sizeof(t_hitable));
-	rt->fTheta = 2.0f;
-	// rt->x = -1;
-	// rt->y = -1;
-	// rt->x_ref = -1;
-	// rt->y_ref = -1;
-	// rt->color = 0xFCBE11;
-	// rt->zoom = 1.0f;
-
-	// rt->camera = (vec2d){0, 0};
-	// rt->matProj = init_matProj();
-	// rt->meshCube.num_triangles = 0;
-	// rt->meshCube.tris = NULL;
+	rt->theta = 2.0f;
+	rt->mincolour = init_vec3d(0, 0, 0);
+	rt->maxcolour = init_vec3d(255, 255, 255);
+	rt->i = -1;
+	rt->mul = 1.0f;
 }
 
 void	init_mlx(t_rt *rt)

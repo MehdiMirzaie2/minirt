@@ -6,7 +6,7 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:36:39 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/05 14:49:53 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:34:15 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,64 +75,31 @@ t_hitpayload	trace_ray(t_hitable *map, t_ray ray)
 	return (closest_hit(ray, old_closest, closest_obj));
 }
 
-// Reflection=Incident−2×(Normal⋅Incident)×Normal
-t_vec3d	reflect(t_vec3d incident, t_vec3d normal)
-{
-	return (t_vec3d_sub(incident, \
-		t_vec3d_scale(normal, 2.0f * dot(incident, normal))));
-}
-
-t_vec3d	getrendomvec3d(float roughness)
-{
-	t_vec3d	ran_vec;
-
-	ran_vec.x = ((float)rand() / RAND_MAX - 0.5) * roughness;
-	ran_vec.y = ((float)rand() / RAND_MAX - 0.5) * roughness;
-	ran_vec.z = ((float)rand() / RAND_MAX - 0.5) * roughness;
-	return (ran_vec);
-}
-
-t_ray	set_ray(uint32_t x, uint32_t y)
-{
-	t_ray	ray;
-
-	ray.orig = camera()->pos;
-	ray.dir = init_vec3d((float)x, (float)y, -1.0f);
-	ray.dir.x /= (float)SIZE;
-	ray.dir.y /= (float)SIZE;
-	ray.dir.x = ray.dir.x * 2.0f - 1.0f;
-	ray.dir.y = ray.dir.y * 2.0f - 1.0f;
-	ray.dir.z = -1.0f;
-	ray.dir = dir_from_mat(&camera()->mat, ray.dir);
-	normalize(&ray.dir);
-	return (ray);
-}
-
 t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 {
 	t_ray			ray;
-	t_vec3d			col;
 	t_vec3d			fcol;
-	float			multiplier;
-	int				i;
 	t_hitpayload	payload;
 
 	ray = set_ray(x, y);
-	col = mincol;
-	fcol = mincol;
-	multiplier = 1.0f;
-	i = -1;
-	while (++i < 5)
+	fcol = rt->mincolour;
+	rt->mul = 1.0f;
+	rt->i = -1;
+	while (++(rt->i) < 5)
 	{
 		payload = trace_ray(rt->hitable, ray);
 		if (payload.hit_distance < 0.0f)
-			if (i != 0)
-				return (t_vec3d_add(fcol, t_vec3d_scale(mincol, multiplier)));
-		col = color_multiply(payload.obj->rgb, set_light_ratio(rt, &payload));
-		fcol = t_vec3d_add(fcol, t_vec3d_scale(col, multiplier));
-		multiplier *= 0.5f;
-		ray.orig = t_vec3d_add(payload.world_positoin, t_vec3d_scale(payload.world_normal, 0.0001f));
-		ray.dir = reflect(ray.dir, t_vec3d_add(payload.world_normal, getrendomvec3d(payload.obj->roughness)));
+		{
+			fcol = (t_vec3d_add(fcol, t_vec3d_scale(rt->mincolour, rt->mul)));
+			break ;
+		}
+		fcol = t_vec3d_add(fcol, t_vec3d_scale(color_multiply(payload.obj->rgb,
+						set_light_ratio(rt, &payload)), rt->mul));
+		rt->mul *= 0.5f;
+		ray.orig = t_vec3d_add(payload.world_positoin,
+				t_vec3d_scale(payload.world_normal, 0.0001f));
+		ray.dir = reflect(ray.dir, t_vec3d_add(payload.world_normal,
+					getrendomvec3d(payload.obj->roughness)));
 	}
 	return (fcol);
 }
