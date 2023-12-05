@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/05 13:50:23 by mmirzaie          #+#    #+#             */
+/*   Updated: 2023/12/05 13:54:52 by mmirzaie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minirt.h"
 
-void normalize(t_vec3d *vec)
+void	normalize(t_vec3d *vec)
 {
 	float	length;
 
@@ -14,7 +25,7 @@ void normalize(t_vec3d *vec)
 	}
 }
 
-float length(t_vec3d vec)
+float	length(t_vec3d vec)
 {
 	float	length;
 
@@ -22,65 +33,20 @@ float length(t_vec3d vec)
 	return (length);
 }
 
-
-t_vec3d t_vec3d_div(t_vec3d v1, float deno)
-{
-	t_vec3d	result;
-
-	result.x = v1.x / deno;
-	result.y = v1.y / deno;
-	result.z = v1.z / deno;
-	return (result);
-}
-
-t_vec3d t_vec3d_scale(t_vec3d v1, float scalar)
-{
-	t_vec3d	result;
-
-	result.x = v1.x * scalar;
-	result.y = v1.y * scalar;
-	result.z = v1.z * scalar;
-	return (result);
-}
-
-t_vec3d t_vec3d_add(t_vec3d v1, t_vec3d v2)
-{
-	t_vec3d result;
-
-	result.x = v1.x + v2.x;
-	result.y = v1.y + v2.y;
-	result.z = v1.z + v2.z;
-	return (result);
-}
-
-t_vec3d t_vec3d_sub(t_vec3d v1, t_vec3d v2)
-{
-	t_vec3d result;
-
-	result.x = v1.x - v2.x;
-	result.y = v1.y - v2.y;
-	result.z = v1.z - v2.z;
-	return (result);
-}
-
-float dot(t_vec3d v1, t_vec3d v2)
+float	dot(t_vec3d v1, t_vec3d v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-uint32_t convert_to_rgba(const t_vec3d color)
+uint32_t	convert_to_rgba(const t_vec3d color)
 {
-//    uint8_t r = (uint8_t)(color.r * 255.0f);
-//    uint8_t g = (uint8_t)(color.g * 255.0f);
-//    uint8_t b = (uint8_t)(color.b * 255.0f);
-
-	uint32_t result;
+	uint32_t	result;
 
 	result = ((int)color.r << 16) | ((int)color.g << 8) | (int)color.b;
-	return result;
+	return (result);
 }
 
-float max(float arg1, float arg2)
+float	max(float arg1, float arg2)
 {
 	if (arg1 < arg2)
 		return (arg2);
