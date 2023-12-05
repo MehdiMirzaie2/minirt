@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:40:34 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 13:41:54 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:04:13 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ float	get_closert(t_vec2d hits, t_hitable *map, t_vec3d rayorigin, t_ray ray)
 	float	nt_height;
 	float	intersection_height;
 
-	if (hits.t < hits.nt && hits.t > 0.001f)
+	nt_height = rayorigin.y + hits.nt * ray.dir.y;
+	if (nt_height >= 0.0f && nt_height <= map->height)
+		return (hits.nt);
+	if (hits.t > hits.nt && hits.t > 0.001f)
 	{
 		intersection_height = rayorigin.y + hits.t * ray.dir.y;
 		if (intersection_height >= 0.001f && intersection_height <= map->height)
 			return (hits.t);
 	}
-	nt_height = rayorigin.y + hits.nt * ray.dir.y;
-	if (nt_height >= 0.0f && nt_height <= map->height)
-		return (hits.nt);
 	return (__FLT_MAX__);
 }
 
@@ -47,8 +47,9 @@ float	ft_cylinder(t_hitable *map, t_ray ray)
 	t_vec2d		hits;
 	t_vec3d		rayorigin;
 
-	rayorigin = transform_to_local(t_vec3d_sub(ray.orig, map->point),
-			map->normalized);
+	// rayorigin = transform_to_local(t_vec3d_sub(ray.orig, map->point),
+	// 		map->normalized);
+	rayorigin = t_vec3d_sub(ray.orig, map->point);
 	rad = map->diameter / 2.0f;
 	quad.aa = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
 	quad.bb = 2.0f * (rayorigin.x * ray.dir.x + rayorigin.z * ray.dir.z);
