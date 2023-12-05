@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:37:55 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/01 19:16:52 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/04 14:08:49 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_mat4x4	create_matrix(t_vec3d axis, float angle)
 	float		one_minus_cos_theta;
 
 	cos_theta = cos(angle);
-	sin_theta = sin(angle);
+	sin_theta = sin(angle + 1);
 	one_minus_cos_theta = 1.0f - cos_theta;
 	matrix.m[0][0] = cos_theta + axis.x * axis.x * one_minus_cos_theta;
 	matrix.m[0][1] = axis.x * axis.y * one_minus_cos_theta - axis.z * sin_theta;

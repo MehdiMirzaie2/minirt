@@ -47,6 +47,8 @@ t_hitpayload	trace_ray(t_hitable *map, t_ray ray)
 			closest_t_val = ft_cylinder(ref_map, ray);
 		else if (ref_map->type == PL)
 			closest_t_val = plane(ref_map, ray);
+		else if (ref_map->type == CN)
+			closest_t_val = ft_cone(ref_map, ray);
 		if (closest_t_val < old_closest)
 		{
 			old_closest = closest_t_val;
@@ -75,6 +77,27 @@ t_vec3d	getrendomvec3d(float roughness)
 	ran_vec.z = ((float)rand() / RAND_MAX - 0.5) * roughness;
 	return (ran_vec);
 }
+
+// mat4x4	*init_matProj(void)
+// {
+// 	mat4x4 *matProj = malloc(sizeof(mat4x4));
+// 	float fNear = 0.1f;
+// 	float fFar = 1000.0f;
+// 	float fFov = 90.0f;
+// 	float fAspectRatio = (float)SIZE / (float)SIZE;
+// 	float fFovRad = 1.0f / tanf(fFov * 0.5f / 180.f * 3.14159f);
+
+// 	if (matProj->m != NULL)
+//     	ft_memset(matProj, 0.0f, sizeof(mat4x4));
+// 	matProj->m[0][0] = fAspectRatio * fFovRad;
+// 	matProj->m[1][1] = fFovRad;
+// 	matProj->m[2][2] = fFar / (fFar - fNear);
+// 	matProj->m[3][2] = (-fFar * fNear) / (fFar - fNear);
+// 	matProj->m[2][3] = 1.0f;
+// 	matProj->m[3][3] = 0.0f;
+// 	return (matProj);
+// }
+
 
 t_ray	set_ray(uint32_t x, uint32_t y)
 {

@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:40:01 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/04 10:24:14 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:45:11 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ int get_hitable(t_hitable **hitable, char *line, uint32_t type)
 	else if (new->type == CY)
 		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f %f %f,%f,%f %f", &new->point.x, &new->point.y,
 			&new->point.z, &new->normalized.x, &new->normalized.y, &new->normalized.z, &new->diameter, &new->height, &new->rgb.r, &new->rgb.g, &new->rgb.b, &new->roughness);
+	else if (new->type == CN)
+		ft_sscanf(line, "%f,%f,%f %f,%f,%f %f", &new->point.x, &new->point.y,
+			&new->point.z, &new->rgb.r, &new->rgb.g, &new->rgb.b, &new->roughness);
     return 0;
 }
 

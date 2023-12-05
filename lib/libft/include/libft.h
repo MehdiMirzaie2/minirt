@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 13:55:32 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/10/27 13:50:10 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:52:37 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 /*
 it replicates the behaviour of the sscanf function, but it only takes care of %d and %f
 */
-int	ft_sscanf(const char *tosplit, const char *str, ...);
+void	ft_sscanf(const char *tosplit, const char *str, ...);
 
 #endif

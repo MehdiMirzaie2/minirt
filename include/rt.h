@@ -17,7 +17,19 @@ typedef struct s_onupdate t_onupdate;
 
 struct s_vec2d
 {
-	float x, y;
+	union
+	{
+		struct
+		{
+			float x;
+			float y;
+		};
+		struct
+		{
+			float t;
+			float nt;
+		};
+	};
 };
 
 struct s_vec3d
@@ -55,6 +67,7 @@ enum	e_identifier
 	SP = 's' * 'p',
 	PL = 'p' * 'l',
 	CY = 'c' * 'y',
+	CN = 'c' * 'n',
 };
 
 typedef struct s_ray
