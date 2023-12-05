@@ -35,13 +35,6 @@
 # define I 34
 # define D 2
 
-// Returns the maximum between a and b
-# define MAX(a, b)	((a) * (a > b) + (b) * (b > a))
-// Returns the minimum between a and b
-# define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
-// Returns the absolute value of x
-# define ABS(x)		((x) * (x > 0) - (x) * (x < 0))
-
 // MOUSECODES
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
