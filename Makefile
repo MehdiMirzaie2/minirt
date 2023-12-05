@@ -15,10 +15,12 @@ SRC_DIR		:=	src
 SRCS        :=	main.c	\
 				per_pixal.c 	\
 				parser/parse.c	\
+				parser/parse_helper.c \
                 utils/init.c	\
 				utils/init_vec.c	\
 				utils/keys.c	\
 				utils/utils.c	\
+				init/camera_init.c \
 				init/camera.c \
 				init/light_init.c \
 				init/light.c \

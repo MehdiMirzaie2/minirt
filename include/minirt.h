@@ -53,6 +53,9 @@
 t_vec3d	cross(t_vec3d v1, t_vec3d v2);
 
 int				parse(t_hitable **hitable, char	*fname);
+int				open_helper(char *fname);
+int32_t			get_type(char *line, uint32_t *type);
+t_hitable		*get_hitable_helper(t_hitable **hitable, uint32_t type);
 
 // src/utils.c
 float			max(float arg1, float arg2);
