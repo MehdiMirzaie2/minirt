@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:38:18 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/05 12:33:01 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:13:59 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ float	set_light_ratio(t_rt *rt, t_hitpayload *payload)
 	hit_point = t_vec3d_add(camera()->pos, payload->raydir);
 	normal = t_vec3d_sub(hit_point, payload->obj->point);
 	lvec = t_vec3d_sub(light()->pos, hit_point);
-	shadow_check = *trace_ray(rt->hitable, (t_ray){hit_point, lvec});
+	shadow_check = trace_ray(rt->hitable, (t_ray){hit_point, lvec});
 	if (payload->obj->type == PL && shadow_check.hit_distance == -1.0f)
 		light_ratio = a_light()->intensity;
 	else if (shadow_check.hit_distance == -1.0f)

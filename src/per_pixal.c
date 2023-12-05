@@ -77,17 +77,53 @@ t_vec3d	getrendomvec3d(float roughness)
 	return (ran_vec);
 }
 
+// t_ray	set_ray(uint32_t x, uint32_t y)
+// {
+// 	t_ray	ray;
+
+// 	ray.orig = camera()->pos;
+// 	ray.dir = init_vec3d((float)x, (float)y, -1.0f);
+// 	ray.dir.x /= (float)SIZE;
+// 	ray.dir.y /= (float)SIZE;
+// 	ray.dir.x = ray.dir.x * 2.0f - 1.0f;
+// 	ray.dir.y = ray.dir.y * 2.0f - 1.0f;
+// 	ray.dir.z = -1.0f;
+// 	ray.dir = dir_from_mat(&camera()->mat, ray.dir);
+// 	normalize(&ray.dir);
+// 	return (ray);
+// }
+
+void	set_raydir(t_vec3d *raydir)
+{
+	t_vec2d	ndc_space;
+	t_vec2d screen_space;
+	t_vec2d camera_space;
+	const float	ar = SIZE / SIZE;
+
+	ndc_space.x = ((raydir->x + 0.5f) / SIZE);
+	ndc_space.y = ((raydir->y + 0.5f) / SIZE);
+	screen_space.x = 2 * ndc_space.x - 1;
+	screen_space.y = 2 * ndc_space.y - 1;
+	screen_space.y = 1 - 2 * ndc_space.y;
+	camera_space.x = (2 * screen_space.x - 1) * ar * (1 / tan(camera()->fov / 2));
+	camera_space.y = (1 - 2 * screen_space.y) * (1 / tan(camera()->fov / 2));
+	raydir->x = camera_space.x;
+	raydir->y = camera_space.y;
+	// raydir->z = -1;
+}
+
 t_ray	set_ray(uint32_t x, uint32_t y)
 {
 	t_ray	ray;
 
 	ray.orig = camera()->pos;
 	ray.dir = init_vec3d((float)x, (float)y, -1.0f);
-	ray.dir.x /= (float)SIZE;
-	ray.dir.y /= (float)SIZE;
-	ray.dir.x = ray.dir.x * 2.0f - 1.0f;
-	ray.dir.y = ray.dir.y * 2.0f - 1.0f;
-	ray.dir.z = -1.0f;
+	set_raydir(&ray.dir);
+	// ray.dir.x /= (float)SIZE;
+	// ray.dir.y /= (float)SIZE;
+	// ray.dir.x = ray.dir.x * 2.0f - 1.0f;
+	// ray.dir.y = ray.dir.y * 2.0f - 1.0f;
+	// ray.dir.z = -1.0f;
 	ray.dir = dir_from_mat(&camera()->mat, ray.dir);
 	normalize(&ray.dir);
 	return (ray);

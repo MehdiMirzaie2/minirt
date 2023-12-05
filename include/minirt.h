@@ -18,6 +18,8 @@
 
 // Srceen dimensions
 # define SIZE 700
+// # define HEIGHT 350
+// # define WIDTH	400
 
 // KEYCODES
 # define ESC 53
