@@ -20,6 +20,7 @@ SRCS        :=	main.c	\
 				utils/keys.c	\
 				utils/utils.c	\
 				utils/dmas.c	\
+				utils/t_vec3d_memset.c	\
 				init/camera.c \
 				init/light_init.c \
 				init/light.c \

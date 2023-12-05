@@ -6,11 +6,31 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:50:23 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 13:54:52 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:43:18 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_vec3d	clamp(t_vec3d value, t_vec3d min, t_vec3d max)
+{
+	t_vec3d	result;
+
+	result = value;
+	if (value.r < min.r)
+		result.r = min.r;
+	else if (value.r > max.r)
+		result.r = max.r;
+	if (value.g < min.g)
+		result.g = min.g;
+	else if (value.g > max.g)
+		result.g = max.g;
+	if (value.b < min.b)
+		result.b = min.b;
+	else if (value.b > max.b)
+		result.b = max.b;
+	return (result);
+}
 
 void	normalize(t_vec3d *vec)
 {
@@ -44,11 +64,4 @@ uint32_t	convert_to_rgba(const t_vec3d color)
 
 	result = ((int)color.r << 16) | ((int)color.g << 8) | (int)color.b;
 	return (result);
-}
-
-float	max(float arg1, float arg2)
-{
-	if (arg1 < arg2)
-		return (arg2);
-	return (arg1);
 }

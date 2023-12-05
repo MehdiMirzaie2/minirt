@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:00:07 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 14:17:10 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:45:40 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,13 @@ t_vec3d			cross(t_vec3d v1, t_vec3d v2);
 int				parse(t_hitable **hitable, char	*fname);
 
 // src/utils.c
-float			max(float arg1, float arg2);
+void			t_vec3dmemset(t_vec3d accum[][SIZE*SIZE], int c);
 uint32_t		convert_to_rgba(const t_vec3d color);
 float			dot(t_vec3d v1, t_vec3d v2);
 void			normalize(t_vec3d *vec);
 float			length(t_vec3d vec);
 t_vec3d			color_multiply(t_vec3d color, float ratio);
+t_vec3d			clamp(t_vec3d value, t_vec3d min, t_vec3d max);
 
 // src/utils/dmas.c
 t_vec3d			t_vec3d_add(t_vec3d v1, t_vec3d v2);
