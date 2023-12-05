@@ -109,7 +109,6 @@ void	set_raydir(t_vec3d *raydir)
 	camera_space.y = (1 - 2 * screen_space.y) * (1 / tan(camera()->fov / 2));
 	raydir->x = camera_space.x;
 	raydir->y = camera_space.y;
-	// raydir->z = -1;
 }
 
 t_ray	set_ray(uint32_t x, uint32_t y)
@@ -119,11 +118,6 @@ t_ray	set_ray(uint32_t x, uint32_t y)
 	ray.orig = camera()->pos;
 	ray.dir = init_vec3d((float)x, (float)y, -1.0f);
 	set_raydir(&ray.dir);
-	// ray.dir.x /= (float)SIZE;
-	// ray.dir.y /= (float)SIZE;
-	// ray.dir.x = ray.dir.x * 2.0f - 1.0f;
-	// ray.dir.y = ray.dir.y * 2.0f - 1.0f;
-	// ray.dir.z = -1.0f;
 	ray.dir = dir_from_mat(&camera()->mat, ray.dir);
 	normalize(&ray.dir);
 	return (ray);

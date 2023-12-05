@@ -55,6 +55,7 @@
     "get_next_line.h": "c",
     "minirt.h": "c",
     "__locale": "c",
-    "complex": "c"
+    "complex": "c",
+    "algorithm": "c"
   }
 }
