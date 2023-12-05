@@ -6,13 +6,13 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 14:45:16 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:46:13 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	put_color_to_pixel(t_rt *rt, int x, int y, int color)
+static void	put_color_to_pixel(t_rt *rt, int x, int y, int color)
 {
 	int	*buffer;
 
@@ -20,7 +20,7 @@ void	put_color_to_pixel(t_rt *rt, int x, int y, int color)
 	buffer[(y * rt->size_line / 4) + x] = color;
 }
 
-void	clear_screen(t_rt *rt)
+static void	clear_screen(t_rt *rt)
 {
 	int	x;
 	int	y;
@@ -39,7 +39,7 @@ void	clear_screen(t_rt *rt)
 	}
 }
 
-void	put_colour(t_rt *rt, t_vec2d coord, t_vec3d colour)
+static void	put_colour(t_rt *rt, t_vec2d coord, t_vec3d colour)
 {
 	t_vec3d		accum_colour;
 

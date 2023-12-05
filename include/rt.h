@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:07:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 15:28:15 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:55:40 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ struct s_hitable
 	t_vec3d			point;
 	t_vec3d			rgb;
 	t_vec3d			normalized;
-	float			diameter;
+	float			radius2;
 	float			height;
 	float			roughness;
 	t_hitable		*next;
