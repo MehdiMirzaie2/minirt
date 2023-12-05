@@ -19,6 +19,7 @@ SRCS        :=	main.c	\
 				utils/init_vec.c	\
 				utils/keys.c	\
 				utils/utils.c	\
+				utils/dmas.c	\
 				init/camera.c \
 				init/light_init.c \
 				init/light.c \
@@ -26,8 +27,6 @@ SRCS        :=	main.c	\
 				shapes/cylinder.c	\
 				shapes/plane.c	\
 				shapes/sphere.c	\
-				mat_cal/matrix.c	\
-				mat_cal/rotation.c
 
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)

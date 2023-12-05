@@ -134,8 +134,8 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 	t_hitpayload	payload;
 
 	ray = set_ray(x, y);
-	colour = mincolour;
-	final_colour = mincolour;
+	colour = rt->mincolour;
+	final_colour = rt->mincolour;
 	multiplier = 1.0f;
 	bounces = 5;
 	i = -1;
@@ -146,7 +146,7 @@ t_vec3d	per_pixal(t_rt *rt, uint32_t x, uint32_t y)
 		{
 			// t_vec3d skyColor = (t_vec3d){0.0f, 0.0f, 0.0f};
 			if (i != 0)
-				final_colour = t_vec3d_add(final_colour, t_vec3d_scale(mincolour, multiplier));
+				final_colour = t_vec3d_add(final_colour, t_vec3d_scale(rt->mincolour, multiplier));
 			break ;
 		}
 		colour = color_multiply(payload.obj->rgb, set_light_ratio(rt, &payload));

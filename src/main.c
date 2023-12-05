@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:19:52 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 12:37:58 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:17:52 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void render(t_rt *rt)
 				rt->accum[x + y * SIZE] = t_vec3d_add(rt->accum[x + y * SIZE], colour);
 				accum_colour = rt->accum[x + y * SIZE];
 				accum_colour = t_vec3d_div(accum_colour, rt->frameindex);
-				colour = clamp(accum_colour, mincolour, maxcolour);
+				colour = clamp(accum_colour, rt->mincolour, rt->maxcolour);
 				put_color_to_pixel(rt, x, y, convert_to_rgba(colour));
 			}
 		}

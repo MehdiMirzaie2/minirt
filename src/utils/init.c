@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:40:49 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 13:49:17 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:16:58 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	init_rt(t_rt *rt)
 {
 	rt->hitable = malloc(sizeof(t_hitable));
-	rt->fTheta = 2.0f;
+	rt->theta = 2.0f;
+	rt->mincolour =  ((t_vec3d){.r = 0, .g = 0, .b = 0});
+	rt->maxcolour = ((t_vec3d){.r = 255, .g = 255, .b = 255});
 }
 
 void	init_mlx(t_rt *rt)

@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/05 14:00:07 by mmirzaie          #+#    #+#             */
+/*   Updated: 2023/12/05 14:17:10 by mmirzaie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
-#define MINIRT_H
+# define MINIRT_H
 
 // std
 # include <fcntl.h>
@@ -12,14 +24,12 @@
 # include <unistd.h>
 
 // ours
-#include "get_next_line.h"
-#include "libft.h"
-#include "rt.h"
+# include "get_next_line.h"
+# include "libft.h"
+# include "rt.h"
 
 // Srceen dimensions
 # define SIZE 700
-// # define HEIGHT 350
-// # define WIDTH	400
 
 // KEYCODES
 # define ESC 53
@@ -38,21 +48,12 @@
 # define D 2
 
 // Initailizes min rgb t_vec3d and max rgb t_vec3d
-#define mincolour ((t_vec3d){.r = 0, .g = 0, .b = 0})
-#define maxcolour ((t_vec3d){.r = 255, .g = 255, .b = 255})
-
-// Returns the maximum between a and b
-# define MAX(a, b)	((a) * (a > b) + (b) * (b > a))
-// Returns the minimum between a and b
-# define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
-// Returns the absolute value of x
-# define ABS(x)		((x) * (x > 0) - (x) * (x < 0))
 
 // MOUSECODES
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-t_vec3d	cross(t_vec3d v1, t_vec3d v2);
+t_vec3d			cross(t_vec3d v1, t_vec3d v2);
 
 int				parse(t_hitable **hitable, char	*fname);
 
@@ -60,40 +61,29 @@ int				parse(t_hitable **hitable, char	*fname);
 float			max(float arg1, float arg2);
 uint32_t		convert_to_rgba(const t_vec3d color);
 float			dot(t_vec3d v1, t_vec3d v2);
+void			normalize(t_vec3d *vec);
+float			length(t_vec3d vec);
+t_vec3d			color_multiply(t_vec3d color, float ratio);
+
+// src/utils/dmas.c
 t_vec3d			t_vec3d_add(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_sub(t_vec3d v1, t_vec3d v2);
 t_vec3d			t_vec3d_scale(t_vec3d v1, float scalar);
 t_vec3d			t_vec3d_div(t_vec3d v1, float deno);
-void			normalize(t_vec3d *vec);
-float 			length(t_vec3d vec);
-t_vec3d			color_multiply(t_vec3d color, float ratio);
 
 // src/init.c
 void			init_rt(t_rt *rt);
 void			init_mlx(t_rt *rt);
-// t_mat4x4		*init_matProj(void);
 int				exit_mlx(t_rt *rt);
 
 // src/keys.c
 int				key_hook(int keycode, t_rt *rt);
-void			mouse_hook(int mousecode, int x, int y, t_rt *rt);
-void			mouse_move(int mousecode, int x, int y, t_rt *rt);
-void			update_light_dir(t_vec3d	*light_dir, int x, int y);
 
 // src/shapes.c
 float			ft_cone(t_hitable *map, t_ray coord);
 float			ft_cylinder(t_hitable *map, t_ray dir);
 float			plane(t_hitable *map, t_ray dir);
 float			ft_sphere(t_hitable *map, t_ray dir);
-
-float			shadow_plane(t_hitable *map, t_ray ray);
-
-// src/line.c
-void			draw_line(t_rt *rt, t_vec2d p1, t_vec2d p2, int color);
-
-// src/triangle.c
-void			draw_fill_tri(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
-void			draw_triangle(t_rt *rt, int x1, int y1, int x2, int y2, int x3, int y3);
 
 // src/main.c
 void			render(t_rt *rt);
@@ -113,12 +103,15 @@ void			set_a_light(t_nothitable map);
 t_light			*light(void);
 void			set_light(t_nothitable map);
 float			diffuse_light(t_vec3d norm, t_vec3d light);
-float			specular_light(t_vec3d norm, t_vec3d lvec, t_vec3d dir, float ratio);
+float			specular_light(t_vec3d norm, t_vec3d lvec, t_vec3d dir,
+					float ratio);
 float			set_light_ratio(t_rt *rt, t_hitpayload *payload);
 
+// src/utils/init_vec.c
 t_vec3d			init_vec3d(float x, float y, float z);
 t_vec2d			init_vec2d(float x, float y);
 
+// src/per_pixel.c
 t_vec3d			per_pixal(t_rt *rt, uint32_t x, uint32_t y);
 t_hitpayload	trace_ray(t_hitable *map, t_ray ray);
 
