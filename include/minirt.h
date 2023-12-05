@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:00:07 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 15:35:05 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:46:02 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ float			ft_sphere(t_hitable *map, t_ray dir);
 
 // src/main.c
 void			render(t_rt *rt);
-void			clearScreen(t_rt *rt);
-void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
+// void			clearScreen(t_rt *rt);
+// void			put_color_to_pixel(t_rt *rt, int x, int y, int color);
 
 // init/camera.c
 t_camera		*camera(void);

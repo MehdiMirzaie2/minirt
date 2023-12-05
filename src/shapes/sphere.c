@@ -6,7 +6,7 @@
 /*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:00:36 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 13:36:07 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:29:42 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 float	ft_sphere(t_hitable *map, t_ray ray)
 {
 	t_vec3d	rayorigin;
-	float	radius;
 	float	close_t;
 	t_vec3d	quad;
 	float	discriminant;
 
 	rayorigin = t_vec3d_sub(ray.orig, map->point);
-	radius = map->diameter / 2.0f;
 	quad.aa = dot(ray.dir, ray.dir);
 	quad.bb = 2.0f * dot(rayorigin, ray.dir);
-	quad.cc = dot(rayorigin, rayorigin) - (radius * radius);
+	quad.cc = dot(rayorigin, rayorigin) - (map->radius2);
 	discriminant = quad.bb * quad.bb - 4.0f * quad.aa * quad.cc;
 	if (discriminant >= 0.0f)
 	{

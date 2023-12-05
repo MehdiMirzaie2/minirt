@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   per_pixal_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:33:20 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/05 15:34:18 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:26:28 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,10 @@ t_vec3d	getrendomvec3d(float roughness)
 
 void	set_raydir(t_vec3d *raydir)
 {
-	t_vec2d	ndc_space;
-	t_vec2d	screen_space;
-	t_vec2d	camera_space;
-	float	ar;
+	const float tangent = tan(camera()->fov / 2 * M_PI / 180);
 
-	ar = SIZE / SIZE;
-	ndc_space.x = ((raydir->x + 0.5f) / SIZE);
-	ndc_space.y = ((raydir->y + 0.5f) / SIZE);
-	screen_space.x = 2 * ndc_space.x - 1;
-	screen_space.y = 2 * ndc_space.y - 1;
-	screen_space.y = 1 - 2 * ndc_space.y;
-	camera_space.x = (2 * screen_space.x - 1) * ar
-		* (1 / tan(camera()->fov / 2));
-	camera_space.y = (1 - 2 * screen_space.y) * (1 / tan(camera()->fov / 2));
-	raydir->x = camera_space.x;
-	raydir->y = camera_space.y;
+	raydir->x = (2 * ((raydir->x + 0.5) / SIZE) - 1) * tangent;
+	raydir->y = -(1 - 2 * ((raydir->y + 0.5) / SIZE) * tangent);
 }
 
 t_ray	set_ray(uint32_t x, uint32_t y)

@@ -6,21 +6,21 @@
 /*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:40:34 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 18:04:13 by jaeshin          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:04:10 by mmirzaie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec3d	transform_to_local(t_vec3d point, t_vec3d axis)
-{
-	t_vec3d	local_point;
+// t_vec3d	transform_to_local(t_vec3d point, t_vec3d axis)
+// {
+// 	t_vec3d	local_point;
 
-	local_point.x = point.x;
-	local_point.y = cos(axis.y) * (point.y - axis.y) + sin(axis.y) * point.z;
-	local_point.z = -sin(axis.y) * (point.y - axis.y) + cos(axis.y) * point.z;
-	return (local_point);
-}
+// 	local_point.x = point.x;
+// 	local_point.y = cos(axis.y) * (point.y - axis.y) + sin(axis.y) * point.z;
+// 	local_point.z = -sin(axis.y) * (point.y - axis.y) + cos(axis.y) * point.z;
+// 	return (local_point);
+// }
 
 float	get_closert(t_vec2d hits, t_hitable *map, t_vec3d rayorigin, t_ray ray)
 {
@@ -33,15 +33,18 @@ float	get_closert(t_vec2d hits, t_hitable *map, t_vec3d rayorigin, t_ray ray)
 	if (hits.t > hits.nt && hits.t > 0.001f)
 	{
 		intersection_height = rayorigin.y + hits.t * ray.dir.y;
-		if (intersection_height >= 0.001f && intersection_height <= map->height)
-			return (hits.t);
+		// if (intersection_height >= 0.001f && intersection_height <= map->height)
+			// return (hits.t);
+		if (intersection_height >= map->height - 0.001f && intersection_height <= map->height)
+    		return (hits.t);
+
 	}
 	return (__FLT_MAX__);
 }
 
 float	ft_cylinder(t_hitable *map, t_ray ray)
 {
-	float		rad;
+	// float		rad;
 	t_vec3d		quad;
 	float		discriminant;
 	t_vec2d		hits;
@@ -50,11 +53,10 @@ float	ft_cylinder(t_hitable *map, t_ray ray)
 	// rayorigin = transform_to_local(t_vec3d_sub(ray.orig, map->point),
 	// 		map->normalized);
 	rayorigin = t_vec3d_sub(ray.orig, map->point);
-	rad = map->diameter / 2.0f;
 	quad.aa = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
 	quad.bb = 2.0f * (rayorigin.x * ray.dir.x + rayorigin.z * ray.dir.z);
 	quad.cc = (rayorigin.x * rayorigin.x) + (rayorigin.z * rayorigin.z)
-		- (rad * rad);
+		- (map->radius2);
 	discriminant = quad.bb * quad.bb - 4.0f * quad.aa * quad.cc;
 	if (discriminant >= 0.0f)
 	{
