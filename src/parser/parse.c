@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:40:01 by jaeshin           #+#    #+#             */
-/*   Updated: 2023/12/05 17:28:12 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/06 09:17:24 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,8 @@ int	init_nothitable(uint32_t type, char *line)
 	return (0);
 }
 
-int	get_hitable(t_hitable **hitable, char *line, uint32_t type)
+void	get_hitable_helper2(t_hitable *new, char *line)
 {
-	t_hitable	*new;
-
-	new = get_hitable_helper(hitable, type);
-	if (!new)
-		return (-1);
 	if (new->type == SP)
 		sscanf(line, "%f,%f,%f %f %f,%f,%f %f", &new->point.x, &new->point.y,
 			&new->point.z, &new->radius2, &new->rgb.r, &new->rgb.g,
@@ -65,6 +60,16 @@ int	get_hitable(t_hitable **hitable, char *line, uint32_t type)
 		sscanf(line, "%f,%f,%f %f,%f,%f %f", &new->point.x, &new->point.y,
 			&new->point.z, &new->rgb.r, &new->rgb.g, &new->rgb.b,
 			&new->roughness);
+}
+
+int	get_hitable(t_hitable **hitable, char *line, uint32_t type)
+{
+	t_hitable	*new;
+
+	new = get_hitable_helper(hitable, type);
+	if (!new)
+		return (-1);
+	get_hitable_helper2(new, line);
 	if (new->type == SP || new->type == CY)
 	{
 		new->radius2 /= 2.0f;
@@ -90,9 +95,7 @@ int	parse(t_hitable **hitable, char	*fname)
 		{
 			index = get_type(line, &type);
 			if (type == SP || type == CY || type == PL)
-			{
 				get_hitable(&hitable_ref, &line[index], type);
-			}
 			else if (type == 'A' || type == 'L' || type == 'C')
 				init_nothitable(type, &line[index]);
 		}
