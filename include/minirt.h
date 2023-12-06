@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:00:07 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/05 16:46:02 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:52:09 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@
 # define J 38
 # define I 34
 # define D 2
+# define Z 6
+# define X 7
 
 // Initailizes min rgb t_vec3d and max rgb t_vec3d
 
