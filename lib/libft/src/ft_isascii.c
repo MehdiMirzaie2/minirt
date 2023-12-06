@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:23:17 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 13:34:46 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:14:31 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,4 @@ int	ft_isascii(int str)
 	if (str >= 0 && str <= 0177)
 		return (1);
 	return (0);
-
-
 }

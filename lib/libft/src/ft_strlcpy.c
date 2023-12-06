@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:00:34 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/11/16 13:41:14 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:15:56 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,4 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t l)
 	if (l)
 		dest[i] = '\0';
 	return (ft_strlen(src));
-
 }

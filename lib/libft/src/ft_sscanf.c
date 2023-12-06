@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sscanf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmirzaie <mmirzaie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaeshin <jaeshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:47:03 by mmirzaie          #+#    #+#             */
-/*   Updated: 2023/12/04 12:52:09 by mmirzaie         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:28:07 by jaeshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,37 +37,39 @@ static void	ft_format(char *str, va_list args, const char format)
 		ft_f(va_arg(args, float *), str);
 }
 
+int	sscan_helper(const char *tosplit, int j)
+{
+	while (ft_isspace(tosplit[j]) || tosplit[j] == ',')
+		j++;
+	while ((tosplit[j] && tosplit[j] != ' ' && tosplit[j] != ',') || \
+		tosplit[j] == '.' || tosplit[j] == '-')
+		j++;
+	return (j);
+}
+
 void	ft_sscanf(const char *tosplit, const char *str, ...)
 {
 	size_t	i;
 	va_list	args;
 	char	*substring;
-	int		j = 0;
+	int		j;
 	int		start;
 
 	i = 0;
+	j = 0;
 	va_start(args, str);
 	while (str[i])
 	{
-		while (ft_isspace(tosplit[j]) || tosplit[j] == ',')
-			j++;
+		j = sscan_helper(tosplit, j);
 		start = j;
-		while ((tosplit[j] && tosplit[j] != ' ' && tosplit[j] != ',') || tosplit[j] == '.' || tosplit[j] == '-')
-			j++;
 		if (j == start)
-		{
-			ft_putstr_fd("not enough arguments in .rt file for object.\n", 2);
 			exit(1);
-		}
 		if (j > start)
 			substring = ft_substr(tosplit, start, j);
 		while (str[i] != '%')
 			i++;
-		if (str[i] == '%')
-		{
+		if (str[i++] == '%')
 			ft_format(substring, args, str[i + 1]);
-			i++;
-		}
 		i++;
 	}
 	va_end(args);
